@@ -1,12 +1,9 @@
 package br.com.vinigodoy.sample;
 
-import br.com.vinigodoy.math.Plane;
-import br.com.vinigodoy.math.Sphere;
 import br.com.vinigodoy.math.Vector3;
 import br.com.vinigodoy.scene.Material;
 import br.com.vinigodoy.scene.Scene;
 import br.com.vinigodoy.scene.SceneBuilder;
-import br.com.vinigodoy.scene.SceneObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,8 +20,8 @@ public class SampleFrame extends JFrame {
     {
         scene = createScene();
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        output.setPreferredSize(new Dimension(1000,800));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        output.setPreferredSize(new Dimension(1024,768));
         btnDraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
