@@ -46,7 +46,6 @@ public class Raytracer {
         this.scene = scene;
         this.target = target;
 
-
         //Defines the screen plane
         wx1 = -(width / 200.0f);
         wx2 = -wx1;
