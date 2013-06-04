@@ -1,4 +1,4 @@
-package br.com.vinigodoy.math;
+package br.com.vinigodoy.raytrace.math;
 
 /**
  * ***************************************************************************

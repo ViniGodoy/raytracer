@@ -1,6 +1,6 @@
-package br.com.vinigodoy.math;
+package br.com.vinigodoy.raytrace.math;
 
-import static br.com.vinigodoy.math.Vector3.subtract;
+import static br.com.vinigodoy.raytrace.math.Vector3.subtract;
 
 /**
  * ***************************************************************************

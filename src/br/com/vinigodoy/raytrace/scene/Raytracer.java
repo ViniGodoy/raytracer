@@ -1,9 +1,9 @@
-package br.com.vinigodoy.scene;
+package br.com.vinigodoy.raytrace.scene;
 
-import br.com.vinigodoy.math.Ray;
-import br.com.vinigodoy.math.RayResult;
-import br.com.vinigodoy.math.Sphere;
-import br.com.vinigodoy.math.Vector3;
+import br.com.vinigodoy.raytrace.math.Ray;
+import br.com.vinigodoy.raytrace.math.RayResult;
+import br.com.vinigodoy.raytrace.math.Sphere;
+import br.com.vinigodoy.raytrace.math.Vector3;
 
 import java.awt.*;
 

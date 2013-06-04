@@ -1,6 +1,6 @@
-package br.com.vinigodoy.scene;
+package br.com.vinigodoy.raytrace.scene;
 
-import br.com.vinigodoy.math.Vector3;
+import br.com.vinigodoy.raytrace.math.Vector3;
 
 /**
  * ***************************************************************************

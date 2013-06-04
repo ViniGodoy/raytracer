@@ -1,4 +1,4 @@
-package br.com.vinigodoy.scene;
+package br.com.vinigodoy.raytrace.scene;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
