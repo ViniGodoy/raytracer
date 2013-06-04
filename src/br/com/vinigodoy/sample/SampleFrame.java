@@ -36,6 +36,7 @@ public class SampleFrame extends JFrame {
 
         add(output, BorderLayout.CENTER);
         add(btnDraw, BorderLayout.SOUTH);
+        getRootPane().setDefaultButton(btnDraw);
         pack();
         setVisible(true);
     }
