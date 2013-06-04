@@ -48,9 +48,9 @@ public class Raytracer {
 
 
         //Defines the screen plane
-        wx1 = -(width / 200);
+        wx1 = -(width / 200.0f);
         wx2 = -wx1;
-        wy1 = -(height / 200);
+        wy1 = -(height / 200.0f);
         wy2 = -wy1;
 
         // calculate deltas for interpolation
