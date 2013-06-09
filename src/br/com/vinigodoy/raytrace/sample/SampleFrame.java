@@ -16,12 +16,11 @@ public class SampleFrame extends JFrame {
     private JButton btnDraw = new JButton("Draw");
     private Scene scene;
 
-    public SampleFrame()
-    {
+    public SampleFrame() {
         scene = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        output.setPreferredSize(new Dimension(1024,768));
+        output.setPreferredSize(new Dimension(1024, 768));
         btnDraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -42,16 +41,15 @@ public class SampleFrame extends JFrame {
     }
 
 
-    private Scene createScene()
-    {
+    private Scene createScene() {
         return new SceneBuilder()
-                .addPlane("Plane1", new Vector3(1,0,-1), 15f, new Material(new Vector3(0.4f, 0.3f, 0.3f), 1.0f, 0f))
-                .addPlane("Plane2", new Vector3(0,1,0), 4.4f, new Material(new Vector3(0.4f, 0.3f, 0.3f), 1.0f, 0f))
+                .addPlane("Plane1", new Vector3(1, 0, -1), 15f, new Material(new Vector3(0.4f, 0.3f, 0.3f), 1.0f, 0f))
+                .addPlane("Plane2", new Vector3(0, 1, 0), 4.4f, new Material(new Vector3(0.4f, 0.3f, 0.3f), 1.0f, 0f))
                 .addSphere("Big Sphere", new Vector3(1, -0.8f, 3), 2.5f, new Material(new Vector3(0.7f, 0.7f, 0.7f), 0.6f, 0.6f))
-                .addSphere("Small Sphere", new Vector3(-5.5f, -0.5f, 7.0f ), 2.0f, new Material(new Vector3(0.7f, 0.7f, 1.0f), 0.1f, 1.0f))
-                .addSphere("Small Sphere", new Vector3(5.0f, -0.5f, 7.0f ), 2.0f, new Material(new Vector3(0.6f, 0.6f, 0.6f), 0.3f, 1.0f))
-                .addLight("Light1", new Vector3( 0, 5, 5 ), new Vector3(1.0f, 1.0f, 1.0f) )
-                .addLight("Light2", new Vector3( 2, 5, 1 ), new Vector3(0.7f, 0.7f, 0.9f) )
+                .addSphere("Small Sphere", new Vector3(-5.5f, -0.5f, 7.0f), 2.0f, new Material(new Vector3(0.7f, 0.7f, 1.0f), 0.1f, 1.0f))
+                .addSphere("Small Sphere", new Vector3(5.0f, -0.5f, 7.0f), 2.0f, new Material(new Vector3(0.6f, 0.6f, 0.6f), 0.3f, 1.0f))
+                .addLight("Light1", new Vector3(0, 5, 5), new Vector3(1.0f, 1.0f, 1.0f))
+                .addLight("Light2", new Vector3(2, 5, 1), new Vector3(0.7f, 0.7f, 0.9f))
                 .getScene();
     }
 

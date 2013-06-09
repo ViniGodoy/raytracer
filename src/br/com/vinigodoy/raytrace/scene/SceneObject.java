@@ -28,6 +28,7 @@ public class SceneObject {
         this.material = material;
         this.light = isLight;
     }
+
     public SceneObject(String name, Shape shape, Material material) {
         this(name, shape, material, false);
     }

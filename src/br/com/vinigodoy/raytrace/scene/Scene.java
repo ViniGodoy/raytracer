@@ -23,23 +23,19 @@ import java.util.List;
 public class Scene implements Iterable<SceneObject> {
     private List<SceneObject> objects = new ArrayList<>();
 
-    public void add(SceneObject obj)
-    {
+    public void add(SceneObject obj) {
         objects.add(obj);
     }
 
-    public void remove(SceneObject obj)
-    {
+    public void remove(SceneObject obj) {
         objects.remove(obj);
     }
 
-    public void draw(Graphics2D canvas, int width, int height)
-    {
+    public void draw(Graphics2D canvas, int width, int height) {
         new Raytracer(this, canvas, width, height).render();
     }
 
-    public void draw(BufferedImage img)
-    {
+    public void draw(BufferedImage img) {
         Graphics2D g2d = img.createGraphics();
         draw(g2d, img.getWidth(), img.getHeight());
         g2d.dispose();

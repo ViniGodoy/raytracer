@@ -18,14 +18,12 @@ public class Plane implements Shape {
     private Vector3 normal;
     private float distance;
 
-    public Plane()
-    {
-        this.normal = new Vector3(0,1,0);
+    public Plane() {
+        this.normal = new Vector3(0, 1, 0);
         this.distance = 0;
     }
 
-    public Plane(Vector3 normal, float distance)
-    {
+    public Plane(Vector3 normal, float distance) {
         this.normal = Vector3.normalize(normal);
         this.distance = distance;
     }
@@ -43,7 +41,6 @@ public class Plane implements Shape {
 
         if (dist <= 0 || dist >= maxDist)
             return RayResult.MISS;
-
 
         //Returns the calculated distance.
         return new RayResult(RayResult.Type.Hit, dist);

@@ -16,5 +16,6 @@ package br.com.vinigodoy.raytrace.math;
  */
 public interface Shape {
     RayResult intersects(Ray ray, float distance);
+
     Vector3 getNormal(Vector3 position);
 }

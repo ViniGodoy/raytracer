@@ -19,13 +19,12 @@ public class RayResult {
         Miss, Hit, HitInside;
     }
 
-    public static RayResult MISS = new RayResult(Type.Miss, 0);
+    public static final RayResult MISS = new RayResult(Type.Miss, 0);
 
     private Type type;
     private float dist;
 
-    public RayResult(Type type, float dist)
-    {
+    public RayResult(Type type, float dist) {
         this.type = type;
         this.dist = dist;
     }

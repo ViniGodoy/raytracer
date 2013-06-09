@@ -21,26 +21,22 @@ import br.com.vinigodoy.raytrace.math.Vector3;
 public class SceneBuilder {
     private Scene scene = new Scene();
 
-    public SceneBuilder addPlane(String name, Vector3 normal, float distance, Material material)
-    {
+    public SceneBuilder addPlane(String name, Vector3 normal, float distance, Material material) {
         scene.add(new SceneObject(name, new Plane(normal, distance), material));
         return this;
     }
 
-    public SceneBuilder addSphere(String name, Vector3 center, float radius, Material material)
-    {
+    public SceneBuilder addSphere(String name, Vector3 center, float radius, Material material) {
         scene.add(new SceneObject(name, new Sphere(center, radius), material));
         return this;
     }
 
-    public SceneBuilder addLight(String name, Vector3 center, Vector3 color)
-    {
+    public SceneBuilder addLight(String name, Vector3 center, Vector3 color) {
         scene.add(new SceneObject(name, new Sphere(center, 0.01f), new Material(color, 1, 0), true));
         return this;
     }
 
-    public Scene getScene()
-    {
+    public Scene getScene() {
         return scene;
     }
 }

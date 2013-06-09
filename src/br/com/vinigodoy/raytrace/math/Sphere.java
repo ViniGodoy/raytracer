@@ -20,8 +20,7 @@ public class Sphere implements Shape {
     private Vector3 center;
     private float radius;
 
-    public Sphere(Vector3 center, float radius)
-    {
+    public Sphere(Vector3 center, float radius) {
         this.center = center.clone();
         this.radius = radius;
     }
@@ -35,19 +34,16 @@ public class Sphere implements Shape {
         if (det <= 0)
             return RayResult.MISS;
 
-        det = (float)Math.sqrt(det);
+        det = (float) Math.sqrt(det);
         float i2 = b + det;
         if (i2 <= 0)
             return RayResult.MISS;
 
         float i1 = b - det;
-        if (i1 < 0)
-        {
+        if (i1 < 0) {
             if (i2 < distance)
                 return new RayResult(RayResult.Type.HitInside, i2);
-        }
-        else
-        {
+        } else {
             if (i1 < distance)
                 return new RayResult(RayResult.Type.Hit, i1);
         }

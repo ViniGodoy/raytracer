@@ -21,8 +21,7 @@ public class Material {
     private float diffuse;
     private float reflection;
 
-    public Material(Vector3 color, float diffuse, float reflection)
-    {
+    public Material(Vector3 color, float diffuse, float reflection) {
         this.color = color;
         this.diffuse = diffuse;
         this.reflection = reflection;
@@ -44,8 +43,7 @@ public class Material {
         this.diffuse = diffuse;
     }
 
-    public float getSpecular()
-    {
+    public float getSpecular() {
         return 1.0f - diffuse;
     }
 
