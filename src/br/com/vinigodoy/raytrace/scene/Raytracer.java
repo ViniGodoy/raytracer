@@ -7,6 +7,8 @@ import br.com.vinigodoy.raytrace.math.Vector3;
 
 import java.awt.*;
 
+import static br.com.vinigodoy.raytrace.math.Vector3.*;
+
 /**
  * ***************************************************************************
  * <p/>
@@ -24,21 +26,13 @@ import java.awt.*;
 public class Raytracer {
     private static final int MAX_DEPTH = 6;
     private static final float EPSILON = 0.0001f;
-
     private final int width;
     private final int height;
-
     private float wx1, wy1;
     private float wx2, wy2;
     private float dx, dy;
-
     private Scene scene;
     private Graphics2D target;
-
-    private void draw(int x, int y, Vector3 color) {
-        target.setColor(color.saturate().toColor());
-        target.drawLine(x, y, x, y);
-    }
 
     public Raytracer(Scene scene, Graphics2D target, int width, int height) {
         this.width = width;
@@ -57,10 +51,12 @@ public class Raytracer {
         dy = (wy2 - wy1) / height;
     }
 
-    public Vector3 raytrace(Ray ray, int depth)
-    {
-        if (depth > MAX_DEPTH)
-            return new Vector3(0,0,0);
+    private void draw(int x, int y, Vector3 color) {
+        target.setColor(color.saturate().toColor());
+        target.drawLine(x, y, x, y);
+    }
+
+    public Vector3 raytrace(Ray ray, int depth) {
         //Find the nearest intersection
         float dist = 1000000.0f;
         SceneObject nearest = null;
@@ -70,10 +66,8 @@ public class Raytracer {
             if (res.isMissed())
                 continue;
 
-            if (nearest == null || res.getDist() < dist) {
-                nearest = obj;
-                dist = res.getDist();
-            }
+            nearest = obj;
+            dist = res.getDist();
         }
 
         //no hit?
@@ -83,26 +77,25 @@ public class Raytracer {
         if (nearest.isLight()) return nearest.getMaterial().getColor();
 
         // determine color at point of intersection
-        Vector3 pi = Vector3.multiply(ray.getDirection(), dist).add(ray.getOrigin());
+        Vector3 pi = multiply(ray.getDirection(), dist).add(ray.getOrigin());
         Vector3 n = nearest.getShape().getNormal(pi);
-        Vector3 color = new Vector3(0,0,0);
+        Vector3 color = new Vector3(0, 0, 0);
         //Trace lights
         for (SceneObject light : scene) {
             if (!light.isLight() || !(light.getShape() instanceof Sphere) || light.getMaterial().getDiffuse() <= 0)
                 continue;
 
-            Sphere lamp = (Sphere)(light.getShape());
+            Sphere lamp = (Sphere) (light.getShape());
             // handle point light source
             boolean shade = true;
-            Vector3 l = Vector3.subtract(lamp.getCenter(), pi);
+            Vector3 l = subtract(lamp.getCenter(), pi);
             float lSize = l.size();
             l.multiply(1.0f / lSize); //normalization
 
             //See if it's in shadow
-            Ray shadowRay = new Ray( Vector3.add(pi, Vector3.multiply(l, EPSILON)), l);
+            Ray shadowRay = new Ray(add(pi, multiply(l, EPSILON)), l);
             for (SceneObject o : scene) {
-                if ((o != light) && ((o.getShape().intersects(shadowRay, lSize)).isHit()))
-                {
+                if ((o != light) && ((o.getShape().intersects(shadowRay, lSize)).isHit())) {
                     shade = false;
                     break;
                 }
@@ -112,59 +105,46 @@ public class Raytracer {
 
             //Calculate diffuse light
             float dot = n.dot(l);
-            if (dot > 0)
-            {
+            if (dot > 0) {
                 float diff = nearest.getMaterial().getDiffuse() * dot;
-                color.add(Vector3.mul(nearest.getMaterial().getColor(), light.getMaterial().getColor()).multiply(diff));
+                color.add(mul(nearest.getMaterial().getColor(), light.getMaterial().getColor()).multiply(diff));
             }
 
             // determine specular component
-            if (nearest.getMaterial().getSpecular() > 0)
-            {
+            if (nearest.getMaterial().getSpecular() > 0) {
                 // point light source: sample once for specular highlight
                 Vector3 v = ray.getDirection();
-                Vector3 r = Vector3.subtract(l, Vector3.multiply(n, 2.0f * l.dot(n)));
+                Vector3 r = subtract(l, multiply(n, 2.0f * l.dot(n)));
                 dot = v.dot(r);
-                if (dot > 0)
-                {
-                    float spec = (float)Math.pow(dot, 20) * nearest.getMaterial().getSpecular();
+                if (dot > 0) {
+                    float spec = (float) Math.pow(dot, 20) * nearest.getMaterial().getSpecular();
                     // add specular component to ray color
-                    color.add(Vector3.multiply(light.getMaterial().getColor(), spec));
+                    color.add(multiply(light.getMaterial().getColor(), spec));
                 }
             }
-
-
         }
 
         //Calculate reflection
         float refl = nearest.getMaterial().getReflection();
-        if (refl > 0.0f)
-        {
-            Vector3 r = Vector3.subtract(
-                    ray.getDirection(),
-                    Vector3.multiply(n, 2.0f * ray.getDirection().dot(n)));
-            if (depth < MAX_DEPTH)
-            {
-                Vector3 rcol = raytrace(new Ray(Vector3.add(pi, r.multiply(EPSILON)), r), depth+1);
-                color.add(Vector3.mul(nearest.getMaterial().getColor(), rcol).multiply(refl));
-            }
+        if (refl > 0.0f && depth < MAX_DEPTH) {
+            Vector3 r = reflect(ray.getDirection(), n).multiply(EPSILON);
+            Vector3 rcol = raytrace(new Ray(add(pi, r), r), depth + 1);
+            color.add(mul(nearest.getMaterial().getColor(), rcol).multiply(refl));
         }
         return color;
     }
 
-    public void render()
-    {
+    public void render() {
         // render scene
         Vector3 o = new Vector3(0, 0, -5);
 
         float sy = wy1;
-        for (int y = 0; y < height; y++)
-        {
+        for (int y = 0; y < height; y++) {
             float sx = wx1;
             for (int x = 0; x < width; x++) {
                 //Fire the primary ray
                 Vector3 dir = new Vector3(sx, sy, 0).subtract(o).normalize();
-                draw(x,height-y,raytrace(new Ray(o, dir), 0));
+                draw(x, height - y, raytrace(new Ray(o, dir), 0));
                 sx += dx;
             }
             sy += dy;
