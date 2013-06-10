@@ -32,10 +32,19 @@ public class Vector3 implements Cloneable {
     public float y;
     public float z;
 
+    /**
+     * Creates a zero vector.
+     */
     public Vector3() {
         this(0, 0, 0);
     }
 
+    /**
+     * Creates a vector with the given x, y and z components.
+     * @param x x value.
+     * @param y y value.
+     * @param z z value.
+     */
     public Vector3(float x, float y, float z) {
         this.x = x;
         this.y = y;
