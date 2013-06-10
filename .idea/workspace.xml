@@ -6,46 +6,36 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="Added all files to raytrace packet.">
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\Plane.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\Ray.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Ray.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\RayResult.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/RayResult.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\Shape.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Shape.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\Sphere.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Sphere.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\math\Vector3.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\sample\SampleFrame.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\scene\Material.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\scene\Raytracer.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\scene\Scene.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\scene\SceneBuilder.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java" />
-      <change type="MOVED" beforePath="C:\Users\Vinicius\Dropbox\Outros\raytracer\src\br\com\vinigodoy\scene\SceneObject.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="Refactored">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RayTracer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Vector3.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370192977719" ignored="false" />
-    <file path="/Ray.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370183976142" ignored="false" />
+    <file path="/Vector3.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370832180360" ignored="false" />
+    <file path="/Ray.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370823372049" ignored="false" />
     <file path="/Primitive.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370179254542" ignored="false" />
-    <file path="/Material.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370196632375" ignored="false" />
+    <file path="/Material.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370821593669" ignored="false" />
     <file path="/Sphere.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370205939734" ignored="false" />
     <file path="/Shape.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370181357734" ignored="false" />
     <file path="/SceneObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370183725256" ignored="false" />
     <file path="/IntersectType.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370180999502" ignored="false" />
-    <file path="/RayResult.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370203990420" ignored="false" />
+    <file path="/RayResult.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370822483795" ignored="false" />
     <file path="/Plane.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370206789819" ignored="false" />
     <file path="$PROJECT_DIR$/src/br/com/vinigodoy/math/br/com/vinigodoy/scene.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370182830627" ignored="false" />
-    <file path="/fragment.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370310855993" ignored="false" />
-    <file path="/Scene.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370209153627" ignored="false" />
-    <file path="/Raytracer.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370207577117" ignored="false" />
+    <file path="/fragment.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370799820039" ignored="false" />
+    <file path="/Scene.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370830513194" ignored="false" />
+    <file path="/Raytracer.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370830678926" ignored="false" />
     <file path="/RenderTarget.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370185660006" ignored="false" />
     <file path="/ImageTarget.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370185922501" ignored="false" />
     <file path="/ActionScript File Header.txt.ft" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370188786093" ignored="false" />
     <file path="/MainFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370194738654" ignored="false" />
-    <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370310353336" ignored="false" />
+    <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833168998" ignored="false" />
     <file path="/SceneBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370197610037" ignored="false" />
-    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370310919136" ignored="false" />
+    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833294666" ignored="false" />
+    <file path="/a.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370790720197" ignored="false" />
+    <file path="/NearestObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370824659073" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +50,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -98,6 +87,7 @@
       </breakpoint>
     </breakpoint_any>
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -110,64 +100,56 @@
       <file leaf-file-name="Raytracer.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="29" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SampleFrame.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="27" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.0">
+            <state line="10" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="-6.8">
               <folding>
+                <element signature="e#0#5146#0" expanded="true" />
                 <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="Vector3.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="321" column="46" selection-start="8794" selection-end="8794" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#9063#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RayTracer.iml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/RayTracer.iml">
+      <file leaf-file-name="NearestObject.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/NearestObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="10" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#949#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SceneBuilder.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java">
+      <file leaf-file-name="SampleFrame.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="62" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.64818025">
+              <folding>
+                <element signature="e#0#3175#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Plane.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java">
+      <file leaf-file-name="Material.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="11" selection-start="711" selection-end="711" vertical-scroll-proportion="0.33333334">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sphere.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Sphere.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="19" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="15" column="13" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#1709#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -175,7 +157,29 @@
       <file leaf-file-name="RayResult.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/RayResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="28" selection-start="996" selection-end="996" vertical-scroll-proportion="0.0">
+            <state line="13" column="13" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#1219#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ray.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Ray.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#1280#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Plane.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="51" selection-start="1281" selection-end="1281" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -184,17 +188,10 @@
       <file leaf-file-name="Scene.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Shape.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Shape.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="14" selection-start="644" selection-end="644" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="10" column="15" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#0#2777#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -218,22 +215,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/RenderTarget.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/targets/RenderTarget.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/targets/ImageTarget.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/math/Vector3.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/sample/MainFrame.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/sample/Sample.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/Material.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/SceneBuilder.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/math/Sphere.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/math/RayResult.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/math/Plane.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/Scene.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/sample/SampleFrame (Cópia em conflito de Vinícius-Note 2013-06-02).java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/scene/Raytracer.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/sample/SampleFrame.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Shape.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/Test.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/RayResult.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Ray.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/NearestObject.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java" />
       </list>
     </option>
   </component>
@@ -251,13 +248,19 @@
             <id />
           </State>
           <State>
-            <id>Android</id>
-          </State>
-          <State>
             <id>Android Lint</id>
           </State>
           <State>
-            <id>General</id>
+            <id>Bitwise operation issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Control FlowGroovy</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Declaration redundancy</id>
           </State>
           <State>
             <id>GeneralJavaScript</id>
@@ -266,32 +269,18 @@
             <id>Groovy</id>
           </State>
           <State>
-            <id>HTML</id>
-          </State>
-          <State>
             <id>JavaScript</id>
           </State>
           <State>
-            <id>Method MetricsGroovy</id>
+            <id>Potentially confusing code constructsGroovy</id>
           </State>
           <State>
-            <id>Plugin DevKit</id>
+            <id>Potentially confusing code constructsJavaScript</id>
           </State>
           <State>
-            <id>Properties Files</id>
-          </State>
-          <State>
-            <id>SQL</id>
-          </State>
-          <State>
-            <id>Spring Model</id>
+            <id>UI Form Problems</id>
           </State>
         </expanded-state>
-        <selected-state>
-          <State>
-            <id>Android</id>
-          </State>
-        </selected-state>
       </profile-state>
     </entry>
   </component>
@@ -321,6 +310,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -356,10 +346,57 @@
               <option name="myItemId" value="raytrace" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scene" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RayTracer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raytracer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raytrace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RayTracer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raytracer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raytrace" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="math" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -394,7 +431,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.lastSelected" value="fileTemplates" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="dynamic.classpath" value="false" />
@@ -555,7 +592,43 @@
       <created>1370310460486</created>
       <updated>1370310460486</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added all files to raytrace packet.">
+      <created>1370311003739</created>
+      <updated>1370311003739</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added reflect method.">
+      <created>1370789989758</created>
+      <updated>1370789989758</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Removed unnecessary tests.">
+      <created>1370790240024</created>
+      <updated>1370790240024</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Code formatting and organize imports.">
+      <created>1370790346151</created>
+      <updated>1370790346151</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added javadocs.">
+      <created>1370832256545</created>
+      <updated>1370832256545</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Changed the window size back to 800x600 and the button position to the top.">
+      <created>1370832979174</created>
+      <updated>1370832979174</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Refactored the source code.">
+      <created>1370833022802</created>
+      <updated>1370833022802</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Centered window.">
+      <created>1370833149669</created>
+      <updated>1370833149669</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Improved window title.">
+      <created>1370833297838</created>
+      <updated>1370833297838</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -585,26 +658,26 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933258" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3303671" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3303671" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3303671" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20651014" sideWeight="0.6696329" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20651014" sideWeight="0.67074525" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32925472" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3299435" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933258" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -651,7 +724,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added all files to raytrace packet." />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved window title." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -669,6 +742,14 @@
     <MESSAGE value="Changed canvas size and minor fixes." />
     <MESSAGE value="Added btnDraw as the default button" />
     <MESSAGE value="Added all files to raytrace packet." />
+    <MESSAGE value="Added reflect method." />
+    <MESSAGE value="Removed unnecessary tests." />
+    <MESSAGE value="Code formatting and organize imports." />
+    <MESSAGE value="Added javadocs." />
+    <MESSAGE value="Changed the window size back to 800x600 and the button position to the top." />
+    <MESSAGE value="Refactored the source code." />
+    <MESSAGE value="Centered window." />
+    <MESSAGE value="Improved window title." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -678,96 +759,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/java/awt/Color.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="461" column="8" selection-start="13677" selection-end="13677" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="23" selection-start="1004" selection-end="1046" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="19" selection-start="1429" selection-end="1429" vertical-scroll-proportion="0.33275563" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/RayResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="28" selection-start="996" selection-end="996" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Ray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="885" selection-end="885" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Sphere.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="19" selection-start="1346" selection-end="1346" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="11" selection-start="756" selection-end="756" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1149" selection-end="1149" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="62" selection-start="1380" selection-end="1380" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="29" selection-start="1475" selection-end="1475" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="27" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/RayTracer.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Shape.java">
@@ -777,10 +776,112 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="35" selection-start="928" selection-end="928" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Sphere.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="19" selection-start="1343" selection-end="1343" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="81" selection-start="1102" selection-end="1102" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="11" selection-start="711" selection-end="711" vertical-scroll-proportion="0.33333334">
+        <state line="39" column="51" selection-start="1281" selection-end="1281" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Ray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#1280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/RayResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="13" selection-start="560" selection-end="560" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#1219#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="13" selection-start="609" selection-end="609" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#1709#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/NearestObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#949#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="505" selection-end="505" vertical-scroll-proportion="-6.8">
+          <folding>
+            <element signature="e#0#5146#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="15" selection-start="505" selection-end="505" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#2777#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="321" column="46" selection-start="8794" selection-end="8794" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#9063#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/javax/swing/JFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="178" column="11" selection-start="6073" selection-end="6073" vertical-scroll-proportion="-1.2876949">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.64818025">
+          <folding>
+            <element signature="e#0#3175#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
