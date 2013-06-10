@@ -6,14 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="Refactored">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
+    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RayTracer.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Vector3.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370832180360" ignored="false" />
+    <file path="/Vector3.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833639718" ignored="false" />
     <file path="/Ray.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370823372049" ignored="false" />
     <file path="/Primitive.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370179254542" ignored="false" />
     <file path="/Material.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370821593669" ignored="false" />
@@ -33,7 +32,7 @@
     <file path="/MainFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370194738654" ignored="false" />
     <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833168998" ignored="false" />
     <file path="/SceneBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370197610037" ignored="false" />
-    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833294666" ignored="false" />
+    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370833652042" ignored="false" />
     <file path="/a.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370790720197" ignored="false" />
     <file path="/NearestObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370824659073" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -109,12 +108,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Vector3.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Vector3.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="321" column="46" selection-start="8794" selection-end="8794" vertical-scroll-proportion="0.0">
+            <state line="45" column="24" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.73656845">
               <folding>
-                <element signature="e#0#9063#0" expanded="true" />
+                <element signature="e#0#9262#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,10 +130,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SampleFrame.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SampleFrame.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.64818025">
+            <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#0#3175#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -221,7 +220,6 @@
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/sample/SampleFrame.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Shape.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/SceneBuilder.java" />
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Plane.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/Test.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Material.java" />
@@ -231,6 +229,7 @@
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Raytracer.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/scene/Scene.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java" />
+        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java" />
       </list>
     </option>
   </component>
@@ -628,7 +627,15 @@
       <created>1370833297838</created>
       <updated>1370833297838</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Changed code templates.">
+      <created>1370833503464</created>
+      <updated>1370833503464</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added javadoc.">
+      <created>1370833653742</created>
+      <updated>1370833653742</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -724,7 +731,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved window title." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added javadoc." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -750,6 +757,8 @@
     <MESSAGE value="Refactored the source code." />
     <MESSAGE value="Centered window." />
     <MESSAGE value="Improved window title." />
+    <MESSAGE value="Changed code templates." />
+    <MESSAGE value="Added javadoc." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -859,15 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="321" column="46" selection-start="8794" selection-end="8794" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#0#9063#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_07/src.zip!/javax/swing/JFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="178" column="11" selection-start="6073" selection-end="6073" vertical-scroll-proportion="-1.2876949">
@@ -877,10 +877,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/sample/SampleFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.64818025">
+        <state line="43" column="57" selection-start="1867" selection-end="1867" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#0#3175#0" expanded="true" />
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytrace/math/Vector3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="24" selection-start="1395" selection-end="1395" vertical-scroll-proportion="0.73656845">
+          <folding>
+            <element signature="e#0#9262#0" expanded="true" />
           </folding>
         </state>
       </provider>

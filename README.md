@@ -9,3 +9,4 @@ With some corrections and adaptations of my own.
 History
 =======
 02/06/2013 First version of ray tracer.
+10/06/2013 Refactored ray tracer classes.
