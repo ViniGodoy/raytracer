@@ -1,3 +1,14 @@
+/*===========================================================================
+COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+
+This software cannot be copied, stored, distributed without
+Vinícius G.Mendonça prior authorization.
+
+This file was made available on https://github.com/ViniGodoy and it
+is free to be redistributed or used under Creative Commons license 2.5 br:
+http://creativecommons.org/licenses/by-sa/2.5/br/
+============================================================================*/
+
 package br.com.vinigodoy.raytrace.sample;
 
 import br.com.vinigodoy.raytrace.math.Vector3;
@@ -20,7 +31,7 @@ public class SampleFrame extends JFrame {
         scene = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        output.setPreferredSize(new Dimension(1024, 768));
+        output.setPreferredSize(new Dimension(800, 600));
         btnDraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,7 +45,7 @@ public class SampleFrame extends JFrame {
         });
 
         add(output, BorderLayout.CENTER);
-        add(btnDraw, BorderLayout.SOUTH);
+        add(btnDraw, BorderLayout.NORTH);
         getRootPane().setDefaultButton(btnDraw);
         pack();
         setVisible(true);
