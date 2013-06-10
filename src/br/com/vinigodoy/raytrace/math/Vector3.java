@@ -20,8 +20,8 @@ import java.awt.*;
  * Represents a vector in 3D coordinate space.
  * This class has two versions of most methods:
  * <ul>
- *     <li>A class version, that changes the vector, representing unary operators like +=;</li>
- *     <li>A static version, that does not change the given vectors, thus representing binary operators, like +</li>
+ * <li>A class version, that changes the vector, representing unary operators like +=;</li>
+ * <li>A static version, that does not change the given vectors, thus representing binary operators, like +</li>
  * </ul>
  * Class methods returns the vector itself, allowing invocation chaining e.g.:
  * <code>v1.add(v2).normalize();</code>
