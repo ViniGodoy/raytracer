@@ -28,6 +28,7 @@ public class SampleFrame extends JFrame {
     private Scene scene;
 
     public SampleFrame() {
+        super("Ray tracing demo. Click in the button to draw.");
         scene = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -40,7 +41,7 @@ public class SampleFrame extends JFrame {
                 scene.draw(img);
                 output.setIcon(new ImageIcon(img));
                 double diff = (System.currentTimeMillis() - time) / 1000.f;
-                setTitle(String.format("Time to draw %.2f seconds", diff));
+                setTitle(String.format("Ray tracing demo. Time to draw %.2f seconds", diff));
             }
         });
 
