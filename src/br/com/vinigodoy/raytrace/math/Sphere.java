@@ -1,21 +1,18 @@
+/*===========================================================================
+COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+
+This software cannot be copied, stored, distributed without
+Vinícius G. Mendonça prior authorization.
+
+This file was made available on https://github.com/ViniGodoy and it
+is free to be redistributed or used under Creative Commons license 2.5 br:
+http://creativecommons.org/licenses/by-sa/2.5/br/
+============================================================================*/
+
 package br.com.vinigodoy.raytrace.math;
 
 import static br.com.vinigodoy.raytrace.math.Vector3.subtract;
 
-/**
- * ***************************************************************************
- * <p/>
- * COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
- * <p/>
- * This software cannot be copied, stored, distributed without
- * Vinícius G.Mendonça prior authorization.
- * <p/>
- * This file was made available on https://github.com/ViniGodoy and it
- * is free to be redistributed or used under Creative Commons license 2.5 br:
- * http://creativecommons.org/licenses/by-sa/2.5/br/
- * <p/>
- * *****************************************************************************
- */
 public class Sphere implements Shape {
     private Vector3 center;
     private float radius;

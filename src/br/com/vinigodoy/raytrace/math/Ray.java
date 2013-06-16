@@ -2,7 +2,7 @@
 COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
-Vinícius G.Mendonça prior authorization.
+Vinícius G. Mendonça prior authorization.
 
 This file was made available on https://github.com/ViniGodoy and it
 is free to be redistributed or used under Creative Commons license 2.5 br:
@@ -18,8 +18,8 @@ public class Ray {
     private Vector3 direction;
 
     public Ray(Vector3 origin, Vector3 direction) {
-        this.origin = origin;
         this.direction = Vector3.normalize(direction);
+        this.origin = Vector3.deviate(origin, this.direction);
     }
 
     public Vector3 getOrigin() {

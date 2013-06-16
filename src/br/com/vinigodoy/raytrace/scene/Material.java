@@ -2,7 +2,7 @@
 COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
-Vinícius G.Mendonça prior authorization.
+Vinícius G. Mendonça prior authorization.
 
 This file was made available on https://github.com/ViniGodoy and it
 is free to be redistributed or used under Creative Commons license 2.5 br:
@@ -16,13 +16,16 @@ import br.com.vinigodoy.raytrace.math.Vector3;
 public class Material {
     private Vector3 color;
     private float diffuse;
+    private float specular;
     private float reflection;
     private float refractionIndex;
 
-    public Material(Vector3 color, float diffuse, float reflection) {
+    public Material(Vector3 color, float diffuse, float specular, float reflection, float refractionIndex) {
         this.color = color;
         this.diffuse = diffuse;
+        this.specular = specular;
         this.reflection = reflection;
+        this.refractionIndex = refractionIndex;
     }
 
     public Vector3 getColor() {
@@ -42,7 +45,7 @@ public class Material {
     }
 
     public float getSpecular() {
-        return 1.0f - diffuse;
+        return specular;
     }
 
     public float getReflection() {

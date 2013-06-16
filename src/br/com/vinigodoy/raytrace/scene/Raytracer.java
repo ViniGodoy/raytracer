@@ -2,7 +2,7 @@
 COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
-Vinícius G.Mendonça prior authorization.
+Vinícius G. Mendonça prior authorization.
 
 This file was made available on https://github.com/ViniGodoy and it
 is free to be redistributed or used under Creative Commons license 2.5 br:
@@ -54,18 +54,20 @@ public class Raytracer {
     }
 
     public Vector3 raytrace(Ray ray) {
-        return raytrace(ray, 0);
+        return raytrace(ray, 0, 1).getColor();
     }
 
-    private Vector3 raytrace(Ray ray, int depth) {
+    private Result raytrace(Ray ray, int depth, float refractionIndex) {
         //Find the nearest intersection
         NearestObject nearest = scene.findNearest(ray);
 
         //no hit?
-        if (nearest == null) return new Vector3();
+        if (nearest == null)
+            return new Result(new Vector3(), 0);
 
         //Hit directly into the light source?
-        if (nearest.get().isLight()) return nearest.get().getMaterial().getColor();
+        if (nearest.get().isLight())
+            return new Result(nearest.get().getMaterial().getColor(), nearest.getResult().getDistance());
 
         // determine color at point of intersection
         Vector3 intersectionPoint = ray.getPointAt(nearest.getResult().getDistance());
@@ -81,8 +83,8 @@ public class Raytracer {
             l.multiply(1.0f / lSize); //normalization
 
             //See if it's in shadow
-            Ray shadowRay = new Ray(deviate(intersectionPoint, l), l);
             for (SceneObject o : scene) {
+                Ray shadowRay = new Ray(intersectionPoint, l);
                 if ((o != light) && ((o.getShape().intersects(shadowRay, lSize)).isHit())) {
                     shade = false;
                     break;
@@ -113,16 +115,33 @@ public class Raytracer {
         }
 
         //If reached the maximum depth, there's no need to cast secondary rays.
-        if (depth >= MAX_DEPTH) return color;
+        if (depth >= MAX_DEPTH) return new Result(color, nearest.getResult().getDistance());
 
         //Calculate reflection
         float refl = nearest.get().getMaterial().getReflection();
         if (refl > 0.0f) {
             Vector3 r = reflect(ray.getDirection(), normal);
-            Vector3 rcol = raytrace(new Ray(deviate(intersectionPoint, r), r), depth + 1);
+            Vector3 rcol = raytrace(new Ray(intersectionPoint, r), depth + 1, refractionIndex).getColor();
             color.add(mul(nearest.get().getMaterial().getColor(), rcol).multiply(refl));
         }
-        return color;
+
+        float rindex = nearest.get().getMaterial().getRefractionIndex();
+        if (rindex > 0) {
+            Vector3 refraction = refract(ray.getDirection(),
+                    nearest.getResult().isInside() ? negate(normal) : normal,
+                    refractionIndex, rindex);
+            if (refraction != null) {
+                Result rColor = raytrace(
+                        new Ray(intersectionPoint, refraction), depth + 1, rindex);
+
+                // apply Beer's law
+                Vector3 absorbance = multiply(nearest.get().getMaterial().getColor(), 0.15f * -rColor.getDistance());
+                Vector3 transparency = new Vector3(
+                        (float) Math.exp(absorbance.x), (float) Math.exp(absorbance.y), (float) Math.exp(absorbance.z));
+                color.add(mul(rColor.getColor(), transparency));
+            }
+        }
+        return new Result(color, nearest.getResult().getDistance());
     }
 
     public void render() {
@@ -142,6 +161,23 @@ public class Raytracer {
         }
     }
 
+    private static class Result {
+        private Vector3 color;
+        private float distance;
+
+        public Result(Vector3 color, float distance) {
+            this.color = color;
+            this.distance = distance;
+        }
+
+        private Vector3 getColor() {
+            return color;
+        }
+
+        private float getDistance() {
+            return distance;
+        }
+    }
 }
 
 

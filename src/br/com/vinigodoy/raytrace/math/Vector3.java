@@ -1,16 +1,13 @@
-/*
- ****************************************************************************
- * <p/>
- * COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
- * <p/>
- * This software cannot be copied, stored, distributed without
- * Vinícius G.Mendonça prior authorization.
- * <p/>
- * is free to be redistributed or used under Creative Commons license 2.5 br:
- * http://creativecommons.org/licenses/by-sa/2.5/br/
- * <p/>
- * *****************************************************************************
- */
+/*===========================================================================
+COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+
+This software cannot be copied, stored, distributed without
+Vinícius G. Mendonça prior authorization.
+
+This file was made available on https://github.com/ViniGodoy and it
+is free to be redistributed or used under Creative Commons license 2.5 br:
+http://creativecommons.org/licenses/by-sa/2.5/br/
+============================================================================*/
 
 package br.com.vinigodoy.raytrace.math;
 
@@ -41,6 +38,7 @@ public class Vector3 implements Cloneable {
 
     /**
      * Creates a vector with the given x, y and z components.
+     *
      * @param x x value.
      * @param y y value.
      * @param z z value.
@@ -171,7 +169,7 @@ public class Vector3 implements Cloneable {
     }
 
     /**
-     * Calculate the reflect vector from the giver direction bouncing in a surface with the given normal.
+     * Calculate the reflection vector from the given direction bouncing in a surface with the given normal.
      *
      * @param direction The incident direction.
      * @param normal    The surface normal.
@@ -179,6 +177,40 @@ public class Vector3 implements Cloneable {
      */
     public static Vector3 reflect(Vector3 direction, Vector3 normal) {
         return subtract(direction, multiply(normal, 2.0f * direction.dot(normal)));
+    }
+
+    /**
+     * Calculate the refraction vector from the given direction, deviating in a surface from the given normal,
+     * comming from a r1 refraction index region to a r2 refraction index region.
+     *
+     * @param direction Ray direction
+     * @param normal    Surface normal
+     * @param r1        Source refraction index
+     * @param r2        Destination refraction index.
+     * @return The refracted ray.
+     */
+    public static Vector3 refract(Vector3 direction, Vector3 normal, float r1, float r2) {
+        float n = r1 / r2;
+        float cosI = normal.dot(direction);
+        float cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
+        if (cosT2 <= 0)
+            return null; //No refraction
+        return multiply(direction, n).add(multiply(normal, n * cosI - (float) Math.sqrt(cosT2)));
+    }
+
+    /**
+     * Changes all three vector components
+     *
+     * @param x New x value
+     * @param y New y value
+     * @param z New z value
+     * @return This vector.
+     */
+    public Vector3 set(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        return this;
     }
 
     /**
@@ -224,10 +256,7 @@ public class Vector3 implements Cloneable {
      * @see Vector3#negate(Vector3)
      */
     public Vector3 negate() {
-        x = -x;
-        y = -y;
-        z = -z;
-        return this;
+        return set(-x, -y, -z);
     }
 
     /**
@@ -253,10 +282,7 @@ public class Vector3 implements Cloneable {
      * @see Vector3#mul(Vector3, Vector3)
      */
     public Vector3 multiply(float scalar) {
-        x *= scalar;
-        y *= scalar;
-        z *= scalar;
-        return this;
+        return set(x * scalar, y * scalar, z * scalar);
     }
 
     /**
