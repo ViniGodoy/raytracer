@@ -15,37 +15,53 @@ import br.com.vinigodoy.raytrace.math.Sphere;
 import br.com.vinigodoy.raytrace.math.Vector3;
 import br.com.vinigodoy.raytrace.scene.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class SampleFrame extends JFrame {
     private JLabel output = new JLabel("");
     private JButton btnDraw = new JButton("Draw");
+    private JButton btnSave = new JButton("Save in full HD");
+    private JFileChooser chooser = new JFileChooser();
+
     private Scene scene;
+
 
     public SampleFrame() {
         super("Ray tracing demo. Click in the button to draw.");
+        chooser.setSelectedFile(new File("raytracer HD.png"));
         scene = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         output.setPreferredSize(new Dimension(800, 600));
+        btnDraw.setPreferredSize(new Dimension(200, 25));
         btnDraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                long time = System.currentTimeMillis();
-                BufferedImage img = new BufferedImage(output.getWidth(), output.getHeight(), BufferedImage.TYPE_INT_RGB);
-                scene.draw(img);
-                output.setIcon(new ImageIcon(img));
-                double diff = (System.currentTimeMillis() - time) / 1000.f;
-                setTitle(String.format("Ray tracing demo. Time to draw %.2f seconds", diff));
+                renderToScreen();
             }
         });
 
+        btnSave.setPreferredSize(new Dimension(200, 25));
+        btnSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                renderToFile();
+            }
+        });
+
+        JPanel pnlButtons = new JPanel(new FlowLayout());
+        pnlButtons.add(btnDraw);
+        pnlButtons.add(btnSave);
+
         add(output, BorderLayout.CENTER);
-        add(btnDraw, BorderLayout.NORTH);
+        add(pnlButtons, BorderLayout.NORTH);
         getRootPane().setDefaultButton(btnDraw);
         pack();
         setLocationRelativeTo(null);
@@ -73,7 +89,6 @@ public class SampleFrame extends JFrame {
 
         Material extraSphereMtrl = new MaterialBuilder()
                 .withColor(1.0f, 0.4f, 0.4f)
-                .withRefraction(1.5f)
                 .withDiffuse(0.2f)
                 .withSpecular(0.8f).make();
 
@@ -117,4 +132,68 @@ public class SampleFrame extends JFrame {
     public static void main(String[] args) {
         new SampleFrame().setVisible(true);
     }
+
+    private void renderToFile() {
+        btnSave.setText("Saving...");
+        btnSave.setEnabled(false);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (chooser.showSaveDialog(SampleFrame.this) != JFileChooser.APPROVE_OPTION)
+                        return;
+
+                    long time = System.currentTimeMillis();
+                    BufferedImage img = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_RGB);
+                    scene.draw(img);
+
+                    Graphics2D g2d = img.createGraphics();
+                    g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                    g2d.setFont(new Font("Arial", Font.BOLD, 16));
+                    g2d.setColor(Color.WHITE);
+                    g2d.drawString("Java Raytracer - https://github.com/ViniGodoy/raytracer", 20, 20);
+                    g2d.dispose();
+                    ;
+                    double diff = (System.currentTimeMillis() - time) / 1000.f;
+                    setTitle(String.format("Ray tracing demo. Full HD Time to draw %.2f seconds", diff));
+
+                    try {
+                        File file = chooser.getSelectedFile();
+                        if (!file.getName().endsWith(".png"))
+                            file = new File(file.getParentFile(), file.getName() + ".png");
+                        ImageIO.write(img, "png", file);
+                    } catch (IOException e1) {
+                        JOptionPane.showMessageDialog(SampleFrame.this, "Unable to save image.");
+                    }
+                } finally {
+                    btnSave.setText("Save in full HD");
+                    btnSave.setEnabled(true);
+                }
+            }
+        }).start();
+    }
+
+    public void renderToScreen() {
+        btnDraw.setText("Drawing...");
+        btnDraw.setEnabled(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    long time = System.currentTimeMillis();
+                    BufferedImage img = new BufferedImage(output.getWidth(), output.getHeight(), BufferedImage.TYPE_INT_RGB);
+                    scene.draw(img);
+                    output.setIcon(new ImageIcon(img));
+                    double diff = (System.currentTimeMillis() - time) / 1000.f;
+                    setTitle(String.format("Ray tracing demo. Time to draw %.2f seconds", diff));
+                } finally {
+                    btnDraw.setEnabled(true);
+                    btnDraw.setText("Draw");
+                }
+            }
+        }).start();
+    }
+
+
 }
