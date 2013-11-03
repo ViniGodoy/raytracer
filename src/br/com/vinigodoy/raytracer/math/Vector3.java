@@ -1,5 +1,5 @@
 /*===========================================================================
-COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+COPYRIGHT 2013 Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
 Vinícius G. Mendonça prior authorization.
@@ -9,7 +9,7 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytrace.math;
+package br.com.vinigodoy.raytracer.math;
 
 import java.awt.*;
 
@@ -24,10 +24,9 @@ import java.awt.*;
  * <code>v1.add(v2).normalize();</code>
  */
 public class Vector3 implements Cloneable {
-    private static final float EPSILON = 0.0001f;
-    public float x;
-    public float y;
-    public float z;
+    private float x;
+    private float y;
+    private float z;
 
     /**
      * Creates a zero vector.
@@ -46,6 +45,54 @@ public class Vector3 implements Cloneable {
     public Vector3(float x, float y, float z) {
         this.x = x;
         this.y = y;
+        this.z = z;
+    }
+
+    /**
+     * @return The x component of this vector
+     */
+    public float getX() {
+        return x;
+    }
+
+    /**
+     * Sets this vector x component
+     *
+     * @param x component value
+     */
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    /**
+     * @return The y component of this vector
+     */
+    public float getY() {
+        return y;
+    }
+
+    /**
+     * Sets this vector x component
+     *
+     * @param y component value
+     */
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    /**
+     * @return The z component of this vector
+     */
+    public float getZ() {
+        return z;
+    }
+
+    /**
+     * Sets this vector x component
+     *
+     * @param z component value
+     */
+    public void setZ(float z) {
         this.z = z;
     }
 
@@ -121,6 +168,17 @@ public class Vector3 implements Cloneable {
     }
 
     /**
+     * Elevate each vector component by a given potency.
+     *
+     * @param vector  Vector to elevate
+     * @param potency A scalar factor
+     * @return A new vector, with the result.
+     */
+    public static Vector3 pow(Vector3 vector, float potency) {
+        return vector.clone().pow(potency);
+    }
+
+    /**
      * Divides the vector by the given scalar.
      *
      * @param vector The vector to divide
@@ -153,19 +211,6 @@ public class Vector3 implements Cloneable {
      */
     public static Vector3 saturate(Vector3 vector) {
         return vector.clone().saturate();
-    }
-
-    /**
-     * Adds a very little component to the vector towards the given direction.
-     * This method is useful to deviate the vector from it's origin point a bit,
-     * in order to prevent ray collisions to the origin point itself.
-     *
-     * @param original  The original vector
-     * @param direction Normalized direction to deviate
-     * @return The deviated vector.
-     */
-    public static Vector3 deviate(Vector3 original, Vector3 direction) {
-        return multiply(direction, EPSILON).add(original);
     }
 
     /**
@@ -283,6 +328,16 @@ public class Vector3 implements Cloneable {
      */
     public Vector3 multiply(float scalar) {
         return set(x * scalar, y * scalar, z * scalar);
+    }
+
+    /**
+     * Elevate each component by the given potency.
+     *
+     * @param potency The potency to elevate to.
+     * @return The vector after the operation.
+     */
+    public Vector3 pow(float potency) {
+        return set((float) Math.pow(x, potency), (float) Math.pow(y, potency), (float) Math.pow(z, potency));
     }
 
     /**

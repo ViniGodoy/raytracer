@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: br.com.vinigodoy.raytrace.sample.SampleFrame
+Main-Class: br.com.vinigodoy.raytracer.gui.SampleFrame
 

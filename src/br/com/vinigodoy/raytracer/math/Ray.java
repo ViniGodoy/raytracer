@@ -1,5 +1,5 @@
 /*===========================================================================
-COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+COPYRIGHT 2013 Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
 Vinícius G. Mendonça prior authorization.
@@ -9,9 +9,7 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytrace.math;
-
-import static br.com.vinigodoy.raytrace.math.Vector3.multiply;
+package br.com.vinigodoy.raytracer.math;
 
 public class Ray {
     private Vector3 origin;
@@ -19,7 +17,7 @@ public class Ray {
 
     public Ray(Vector3 origin, Vector3 direction) {
         this.direction = Vector3.normalize(direction);
-        this.origin = Vector3.deviate(origin, this.direction);
+        this.origin = origin;
     }
 
     public Vector3 getOrigin() {
@@ -38,7 +36,7 @@ public class Ray {
         this.direction = Vector3.normalize(direction);
     }
 
-    public Vector3 getPointAt(float distance) {
-        return multiply(direction, distance).add(origin);
+    public Vector3 pointAt(float t) {
+        return Vector3.multiply(direction, t).add(origin);
     }
 }

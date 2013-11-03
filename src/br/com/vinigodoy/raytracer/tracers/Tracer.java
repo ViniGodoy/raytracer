@@ -1,5 +1,5 @@
 /*===========================================================================
-COPYRIGHT Vinícius G. Mendonça ALL RIGHTS RESERVED.
+COPYRIGHT 2013 Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
 Vinícius G. Mendonça prior authorization.
@@ -9,10 +9,15 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytrace.math;
+package br.com.vinigodoy.raytracer.tracers;
 
-public interface Shape {
-    RayResult intersects(Ray ray, float distance);
+import br.com.vinigodoy.raytracer.math.Ray;
+import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.scene.World;
 
-    Vector3 getNormal(Vector3 position);
+public abstract class Tracer {
+    public Tracer() {
+    }
+
+    public abstract Vector3 trace(World world, Ray ray);
 }
