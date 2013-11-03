@@ -7,7 +7,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -31,9 +30,9 @@
     <file path="/ImageTarget.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370185922501" ignored="false" />
     <file path="/ActionScript File Header.txt.ft" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370188786093" ignored="false" />
     <file path="/MainFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370194738654" ignored="false" />
-    <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383515796637" ignored="false" />
+    <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383516204988" ignored="false" />
     <file path="/SceneBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370197610037" ignored="false" />
-    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383515186295" ignored="false" />
+    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383515990487" ignored="false" />
     <file path="/a.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383513797786" ignored="false" />
     <file path="/NearestObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370824659073" ignored="false" />
     <file path="/MaterialBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1371392994650" ignored="false" />
@@ -188,18 +187,18 @@
       <file leaf-file-name="SampleFrame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="22" selection-start="2619" selection-end="2619" vertical-scroll-proportion="0.32587063">
+            <state line="10" column="1" selection-start="511" selection-end="511" vertical-scroll-proportion="0.37313432">
               <folding>
-                <element signature="e#0#8450#0" expanded="true" />
+                <element signature="e#0#8564#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#1758#1917#0" expanded="true" />
-                <element signature="e#1906#1907#0" expanded="true" />
-                <element signature="e#2013#2170#0" expanded="true" />
-                <element signature="e#2159#2160#0" expanded="true" />
-                <element signature="e#6011#6649#0" expanded="true" />
-                <element signature="e#6638#6639#0" expanded="true" />
-                <element signature="e#6794#8432#0" expanded="true" />
-                <element signature="e#8421#8422#0" expanded="true" />
+                <element signature="e#1828#1987#0" expanded="true" />
+                <element signature="e#1976#1977#0" expanded="true" />
+                <element signature="e#2083#2240#0" expanded="true" />
+                <element signature="e#2229#2230#0" expanded="true" />
+                <element signature="e#6081#6735#0" expanded="true" />
+                <element signature="e#6724#6725#0" expanded="true" />
+                <element signature="e#6880#8546#0" expanded="true" />
+                <element signature="e#8535#8536#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -613,7 +612,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32925472" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27977043" sideWeight="0.384273" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27977043" sideWeight="0.384273" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32789317" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -670,7 +669,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed readme." />
+    <option name="LAST_COMMIT_MESSAGE" value="Small fixes." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -702,6 +701,7 @@
     <MESSAGE value="Added save in full hd button. Avoid screen freeze." />
     <MESSAGE value="Rewritten from scratch." />
     <MESSAGE value="Fixed readme." />
+    <MESSAGE value="Small fixes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -824,18 +824,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="22" selection-start="2619" selection-end="2619" vertical-scroll-proportion="0.32587063">
+        <state line="10" column="1" selection-start="511" selection-end="511" vertical-scroll-proportion="0.37313432">
           <folding>
-            <element signature="e#0#8450#0" expanded="true" />
+            <element signature="e#0#8564#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#1758#1917#0" expanded="true" />
-            <element signature="e#1906#1907#0" expanded="true" />
-            <element signature="e#2013#2170#0" expanded="true" />
-            <element signature="e#2159#2160#0" expanded="true" />
-            <element signature="e#6011#6649#0" expanded="true" />
-            <element signature="e#6638#6639#0" expanded="true" />
-            <element signature="e#6794#8432#0" expanded="true" />
-            <element signature="e#8421#8422#0" expanded="true" />
+            <element signature="e#1828#1987#0" expanded="true" />
+            <element signature="e#1976#1977#0" expanded="true" />
+            <element signature="e#2083#2240#0" expanded="true" />
+            <element signature="e#2229#2230#0" expanded="true" />
+            <element signature="e#6081#6735#0" expanded="true" />
+            <element signature="e#6724#6725#0" expanded="true" />
+            <element signature="e#6880#8546#0" expanded="true" />
+            <element signature="e#8535#8536#0" expanded="true" />
           </folding>
         </state>
       </provider>

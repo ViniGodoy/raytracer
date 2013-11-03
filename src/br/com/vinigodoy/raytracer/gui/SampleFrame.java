@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class SampleFrame extends JFrame {
+    private static final String version = "1.0";
+
     private JLabel output = new JLabel("");
     private JButton btnDraw = new JButton("Draw");
     private JButton btnSave = new JButton("Save in full HD");
@@ -35,9 +37,8 @@ public class SampleFrame extends JFrame {
 
     private World world;
 
-
     public SampleFrame() {
-        super("Ray tracing demo. Click in the button to draw.");
+        super("Java Ray Tracer v" + version + " demo. Click in the button to draw.");
         chooser.setSelectedFile(new File("raytracer HD.png"));
         world = createScene();
         setResizable(false);
@@ -151,7 +152,7 @@ public class SampleFrame extends JFrame {
                     BufferedImage img = world.render(new ViewPlane(800, 600, 0.5f, 1.0f));
                     output.setIcon(new ImageIcon(img));
                     double diff = (System.currentTimeMillis() - time) / 1000.f;
-                    setTitle(String.format("Ray tracing demo. Time to draw %.2f seconds", diff));
+                    setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, diff));
                 } finally {
                     btnDraw.setEnabled(true);
                     btnDraw.setText("Draw");
@@ -178,11 +179,11 @@ public class SampleFrame extends JFrame {
                     g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                     g2d.setFont(new Font("Arial", Font.BOLD, 16));
                     g2d.setColor(Color.WHITE);
-                    g2d.drawString("Java Raytracer - https://github.com/ViniGodoy/raytracer", 20, 20);
+                    g2d.drawString("Java Raytracer v" + version + " - https://github.com/ViniGodoy/raytracer", 20, 20);
                     g2d.dispose();
 
                     double diff = (System.currentTimeMillis() - time) / 1000.f;
-                    setTitle(String.format("Ray tracing demo. Full HD Time to draw %.2f seconds", diff));
+                    setTitle(String.format("Java Raytracer v%s demo. Full HD to draw %.2f seconds", version, diff));
 
                     try {
                         File file = chooser.getSelectedFile();
