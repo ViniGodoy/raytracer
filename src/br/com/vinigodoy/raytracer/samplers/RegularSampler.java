@@ -27,6 +27,4 @@ public class RegularSampler extends AbstractSampler {
                 for (int q = 0; q < n; q++)
                     samples.add(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
     }
-
-
 }

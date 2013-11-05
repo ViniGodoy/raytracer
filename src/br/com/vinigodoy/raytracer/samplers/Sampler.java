@@ -13,10 +13,22 @@ package br.com.vinigodoy.raytracer.samplers;
 
 import br.com.vinigodoy.raytracer.math.Vector2;
 
+/**
+ * Produces a set of points for sampling.
+ */
 public interface Sampler {
+    /**
+     * Initialize the sampler according to the desired number of sets and samples.
+     */
     void init();
 
+    /**
+     * @return The next sample point considering a square as sampling shape.
+     */
     Vector2 nextSampleUnitSquare();
 
+    /**
+     * @return The number of generated sample points.
+     */
     int getNumSamples();
 }
