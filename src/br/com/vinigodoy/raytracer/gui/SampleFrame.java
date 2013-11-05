@@ -13,6 +13,7 @@ package br.com.vinigodoy.raytracer.gui;
 
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
+import br.com.vinigodoy.raytracer.samplers.RegularSampler;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.tracers.TrivialTracer;
@@ -27,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SampleFrame extends JFrame {
-    private static final String version = "1.0";
+    private static final String version = "1.1";
 
     private JLabel output = new JLabel("");
     private JButton btnDraw = new JButton("Draw");
@@ -36,9 +37,11 @@ public class SampleFrame extends JFrame {
     private JFileChooser chooser = new JFileChooser();
 
     private World world;
+    private RegularSampler sampler = new RegularSampler(9);
 
     public SampleFrame() {
         super("Java Ray Tracer v" + version + " demo. Click in the button to draw.");
+        sampler.init();
         chooser.setSelectedFile(new File("raytracer HD.png"));
         world = createScene();
         setResizable(false);
@@ -149,7 +152,7 @@ public class SampleFrame extends JFrame {
             public void run() {
                 try {
                     long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(800, 600, 0.5f, 1.0f));
+                    BufferedImage img = world.render(new ViewPlane(800, 600, 0.5f, 1.0f, sampler));
                     output.setIcon(new ImageIcon(img));
                     double diff = (System.currentTimeMillis() - time) / 1000.f;
                     setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, diff));
@@ -173,7 +176,7 @@ public class SampleFrame extends JFrame {
                         return;
 
                     long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(1920, 1080, 0.27778f, 1.0f));
+                    BufferedImage img = world.render(new ViewPlane(1920, 1080, 0.27778f, 1.0f, sampler));
 
                     Graphics2D g2d = img.createGraphics();
                     g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

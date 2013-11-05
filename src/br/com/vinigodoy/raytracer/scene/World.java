@@ -12,6 +12,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.scene;
 
 import br.com.vinigodoy.raytracer.math.Ray;
+import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.tracers.Tracer;
@@ -49,12 +50,20 @@ public class World {
 
         for (int row = 0; row < vp.getVRes(); row++) {
             for (int col = 0; col <= vp.getHRes(); col++) {
-                float x = vp.getS() * (col - 0.5f * (vp.getHRes() - 1));
-                float y = vp.getS() * (row - 0.5f * (vp.getVRes() - 1));
-                Ray ray = new Ray(new Vector3(x, y, ZW), DIRECTION);
-                Vector3 color = tracer.trace(this, ray);
+                //Calculate the color
+                Vector3 color = new Vector3();
+                for (int j = 0; j < vp.getSampler().getNumSamples(); j++) {
+                    Vector2 sp = vp.getSampler().nextSampleUnitSquare();
 
-                //Displays the pixels
+                    float x = vp.getS() * (col - 0.5f * (vp.getHRes() + sp.getX()));
+                    float y = vp.getS() * (row - 0.5f * (vp.getVRes() + sp.getY()));
+
+                    Ray ray = new Ray(new Vector3(x, y, ZW), DIRECTION);
+                    color.add(tracer.trace(this, ray));
+                }
+                color.divide(vp.getSampler().getNumSamples());
+
+                //Draw the pixel
                 if (vp.getGamma() != 1.0f)
                     color.pow(vp.invGamma());
 

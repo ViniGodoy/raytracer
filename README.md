@@ -11,7 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-
+- 04/12/2013 Added regular sampling for anti-aliasing.
 - 03/12/2013 Restarted from scratch with a new architecture. See [screenshot][3].
 - 16/06/2013 Added refraction.
 - 10/06/2013 Refactored ray tracer classes.
