@@ -19,12 +19,12 @@ public class RegularSampler extends AbstractSampler {
     }
 
     @Override
-    public void init() {
-        int n = (int) Math.sqrt(numSamples);
+    public void createSamples() {
+        int n = (int) Math.sqrt(getNumSamples());
 
-        for (int j = 0; j < numSets; j++)
+        for (int j = 0; j < getNumSets(); j++)
             for (int p = 0; p < n; p++)
                 for (int q = 0; q < n; q++)
-                    samples.add(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
+                    addSample(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
     }
 }

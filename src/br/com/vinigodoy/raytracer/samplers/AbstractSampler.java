@@ -18,23 +18,26 @@ import java.util.List;
 import java.util.Random;
 
 public abstract class AbstractSampler implements Sampler {
-    protected static final int DEFAULT_NUM_SETS = 83;
+    private static final Random RND = new Random();
 
-    protected static final Random RND = new Random();
+    public static final int DEFAULT_NUM_SETS = 83;
 
-    protected int numSamples;
-    protected int numSets;
+    private List<Vector2> samples = new ArrayList<>();
 
-    protected List<Vector2> samples = new ArrayList<>();
-    protected List<Integer> shuffledIndices = new ArrayList<>();
+    private List<Integer> shuffledIndices = new ArrayList<>();
+    private int numSamples;
+    private int numSets;
 
-    protected int count = 0;
-    protected int jump = 0;
+    private int count = 0;
+    private int jump = 0;
 
     public AbstractSampler(int numSamples, int numSets) {
         this.numSamples = numSamples <= 0 ? 1 : numSamples;
         this.numSets = numSets <= 0 ? 1 : numSamples;
-        shuffleIndices();
+    }
+
+    public AbstractSampler(int numSamples) {
+        this(numSamples, DEFAULT_NUM_SETS);
     }
 
     private void shuffleIndices() {
@@ -49,17 +52,54 @@ public abstract class AbstractSampler implements Sampler {
         }
     }
 
+
+    protected abstract void createSamples();
+
+    public void init() {
+        samples.clear();
+        shuffledIndices.clear();
+
+        createSamples();
+        shuffleIndices();
+    }
+
+    public boolean isInit() {
+        return !samples.isEmpty();
+    }
+
     @Override
     public Vector2 nextSampleUnitSquare() {
+        if (!isInit())
+            init();
         if (count % numSamples == 0) {
             jump = RND.nextInt(numSets) * numSamples;
         }
 
-        return samples.get(jump + shuffledIndices.get((jump + count++) % numSamples));
+        return samples.get(jump + shuffledIndices.get(jump + (count++ % numSamples)));
+    }
+
+    protected static float randomFloat() {
+        return (float) (RND.nextInt(Integer.MAX_VALUE) / (double) (Integer.MAX_VALUE - 1));
+    }
+
+    protected static int randomInt(int max) {
+        return RND.nextInt(max);
     }
 
     @Override
     public int getNumSamples() {
         return numSamples;
+    }
+
+    protected int getNumSets() {
+        return numSets;
+    }
+
+    protected void addSample(Vector2 sample) {
+        samples.add(sample);
+    }
+
+    protected Vector2 getSample(int sample) {
+        return samples.get(sample);
     }
 }

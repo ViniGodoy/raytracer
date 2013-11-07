@@ -18,11 +18,6 @@ import br.com.vinigodoy.raytracer.math.Vector2;
  */
 public interface Sampler {
     /**
-     * Initialize the sampler according to the desired number of sets and samples.
-     */
-    void init();
-
-    /**
      * @return The next sample point considering a square as sampling shape.
      */
     Vector2 nextSampleUnitSquare();

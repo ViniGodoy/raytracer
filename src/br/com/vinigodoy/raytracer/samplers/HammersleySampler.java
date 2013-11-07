@@ -35,11 +35,11 @@ public class HammersleySampler extends AbstractSampler {
         return (float) x;
     }
 
-
+    @Override
     public void createSamples() {
-        for (int p = 0; p < numSets; p++)
-            for (int j = 0; j < numSamples; j++) {
-                samples.add(new Vector2((float) j / numSamples, phi(j)));
+        for (int p = 0; p < getNumSets(); p++)
+            for (int j = 0; j < getNumSamples(); j++) {
+                addSample(new Vector2((float) j / getNumSamples(), phi(j)));
             }
     }
 }
