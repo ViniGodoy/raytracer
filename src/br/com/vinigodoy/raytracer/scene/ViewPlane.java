@@ -11,6 +11,8 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.scene;
 
+import br.com.vinigodoy.raytracer.samplers.AbstractSampler;
+import br.com.vinigodoy.raytracer.samplers.NRooksSampler;
 import br.com.vinigodoy.raytracer.samplers.RegularSampler;
 import br.com.vinigodoy.raytracer.samplers.Sampler;
 
@@ -23,7 +25,11 @@ public class ViewPlane {
 
 
     public ViewPlane(int hRes, int vRes, int numSamples) {
-        this(hRes, vRes, 1.0f, 1.0f, new RegularSampler(numSamples));
+        this(hRes, vRes, 1.0f, numSamples);
+    }
+
+    public ViewPlane(int hRes, int vRes, float pixelSize, int numSamples) {
+        this(hRes, vRes, pixelSize, 1.0f, getDefaultSampler(numSamples));
     }
 
     public ViewPlane(int hRes, int vRes, float pixelSize, float gamma, Sampler sampler) {
@@ -32,6 +38,10 @@ public class ViewPlane {
         this.s = pixelSize;
         this.gamma = gamma;
         this.sampler = sampler;
+    }
+
+    private static Sampler getDefaultSampler(int numSamples) {
+        return numSamples == 1 ? new RegularSampler(1) : new NRooksSampler(numSamples, AbstractSampler.DEFAULT_NUM_SETS);
     }
 
     public int getHRes() {
@@ -66,7 +76,7 @@ public class ViewPlane {
         this.sampler = sampler;
     }
 
-    public void setSamples(int num) {
-        sampler = new RegularSampler(num);
+    public void setSamples(int numSamples) {
+        sampler = getDefaultSampler(numSamples);
     }
 }

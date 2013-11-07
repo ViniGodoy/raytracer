@@ -34,7 +34,6 @@ public class World {
     public World(Tracer tracer, Vector3 backgroundColor) {
         this.tracer = tracer;
         this.backgroundColor = backgroundColor;
-
     }
 
     public void add(GeometricObject obj) {
@@ -55,8 +54,8 @@ public class World {
                 for (int j = 0; j < vp.getSampler().getNumSamples(); j++) {
                     Vector2 sp = vp.getSampler().nextSampleUnitSquare();
 
-                    float x = vp.getS() * (col - 0.5f * (vp.getHRes() + sp.getX()));
-                    float y = vp.getS() * (row - 0.5f * (vp.getVRes() + sp.getY()));
+                    float x = vp.getS() * (col - 0.5f * vp.getHRes() + sp.getX());
+                    float y = vp.getS() * (row - 0.5f * vp.getVRes() + sp.getY());
 
                     Ray ray = new Ray(new Vector3(x, y, ZW), DIRECTION);
                     color.add(tracer.trace(this, ray));

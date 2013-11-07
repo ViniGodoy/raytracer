@@ -423,4 +423,9 @@ public class Vector3 implements Cloneable {
     public Color toColor() {
         return new Color(x, y, z);
     }
+
+    @Override
+    public String toString() {
+        return String.format("v(%.2f, %.2f, %.2f)", x, y, z);
+    }
 }

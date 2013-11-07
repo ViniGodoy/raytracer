@@ -33,6 +33,14 @@ public class Vector2 {
         return y;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public void setY(float y) {
+        this.y = y;
+    }
+
     public void set(float x, float y) {
         this.x = x;
         this.y = y;
@@ -51,5 +59,10 @@ public class Vector2 {
         int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
         result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("v(%.2f, %.2f)", x, y);
     }
 }
