@@ -11,9 +11,10 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 06/12/2013 [screenshot][4] - Added random, jittered, n-hooks and Hammersley sampling classes.
-- 04/12/2013 Added regular sampling for anti-aliasing.
-- 03/12/2013 [screenshot][3] - Restarted from scratch with a new architecture.
+- 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
+- 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms.
+- 04/11/2013 Added regular sampling for anti-aliasing.
+- 03/11/2013 [screenshot][3] - Restarted from scratch with a new architecture.
 - 16/06/2013 Added refraction.
 - 10/06/2013 Refactored ray tracer classes.
 - 02/06/2013 First version of ray tracer.

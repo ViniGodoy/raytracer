@@ -41,7 +41,7 @@ public class SampleFrame extends JFrame {
 
     public SampleFrame() {
         super("Java Ray Tracer v" + version + " demo. Click in the button to draw.");
-        chooser.setSelectedFile(new File("JavaTracer" + version.replace(".", "_") + ".png"));
+        chooser.setSelectedFile(new File("JavaTracer-v" + version.replace(".", "_") + ".png"));
         world = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

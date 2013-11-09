@@ -13,18 +13,20 @@ package br.com.vinigodoy.raytracer.samplers;
 
 import br.com.vinigodoy.raytracer.math.Vector2;
 
-public class RegularSampler extends AbstractSampler {
-    public RegularSampler(int numSamples) {
-        super(numSamples, 1);
-    }
+import java.util.List;
 
-    @Override
-    public void createSamples() {
-        int n = (int) Math.sqrt(getNumSamples());
-
-        for (int j = 0; j < getNumSets(); j++)
-            for (int p = 0; p < n; p++)
-                for (int q = 0; q < n; q++)
-                    addSample(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
-    }
+/**
+ * A sample is a set of distributed points in a (0,1)-(0,1) space.
+ * There are several algorithms to generate samples, usually in a random pattern.
+ */
+public interface Sample {
+    /**
+     * Create a set of samples.
+     *
+     * @param numSamples Number of samples in the set
+     * @return The samples.
+     * @throws br.com.vinigodoy.raytracer.utility.RaytraceException
+     *          If tne number of samples is smaller than 1.
+     */
+    List<Vector2> createSamples(int numSamples);
 }
