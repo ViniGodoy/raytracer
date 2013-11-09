@@ -15,7 +15,8 @@ import br.com.vinigodoy.raytracer.math.Vector2;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
+import static br.com.vinigodoy.raytracer.utility.Rnd.rndInt;
 
 /**
  * Generate several sample sets of a given sample type. Also, contains methods to map samples into a disk and a
@@ -23,8 +24,6 @@ import java.util.Random;
  */
 public final class Sampler {
     public static final int DEFAULT_NUM_SETS = 83;
-
-    private static final Random RND = new Random();
 
     private List<Vector2> samples = new ArrayList<>();
 
@@ -80,7 +79,7 @@ public final class Sampler {
 
     public Vector2 nextSampleUnitSquare() {
         if (count % numSamples == 0) {
-            jump = RND.nextInt(numSets) * numSamples;
+            jump = rndInt(numSets) * numSamples;
         }
 
         return samples.get(jump + shuffledIndices.get(jump + (count++ % numSamples)));
