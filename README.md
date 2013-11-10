@@ -11,7 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 10/11/2013 Implemented a Pin Hole configurable perspective camera.
+- 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera.
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
 - 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms.
 - 04/11/2013 Added regular sampling for anti-aliasing.
@@ -24,3 +24,4 @@ Change History
 [2]: http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml "Flipcode Raytracing Tutorial"
 [3]: https://lh6.googleusercontent.com/-lN7F5S4R1LQ/UnbEfeIkyyI/AAAAAAAAAm8/Pameytz-NdQ/w2166-h1218-no/raytracer+HD.png
 [4]: https://lh6.googleusercontent.com/-941Nz-j3HlE/UnrwnRnmSAI/AAAAAAAAAn8/R_aC_oi5x9U/w2166-h1218-no/raytracer+HD+2.png
+[5]: https://lh3.googleusercontent.com/--yIntWMu9xo/Un-9o1V4ZmI/AAAAAAAAApM/FAdwmTFHOE0/w2166-h1218-no/JavaTracer-v1_2.png
