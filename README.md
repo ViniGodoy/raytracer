@@ -11,6 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 10/11/2013 Implemented a Pin Hole configurable perspective camera.
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
 - 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms.
 - 04/11/2013 Added regular sampling for anti-aliasing.

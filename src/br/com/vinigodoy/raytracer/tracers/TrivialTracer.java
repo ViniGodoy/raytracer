@@ -22,7 +22,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
  */
 public class TrivialTracer extends Tracer {
     @Override
-    public Vector3 trace(World world, Ray ray) {
+    public Vector3 trace(World world, Ray ray, int depth) {
         ShadeRec sr = world.hit(ray);
         return sr.hitAnObject ? sr.color : world.getBackgroundColor();
     }

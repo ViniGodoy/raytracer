@@ -178,6 +178,10 @@ public class Vector3 implements Cloneable {
         return vector.clone().pow(potency);
     }
 
+    public static Vector3 rotate(Vector3 vector, Vector3 axis, float radians) {
+        return vector.clone().rotate(axis, radians);
+    }
+
     /**
      * Divides the vector by the given scalar.
      *
@@ -427,5 +431,25 @@ public class Vector3 implements Cloneable {
     @Override
     public String toString() {
         return String.format("v(%.2f, %.2f, %.2f)", x, y, z);
+    }
+
+    public Vector3 rotate(Vector3 axis, float radians) {
+        float s = (float) Math.sin(radians);
+        float c = (float) Math.cos(radians);
+        float k = 1.0F - c;
+
+        float nx = x * (c + k * axis.x * axis.x) +
+                y * (k * axis.x * axis.y - s * axis.z) +
+                z * (k * axis.x * axis.z + s * axis.y);
+
+        float ny = x * (k * axis.x * axis.y + s * axis.z) +
+                y * (c + k * axis.y * axis.y) +
+                z * (k * axis.y * axis.z - s * axis.x);
+
+        float nz = x * (k * axis.x * axis.z - s * axis.y) +
+                y * (k * axis.y * axis.z + s * axis.x) +
+                z * (c + k * axis.z * axis.z);
+
+        return set(nx, ny, nz);
     }
 }

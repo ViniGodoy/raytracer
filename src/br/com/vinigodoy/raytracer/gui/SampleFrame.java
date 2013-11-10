@@ -11,6 +11,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.gui;
 
+import br.com.vinigodoy.raytracer.cameras.PinholeCamera;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
@@ -27,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SampleFrame extends JFrame {
-    private static final String version = "1.1";
+    private static final String version = "1.2";
 
     private static final int SAMPLES = 4;
 
@@ -38,10 +39,18 @@ public class SampleFrame extends JFrame {
     private JFileChooser chooser = new JFileChooser();
 
     private World world;
+    private PinholeCamera camera;
+    float deg = 0;
 
     public SampleFrame() {
         super("Java Ray Tracer v" + version + " demo. Click in the button to draw.");
         chooser.setSelectedFile(new File("JavaTracer-v" + version.replace(".", "_") + ".png"));
+        camera = new PinholeCamera(
+                new Vector3(0, 0, 800),
+                new Vector3(0, 0, 0),
+                new Vector3(0, 1, 0),
+                2000);
+
         world = createScene();
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -77,7 +86,7 @@ public class SampleFrame extends JFrame {
 
 
     private World createScene() {
-        world = new World(new TrivialTracer(), new Vector3());
+        world = new World(new TrivialTracer(), new Vector3(), camera);
 
         // colors
         Vector3 lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
@@ -150,8 +159,9 @@ public class SampleFrame extends JFrame {
             @Override
             public void run() {
                 try {
+                    camera.setZoom(1.0f);
                     long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(800, 600, 0.5f, SAMPLES));
+                    BufferedImage img = world.render(new ViewPlane(800, 600, SAMPLES));
                     output.setIcon(new ImageIcon(img));
                     double diff = (System.currentTimeMillis() - time) / 1000.f;
                     setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, diff));
@@ -174,8 +184,10 @@ public class SampleFrame extends JFrame {
                     if (chooser.showSaveDialog(SampleFrame.this) != JFileChooser.APPROVE_OPTION)
                         return;
 
+                    camera.setZoom(1080.0f / 600.0f);
+
                     long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(1920, 1080, 0.27778f, SAMPLES));
+                    BufferedImage img = world.render(new ViewPlane(1920, 1080, SAMPLES));
 
                     Graphics2D g2d = img.createGraphics();
                     g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);

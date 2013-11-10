@@ -9,15 +9,36 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytracer.tracers;
+package br.com.vinigodoy.raytracer.cameras;
 
-import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 
-public abstract class Tracer {
-    public Tracer() {
-    }
+import java.awt.image.BufferedImage;
 
-    public abstract Vector3 trace(World world, Ray ray, int depth);
+public interface Camera {
+    /**
+     * Renders the scene using this camera.
+     *
+     * @param world World to render
+     * @param vp    View plane
+     */
+    BufferedImage render(World world, ViewPlane vp);
+
+    /**
+     * @return The camera location.
+     */
+    public Vector3 getEye();
+
+    /**
+     * @return The place where the camera looks at.
+     */
+    public Vector3 getLook();
+
+    /**
+     * @return A vector pointing up
+     */
+    public Vector3 getUp();
+
 }
