@@ -11,12 +11,12 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.gui;
 
-import br.com.vinigodoy.raytracer.cameras.PinholeCamera;
+import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
-import br.com.vinigodoy.raytracer.tracers.TrivialTracer;
+import br.com.vinigodoy.raytracer.tracer.TrivialTracer;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

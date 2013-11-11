@@ -11,7 +11,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.scene;
 
-import br.com.vinigodoy.raytracer.samplers.Sampler;
+import br.com.vinigodoy.raytracer.sampler.Sampler;
 
 public class ViewPlane {
     private int hRes;
