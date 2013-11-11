@@ -18,7 +18,4 @@ public interface Light extends Cloneable {
     Vector3 getDirection(ShadeRec sr);
 
     Vector3 L(ShadeRec sr);
-
-    @Override
-    Light clone();
 }

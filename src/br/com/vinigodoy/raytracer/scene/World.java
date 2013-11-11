@@ -11,11 +11,11 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.scene;
 
-import br.com.vinigodoy.raytracer.cameras.Camera;
+import br.com.vinigodoy.raytracer.camera.Camera;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
-import br.com.vinigodoy.raytracer.tracers.Tracer;
+import br.com.vinigodoy.raytracer.tracer.Tracer;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import java.awt.image.BufferedImage;
