@@ -9,7 +9,7 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytracer.samplers;
+package br.com.vinigodoy.raytracer.sampler;
 
 import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.utility.RaytraceException;
