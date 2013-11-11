@@ -1,4 +1,4 @@
-package br.com.vinigodoy.raytracer.tracers;
+package br.com.vinigodoy.raytracer.tracer;
 
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
