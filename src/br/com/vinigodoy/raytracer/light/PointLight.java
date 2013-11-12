@@ -39,7 +39,7 @@ public class PointLight implements Light {
 
     @Override
     public Vector3 getDirection(ShadeRec sr) {
-        return subtract(position, sr.hitPoint);
+        return subtract(position, sr.localHitPoint).normalize();
     }
 
     @Override
