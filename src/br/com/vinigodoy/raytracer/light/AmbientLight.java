@@ -15,7 +15,7 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 /**
- * Defines an uniform global ambient light. Ambient lights leaves no shading and are usually used to represent the
+ * Defines an uniform ambient light. Ambient lights leaves no shading and are usually used to represent the
  * "maximum darkness" of a scene. Use ambient lights to see object contours in almost absolute darkness.
  */
 public class AmbientLight implements Light {
@@ -42,10 +42,16 @@ public class AmbientLight implements Light {
         this(1.0f, color);
     }
 
+    /**
+     * @return The Radiance scale (light power)
+     */
     public float getLs() {
         return ls;
     }
 
+    /**
+     * @return This light color
+     */
     public Vector3 getColor() {
         return color;
     }
@@ -54,6 +60,11 @@ public class AmbientLight implements Light {
         this.ls = ls;
     }
 
+    /**
+     * Changes this light color
+     *
+     * @param color The new color
+     */
     public void setColor(Vector3 color) {
         this.color = color;
     }
