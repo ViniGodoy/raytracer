@@ -192,15 +192,17 @@ public class SampleFrame extends JFrame {
 
                     long time = System.currentTimeMillis();
                     BufferedImage img = world.render(new ViewPlane(1920, 1080, SAMPLES));
+                    double diff = (System.currentTimeMillis() - time) / 1000.f;
 
                     Graphics2D g2d = img.createGraphics();
+                    g2d.setColor(Color.BLACK);
+                    g2d.fillRect(0, 0, 1920, 25);
+                    g2d.setColor(Color.WHITE);
                     g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
                     g2d.setFont(new Font("Arial", Font.BOLD, 16));
-                    g2d.setColor(Color.WHITE);
-                    g2d.drawString("Java Raytracer v" + version + " - https://github.com/ViniGodoy/raytracer", 20, 20);
+                    g2d.drawString(String.format("Java Raytracer v%s - Render time: %.2f seconds - https://github.com/ViniGodoy/raytracer", version, diff), 20, 17);
                     g2d.dispose();
 
-                    double diff = (System.currentTimeMillis() - time) / 1000.f;
                     setTitle(String.format("Java Raytracer v%s demo. Full HD to draw %.2f seconds", version, diff));
 
                     try {
