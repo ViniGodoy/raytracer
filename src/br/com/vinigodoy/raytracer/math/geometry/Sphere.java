@@ -12,6 +12,8 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.math.geometry;
 
 
+import br.com.vinigodoy.raytracer.material.Material;
+import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
@@ -22,13 +24,18 @@ import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 public class Sphere implements GeometricObject {
     private Vector3 center;
     private float radius;
-    private Vector3 color;
+    private Material material;
 
-    public Sphere(Vector3 center, float radius, Vector3 color) {
+    public Sphere(Vector3 center, float radius, Material material) {
         this.center = center;
         this.radius = radius;
-        this.color = color;
+        this.material = material;
     }
+
+    public Sphere(Vector3 center, float radius, Vector3 color) {
+        this(center, radius, new Matte(0.35f, 0.85f, color));
+    }
+
 
     public Vector3 getCenter() {
         return center;
@@ -73,7 +80,7 @@ public class Sphere implements GeometricObject {
     }
 
     @Override
-    public Vector3 getColor() {
-        return color;
+    public Material getMaterial() {
+        return material;
     }
 }

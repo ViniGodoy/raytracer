@@ -117,7 +117,7 @@ public abstract class AbstractCamera implements Camera {
         if (vp.getGamma() != 1.0f)
             color.pow(vp.invGamma());
 
-        g2d.setColor(color.toColor());
+        g2d.setColor(saturate(color).toColor());
         int invR = vp.getVRes() - row - 1;
         g2d.drawLine(col, invR, col, invR);
     }

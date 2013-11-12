@@ -11,11 +11,12 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera.
+- 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material.
+- 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera. **v1.2**
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
-- 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms.
+- 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms. **v1.1**
 - 04/11/2013 Added regular sampling for anti-aliasing.
-- 03/11/2013 [screenshot][3] - Restarted from scratch with a new architecture.
+- 03/11/2013 [screenshot][3] - Restarted from scratch with a new architecture. **v1.0**
 - 16/06/2013 Added refraction.
 - 10/06/2013 Refactored ray tracer classes.
 - 02/06/2013 First version of ray tracer.

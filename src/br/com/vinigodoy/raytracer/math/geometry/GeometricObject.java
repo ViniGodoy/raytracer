@@ -11,8 +11,8 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.math.geometry;
 
+import br.com.vinigodoy.raytracer.material.Material;
 import br.com.vinigodoy.raytracer.math.Ray;
-import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 public interface GeometricObject {
@@ -20,7 +20,7 @@ public interface GeometricObject {
 
     HitResult hit(Ray ray, ShadeRec sr);
 
-    Vector3 getColor();
+    Material getMaterial();
 
 
     public static class HitResult {

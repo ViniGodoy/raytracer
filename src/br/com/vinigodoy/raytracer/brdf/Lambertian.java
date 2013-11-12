@@ -13,25 +13,30 @@ package br.com.vinigodoy.raytracer.brdf;
 
 
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 /**
  * Represents perfect diffuse reflection, where incident radiance is scattered equally in all directions.
  */
-public class LambertianReflection extends AbstractBRDF {
+public class Lambertian extends AbstractBRDF {
     private static final float INVPI = (float) (1.0 / Math.PI);
 
     private float kd;
     private Vector3 cd;
 
     /**
-     * @param sampler Sampler to use.
-     * @param kd      Diffuse reflection coefficient.
-     * @param cd      Diffuse color
+     * Creates a new Lambertian with kd = 0 and black color.
      */
-    public LambertianReflection(Sampler sampler, float kd, Vector3 cd) {
-        super(sampler);
+    public Lambertian() {
+        kd = 0;
+        cd = new Vector3();
+    }
+
+    /**
+     * @param kd Diffuse reflection coefficient.
+     * @param cd Diffuse color
+     */
+    public Lambertian(float kd, Vector3 cd) {
         this.kd = kd;
         this.cd = cd;
     }
