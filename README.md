@@ -11,6 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 12/11/2013 Fixed Lambertian BRDF and changed demo light to point light.
 - 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material.
 - 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera. **v1.2**
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.

@@ -33,7 +33,7 @@ public class Sphere implements GeometricObject {
     }
 
     public Sphere(Vector3 center, float radius, Vector3 color) {
-        this(center, radius, new Matte(0.35f, 0.85f, color));
+        this(center, radius, new Matte(0.2f, 0.85f, color));
     }
 
 
