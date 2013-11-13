@@ -12,7 +12,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.gui;
 
 import br.com.vinigodoy.raytracer.camera.PinholeCamera;
-import br.com.vinigodoy.raytracer.light.DirectionalLight;
+import br.com.vinigodoy.raytracer.light.PointLight;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
@@ -29,7 +29,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class SampleFrame extends JFrame {
-    private static final String version = "1.3";
+    private static final String version = "1.3.1";
 
     private static final int SAMPLES = 4;
 
@@ -90,7 +90,7 @@ public class SampleFrame extends JFrame {
         world = new World(new Raycasting(), new Vector3(), camera);
 
         //Lights
-        world.add(new DirectionalLight(6.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(1.0f, 0.5f, 0.3f).normalize()));
+        world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 150.0f)));
 
         // colors
         Vector3 lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
@@ -163,6 +163,7 @@ public class SampleFrame extends JFrame {
             @Override
             public void run() {
                 try {
+                    createScene();
                     camera.setZoom(1.0f);
                     long time = System.currentTimeMillis();
                     BufferedImage img = world.render(new ViewPlane(800, 600, SAMPLES));
