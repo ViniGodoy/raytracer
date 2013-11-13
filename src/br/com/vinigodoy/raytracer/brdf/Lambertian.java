@@ -15,6 +15,8 @@ package br.com.vinigodoy.raytracer.brdf;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
+import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
+
 /**
  * Represents perfect diffuse reflection, where incident radiance is scattered equally in all directions.
  */
@@ -43,12 +45,12 @@ public class Lambertian extends AbstractBRDF {
 
     @Override
     public Vector3 f(ShadeRec sr, Vector3 wo, Vector3 wi) {
-        return cd.multiply(kd * INVPI);
+        return multiply(cd, kd * INVPI);
     }
 
     @Override
     public Vector3 rho(ShadeRec sr, Vector3 wo) {
-        return cd.multiply(kd);
+        return multiply(cd, kd);
     }
 
     public float getKd() {
