@@ -61,12 +61,7 @@ public enum DrawOrders implements DrawOrder {
     RANDOM {
         @Override
         public List<Vector2> getPixels(int w, int h) {
-            List<Vector2> pixels = new ArrayList<>(w * h);
-            for (int y = 0; y < h; y++) {
-                for (int x = 0; x < w; x++) {
-                    pixels.add(new Vector2(x, y));
-                }
-            }
+            List<Vector2> pixels = NORMAL.getPixels(w, h);
             Collections.shuffle(pixels);
             return pixels;
         }

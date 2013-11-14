@@ -83,6 +83,7 @@ public class SampleFrame extends JFrame {
         for (DrawOrder drawOrder : DrawOrders.values()) {
             cmbDrawOrder.addItem(drawOrder);
         }
+        cmbDrawOrder.setSelectedItem(DrawOrders.RANDOM);
 
         JPanel pnlButtons = new JPanel(new FlowLayout());
         pnlButtons.add(new JLabel("Order:"));
@@ -234,14 +235,14 @@ public class SampleFrame extends JFrame {
             g2d = image.createGraphics();
             g2d.setColor(backgroundColor.toColor());
             g2d.fillRect(0, 0, width, height);
+            g2d.dispose();
 
             lastTimePainted = System.currentTimeMillis();
         }
 
         @Override
         public void pixelTraced(int x, int y, Vector3 color) {
-            g2d.setColor(color.toColor());
-            g2d.drawLine(x, y, x + 1, y + 1);
+            image.setRGB(x, y, color.toColor().getRGB());
 
             if (renderToScreen && System.currentTimeMillis() - lastTimePainted > 500) {
                 lastTimePainted = System.currentTimeMillis();
@@ -266,7 +267,6 @@ public class SampleFrame extends JFrame {
                                 saveFile(renderTime);
                             }
                         });
-
                     }
                 }
             });

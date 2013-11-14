@@ -30,7 +30,7 @@ public class ViewPlane {
     }
 
     public ViewPlane(int hRes, int vRes, float pixelSize, int numSamples) {
-        this(hRes, vRes, pixelSize, 1.0f, Sampler.newDefault(numSamples), DrawOrders.NORMAL);
+        this(hRes, vRes, pixelSize, 1.0f, Sampler.newDefault(numSamples), DrawOrders.RANDOM);
     }
 
     public ViewPlane(int hRes, int vRes, float pixelSize, float gamma, Sampler sampler, DrawOrder drawOrder) {
@@ -79,7 +79,7 @@ public class ViewPlane {
     }
 
     public List<Vector2> getPixels() {
-        return drawOrder.getPixels(getVRes(), getHRes());
+        return drawOrder.getPixels(getHRes(), getVRes());
     }
 
     public DrawOrder getDrawOrder() {
