@@ -6,9 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="Fixed point li">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/AbstractCamera.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/AbstractCamera.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/PinholeCamera.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/PinholeCamera.java" />
+    <list default="true" id="7ddef831-6bce-4951-af95-67879465c236" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" afterPath="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -34,7 +33,7 @@
     <file path="/MainFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370194738654" ignored="false" />
     <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384445748049" ignored="false" />
     <file path="/SceneBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370197610037" ignored="false" />
-    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384436462959" ignored="false" />
+    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384445907038" ignored="false" />
     <file path="/a.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383608821782" ignored="false" />
     <file path="/NearestObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370824659073" ignored="false" />
     <file path="/MaterialBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1371392994650" ignored="false" />
@@ -181,10 +180,10 @@
       <file leaf-file-name="SampleFrame.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="220" column="45" selection-start="8816" selection-end="8816" vertical-scroll-proportion="6.788321">
+            <state line="32" column="47" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.2919708">
               <folding>
-                <element signature="e#8964#9433#0" expanded="true" />
-                <element signature="e#9418#9419#0" expanded="true" />
+                <element signature="e#8965#9434#0" expanded="true" />
+                <element signature="e#9419#9420#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -262,6 +261,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="82" selection-start="397" selection-end="397" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FindManager">
@@ -290,12 +298,12 @@
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/light/PointLight.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/brdf/Lambertian.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/math/geometry/Sphere.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/scene/World.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/scene/ViewPlane.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/scene/DrawOrders.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/PinholeCamera.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/AbstractCamera.java" />
+        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" />
       </list>
     </option>
@@ -370,20 +378,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="raytracer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RayTracer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="raytracer" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -735,7 +729,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed formulas" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a progress bar." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -749,7 +743,6 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Fixed readme." />
     <MESSAGE value="Small fixes." />
     <MESSAGE value="Added regular sampling." />
     <MESSAGE value="Added javadoc." />
@@ -774,6 +767,7 @@
     <MESSAGE value="Added render time information to full hd pic." />
     <MESSAGE value="Changed to PointLight" />
     <MESSAGE value="Fixed formulas" />
+    <MESSAGE value="Added a progress bar." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -791,13 +785,6 @@
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/math/geometry/Sphere.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="42" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="73" selection-start="554" selection-end="554" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/sampler/Samples.java">
@@ -884,12 +871,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="82" selection-start="397" selection-end="397" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="220" column="45" selection-start="8816" selection-end="8816" vertical-scroll-proportion="6.788321">
+        <state line="32" column="47" selection-start="1258" selection-end="1258" vertical-scroll-proportion="0.2919708">
           <folding>
-            <element signature="e#8964#9433#0" expanded="true" />
-            <element signature="e#9418#9419#0" expanded="true" />
+            <element signature="e#8965#9434#0" expanded="true" />
+            <element signature="e#9419#9420#0" expanded="true" />
           </folding>
         </state>
       </provider>
