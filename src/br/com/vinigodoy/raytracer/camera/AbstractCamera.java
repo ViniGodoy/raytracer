@@ -13,8 +13,7 @@ package br.com.vinigodoy.raytracer.camera;
 
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
-
-import java.awt.*;
+import br.com.vinigodoy.raytracer.scene.World;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.*;
 
@@ -113,12 +112,12 @@ public abstract class AbstractCamera implements Camera {
         }
     }
 
-    public void drawPixel(Graphics2D g2d, ViewPlane vp, int row, int col, Vector3 color) {
+    public void drawPixel(World world, ViewPlane vp, int row, int col, Vector3 color) {
         if (vp.getGamma() != 1.0f)
             color.pow(vp.invGamma());
 
-        g2d.setColor(saturate(color).toColor());
+
         int invR = vp.getVRes() - row - 1;
-        g2d.drawLine(col, invR, col, invR);
+        world.drawPixel(col, invR, saturate(color));
     }
 }

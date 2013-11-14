@@ -9,34 +9,30 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytracer.camera;
+package br.com.vinigodoy.raytracer.scene;
 
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.scene.ViewPlane;
-import br.com.vinigodoy.raytracer.scene.World;
 
-public interface Camera {
+public interface WorldListener {
+
     /**
-     * Renders the scene using this camera.
+     * Indicate the scene rendering begun.
      *
-     * @param world World to render
-     * @param vp    View plane
+     * @param backgroundColor Background color.
      */
-    void render(World world, ViewPlane vp);
+    void traceStarted(int width, int height, Vector3 backgroundColor);
 
     /**
-     * @return The camera location.
+     * Indicate that a pixel was traced.
+     *
+     * @param x     Pixel x position
+     * @param y     Pixel y position
+     * @param color Pixel color
      */
-    public Vector3 getEye();
+    void pixelTraced(int x, int y, Vector3 color);
 
     /**
-     * @return The place where the camera looks at.
+     * Indicate that the image was fully rendered.
      */
-    public Vector3 getLook();
-
-    /**
-     * @return A vector pointing up
-     */
-    public Vector3 getUp();
-
+    void traceFinished(double renderTime);
 }

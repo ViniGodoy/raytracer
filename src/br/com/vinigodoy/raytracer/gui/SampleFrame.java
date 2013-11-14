@@ -15,8 +15,7 @@ import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.light.PointLight;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
-import br.com.vinigodoy.raytracer.scene.ViewPlane;
-import br.com.vinigodoy.raytracer.scene.World;
+import br.com.vinigodoy.raytracer.scene.*;
 import br.com.vinigodoy.raytracer.tracer.Raycasting;
 
 import javax.imageio.ImageIO;
@@ -26,20 +25,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class SampleFrame extends JFrame {
-    private static final String version = "1.3.1";
+    private boolean renderToScreen = true;
+    private static final String version = "1.4";
 
     private static final int SAMPLES = 4;
 
     private JLabel output = new JLabel("");
     private JButton btnDraw = new JButton("Draw");
     private JButton btnSave = new JButton("Save in full HD");
+    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
 
     private JFileChooser chooser = new JFileChooser();
 
     private World world;
+    private WorldWaiter waiter;
+
     private PinholeCamera camera;
     float deg = 0;
 
@@ -53,6 +57,9 @@ public class SampleFrame extends JFrame {
                 2000);
 
         world = createScene();
+        waiter = new WorldWaiter();
+        world.addListener(waiter);
+
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         output.setPreferredSize(new Dimension(800, 600));
@@ -73,13 +80,21 @@ public class SampleFrame extends JFrame {
             }
         });
 
+        for (DrawOrder drawOrder : DrawOrders.values()) {
+            cmbDrawOrder.addItem(drawOrder);
+        }
+
         JPanel pnlButtons = new JPanel(new FlowLayout());
+        pnlButtons.add(new JLabel("Order:"));
+        pnlButtons.add(cmbDrawOrder);
         pnlButtons.add(btnDraw);
         pnlButtons.add(btnSave);
+
 
         add(output, BorderLayout.CENTER);
         add(pnlButtons, BorderLayout.NORTH);
         getRootPane().setDefaultButton(btnDraw);
+
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -152,73 +167,114 @@ public class SampleFrame extends JFrame {
         return world;
     }
 
+    public void saveFile(double renderTime) {
+        if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION)
+            return;
+
+        try {
+            Graphics2D g2d = waiter.getImage().createGraphics();
+            g2d.setColor(Color.BLACK);
+            g2d.fillRect(0, 0, 1920, 25);
+            g2d.setColor(Color.WHITE);
+            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            g2d.setFont(new Font("Arial", Font.BOLD, 16));
+            g2d.drawString(String.format("Java Raytracer v%s - Render time: %.2f seconds - https://github.com/ViniGodoy/raytracer", version, renderTime), 20, 17);
+            g2d.dispose();
+
+            ImageIO.write(waiter.getImage(), "png", new FileOutputStream(chooser.getSelectedFile()));
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Unable to save file: " + chooser.getSelectedFile().getName());
+        }
+    }
+
     public static void main(String[] args) {
         new SampleFrame().setVisible(true);
     }
 
     public void renderToScreen() {
-        btnDraw.setText("Drawing...");
-        btnDraw.setEnabled(false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    createScene();
-                    camera.setZoom(1.0f);
-                    long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(800, 600, SAMPLES));
-                    output.setIcon(new ImageIcon(img));
-                    double diff = (System.currentTimeMillis() - time) / 1000.f;
-                    setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, diff));
-                } finally {
-                    btnDraw.setEnabled(true);
-                    btnDraw.setText("Draw");
-                }
-            }
-        }).start();
+        renderToScreen = true;
+        camera.setZoom(1.0f);
+
+        ViewPlane vp = new ViewPlane(800, 600, SAMPLES);
+        vp.setDrawOrder((DrawOrder) cmbDrawOrder.getSelectedItem());
+
+        world.render(vp);
     }
 
     private void renderToFile() {
-        btnSave.setText("Saving...");
-        btnSave.setEnabled(false);
+        renderToScreen = false;
+        camera.setZoom(1080.0f / 600.0f);
+        world.render(new ViewPlane(1920, 1080, SAMPLES));
+    }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (chooser.showSaveDialog(SampleFrame.this) != JFileChooser.APPROVE_OPTION)
-                        return;
+    public class WorldWaiter implements WorldListener {
+        private BufferedImage image;
+        private Graphics2D g2d;
+        private long lastTimePainted;
 
-                    camera.setZoom(1080.0f / 600.0f);
+        @Override
+        public void traceStarted(int width, int height, Vector3 backgroundColor) {
+            image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
-                    long time = System.currentTimeMillis();
-                    BufferedImage img = world.render(new ViewPlane(1920, 1080, SAMPLES));
-                    double diff = (System.currentTimeMillis() - time) / 1000.f;
-
-                    Graphics2D g2d = img.createGraphics();
-                    g2d.setColor(Color.BLACK);
-                    g2d.fillRect(0, 0, 1920, 25);
-                    g2d.setColor(Color.WHITE);
-                    g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-                    g2d.setFont(new Font("Arial", Font.BOLD, 16));
-                    g2d.drawString(String.format("Java Raytracer v%s - Render time: %.2f seconds - https://github.com/ViniGodoy/raytracer", version, diff), 20, 17);
-                    g2d.dispose();
-
-                    setTitle(String.format("Java Raytracer v%s demo. Full HD to draw %.2f seconds", version, diff));
-
-                    try {
-                        File file = chooser.getSelectedFile();
-                        if (!file.getName().endsWith(".png"))
-                            file = new File(file.getParentFile(), file.getName() + ".png");
-                        ImageIO.write(img, "png", file);
-                    } catch (IOException e1) {
-                        JOptionPane.showMessageDialog(SampleFrame.this, "Unable to save image.");
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    btnDraw.setEnabled(false);
+                    btnSave.setEnabled(false);
+                    if (renderToScreen) {
+                        btnDraw.setText("Drawing...");
+                        output.setIcon(new ImageIcon(image));
+                    } else {
+                        btnSave.setText("Drawing...");
                     }
-                } finally {
+                }
+            });
+
+
+            g2d = image.createGraphics();
+            g2d.setColor(backgroundColor.toColor());
+            g2d.fillRect(0, 0, width, height);
+
+            lastTimePainted = System.currentTimeMillis();
+        }
+
+        @Override
+        public void pixelTraced(int x, int y, Vector3 color) {
+            g2d.setColor(color.toColor());
+            g2d.drawLine(x, y, x + 1, y + 1);
+
+            if (renderToScreen && System.currentTimeMillis() - lastTimePainted > 500) {
+                lastTimePainted = System.currentTimeMillis();
+                repaint();
+            }
+        }
+
+        @Override
+        public void traceFinished(final double renderTime) {
+            setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, renderTime));
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
                     btnSave.setText("Save in full HD");
                     btnSave.setEnabled(true);
+                    btnDraw.setText("Draw");
+                    btnDraw.setEnabled(true);
+                    if (!renderToScreen) {
+                        EventQueue.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                saveFile(renderTime);
+                            }
+                        });
+
+                    }
                 }
-            }
-        }).start();
+            });
+            repaint();
+        }
+
+        public BufferedImage getImage() {
+            return image;
+        }
     }
 }

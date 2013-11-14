@@ -20,7 +20,6 @@ import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.tracer.Tracer;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,11 +27,13 @@ import java.util.List;
 import static br.com.vinigodoy.raytracer.math.geometry.GeometricObject.HitResult;
 
 public class World {
+    private volatile Thread renderThread;
     private Vector3 backgroundColor;
     private Tracer tracer;
     private Camera camera;
 
     private List<GeometricObject> objects = new ArrayList<>();
+    private List<WorldListener> listeners = new ArrayList<>();
 
     private Light ambientLight = new AmbientLight(1.0f, new Vector3(1.0f, 1.0f, 1.0f));
 
@@ -52,8 +53,22 @@ public class World {
         lights.add(light);
     }
 
-    public BufferedImage render(ViewPlane vp) {
-        return camera.render(this, vp);
+    public void render(final ViewPlane vp) {
+        if (renderThread != null)
+            throw new IllegalStateException("Cannot render two images at the same time!");
+
+        renderThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fireTraceStarted(vp);
+                long before = System.currentTimeMillis();
+                camera.render(World.this, vp);
+                double renderTime = (System.currentTimeMillis() - before) / 1000.0;
+                fireTraceFinished(renderTime);
+                renderThread = null;
+            }
+        });
+        renderThread.start();
     }
 
     public Vector3 getBackgroundColor() {
@@ -99,5 +114,32 @@ public class World {
 
     public List<Light> getLights() {
         return Collections.unmodifiableList(lights);
+    }
+
+    private void fireTraceStarted(ViewPlane vp) {
+        for (WorldListener listener : listeners) {
+            listener.traceStarted(vp.getHRes(), vp.getVRes(), getBackgroundColor());
+        }
+    }
+
+    public void drawPixel(int x, int y, Vector3 color) {
+        for (WorldListener listener : listeners) {
+            listener.pixelTraced(x, y, color);
+        }
+    }
+
+    private void fireTraceFinished(double renderTime) {
+        for (WorldListener listener : listeners) {
+            listener.traceFinished(renderTime);
+        }
+
+    }
+
+    public void addListener(WorldListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(WorldListener listener) {
+        listeners.add(listener);
     }
 }

@@ -11,7 +11,10 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.scene;
 
+import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
+
+import java.util.List;
 
 public class ViewPlane {
     private int hRes;
@@ -19,6 +22,7 @@ public class ViewPlane {
     private float s;
     private float gamma;
     private Sampler sampler;
+    private DrawOrder drawOrder;
 
 
     public ViewPlane(int hRes, int vRes, int numSamples) {
@@ -26,15 +30,16 @@ public class ViewPlane {
     }
 
     public ViewPlane(int hRes, int vRes, float pixelSize, int numSamples) {
-        this(hRes, vRes, pixelSize, 1.0f, Sampler.newDefault(numSamples));
+        this(hRes, vRes, pixelSize, 1.0f, Sampler.newDefault(numSamples), DrawOrders.NORMAL);
     }
 
-    public ViewPlane(int hRes, int vRes, float pixelSize, float gamma, Sampler sampler) {
+    public ViewPlane(int hRes, int vRes, float pixelSize, float gamma, Sampler sampler, DrawOrder drawOrder) {
         this.hRes = hRes;
         this.vRes = vRes;
         this.s = pixelSize;
         this.gamma = gamma;
         this.sampler = sampler;
+        this.drawOrder = drawOrder;
     }
 
     public int getHRes() {
@@ -71,5 +76,17 @@ public class ViewPlane {
 
     public void setSamples(int numSamples) {
         sampler = Sampler.newDefault(numSamples);
+    }
+
+    public List<Vector2> getPixels() {
+        return drawOrder.getPixels(getVRes(), getHRes());
+    }
+
+    public DrawOrder getDrawOrder() {
+        return drawOrder;
+    }
+
+    public void setDrawOrder(DrawOrder drawOrder) {
+        this.drawOrder = drawOrder;
     }
 }

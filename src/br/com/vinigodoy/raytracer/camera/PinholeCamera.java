@@ -17,9 +17,6 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 
 public class PinholeCamera extends AbstractCamera {
@@ -49,34 +46,29 @@ public class PinholeCamera extends AbstractCamera {
     }
 
     @Override
-    public BufferedImage render(World w, ViewPlane vp) {
-        BufferedImage img = new BufferedImage(vp.getHRes(), vp.getVRes(), BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = img.createGraphics();
+    public void render(World w, ViewPlane vp) {
         UVW uvw = computeUVW();
-
-
         int n = (int) Math.sqrt(vp.getSampler().getNumSamples());
         float s = vp.getS() / zoom;
 
-        for (int r = 0; r < vp.getVRes(); r++)
-            for (int c = 0; c < vp.getHRes(); c++) {
-                Vector3 L = new Vector3();
+        for (Vector2 pixel : vp.getPixels()) {
+            int r = (int) pixel.getY();
+            int c = (int) pixel.getX();
 
-                for (int p = 0; p < n; p++)
-                    for (int q = 0; q < n; q++) {
-                        Vector2 pp = new Vector2(
-                                s * (c - 0.5f * vp.getHRes() + (q + 0.5f) / n),
-                                s * (r - 0.5f * vp.getVRes() + (p + 0.5f) / n));
-                        Ray ray = new Ray(eye, getDirection(pp, uvw));
-                        L.add(w.getTracer().trace(w, ray, 0));
-                    }
+            Vector3 L = new Vector3();
 
-                L.divide(vp.getSampler().getNumSamples()).multiply(exposureTime);
+            for (int p = 0; p < n; p++)
+                for (int q = 0; q < n; q++) {
+                    Vector2 pp = new Vector2(
+                            s * (c - 0.5f * vp.getHRes() + (q + 0.5f) / n),
+                            s * (r - 0.5f * vp.getVRes() + (p + 0.5f) / n));
+                    Ray ray = new Ray(eye, getDirection(pp, uvw));
+                    L.add(w.getTracer().trace(w, ray, 0));
+                }
 
-                drawPixel(g2d, vp, r, c, L);
-            }
-        g2d.dispose();
-        return img;
+            L.divide(vp.getSampler().getNumSamples()).multiply(exposureTime);
+            drawPixel(w, vp, r, c, L);
+        }
     }
 
     public Vector3 getDirection(Vector2 p, UVW uvw) {
