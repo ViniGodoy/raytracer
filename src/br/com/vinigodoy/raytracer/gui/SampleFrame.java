@@ -40,6 +40,7 @@ public class SampleFrame extends JFrame {
     private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
 
     private JFileChooser chooser = new JFileChooser();
+    private JProgressBar pbProgress = new JProgressBar();
 
     private World world;
     private WorldWaiter waiter;
@@ -91,9 +92,9 @@ public class SampleFrame extends JFrame {
         pnlButtons.add(btnDraw);
         pnlButtons.add(btnSave);
 
-
         add(output, BorderLayout.CENTER);
         add(pnlButtons, BorderLayout.NORTH);
+        add(pbProgress, BorderLayout.SOUTH);
         getRootPane().setDefaultButton(btnDraw);
 
         pack();
@@ -209,6 +210,7 @@ public class SampleFrame extends JFrame {
     }
 
     public class WorldWaiter implements WorldListener {
+        private int count;
         private BufferedImage image;
         private Graphics2D g2d;
         private long lastTimePainted;
@@ -217,6 +219,9 @@ public class SampleFrame extends JFrame {
         public void traceStarted(int width, int height, Vector3 backgroundColor) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
+            pbProgress.setMinimum(0);
+            pbProgress.setMaximum(width * height);
+            count = 0;
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -235,16 +240,16 @@ public class SampleFrame extends JFrame {
             g2d = image.createGraphics();
             g2d.setColor(backgroundColor.toColor());
             g2d.fillRect(0, 0, width, height);
-            g2d.dispose();
-
             lastTimePainted = System.currentTimeMillis();
         }
 
         @Override
         public void pixelTraced(int x, int y, Vector3 color) {
             image.setRGB(x, y, color.toColor().getRGB());
+            count++;
 
-            if (renderToScreen && System.currentTimeMillis() - lastTimePainted > 500) {
+            if (System.currentTimeMillis() - lastTimePainted > 500) {
+                pbProgress.setValue(count);
                 lastTimePainted = System.currentTimeMillis();
                 repaint();
             }
@@ -260,6 +265,7 @@ public class SampleFrame extends JFrame {
                     btnSave.setEnabled(true);
                     btnDraw.setText("Draw");
                     btnDraw.setEnabled(true);
+                    pbProgress.setValue(0);
                     if (!renderToScreen) {
                         EventQueue.invokeLater(new Runnable() {
                             @Override

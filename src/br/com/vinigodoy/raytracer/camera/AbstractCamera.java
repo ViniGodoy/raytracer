@@ -112,10 +112,9 @@ public abstract class AbstractCamera implements Camera {
         }
     }
 
-    public void drawPixel(World world, ViewPlane vp, int row, int col, Vector3 color) {
+    public void drawPixel(World world, ViewPlane vp, int col, int row, Vector3 color) {
         if (vp.getGamma() != 1.0f)
             color.pow(vp.invGamma());
-
 
         int invR = vp.getVRes() - row - 1;
         world.drawPixel(col, invR, saturate(color));

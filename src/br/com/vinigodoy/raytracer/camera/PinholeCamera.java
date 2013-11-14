@@ -52,8 +52,8 @@ public class PinholeCamera extends AbstractCamera {
         float s = vp.getS() / zoom;
 
         for (Vector2 pixel : vp.getPixels()) {
-            int r = (int) pixel.getY();
             int c = (int) pixel.getX();
+            int r = (int) pixel.getY();
 
             Vector3 L = new Vector3();
 
@@ -67,7 +67,7 @@ public class PinholeCamera extends AbstractCamera {
                 }
 
             L.divide(vp.getSampler().getNumSamples()).multiply(exposureTime);
-            drawPixel(w, vp, r, c, L);
+            drawPixel(w, vp, c, r, L);
         }
     }
 
