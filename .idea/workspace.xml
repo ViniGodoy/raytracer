@@ -31,7 +31,7 @@
     <file path="/MainFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370194738654" ignored="false" />
     <file path="/SampleFrame.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384445748049" ignored="false" />
     <file path="/SceneBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370197610037" ignored="false" />
-    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384446053192" ignored="false" />
+    <file path="/Dummy.txt" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384446183971" ignored="false" />
     <file path="/a.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1383608821782" ignored="false" />
     <file path="/NearestObject.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1370824659073" ignored="false" />
     <file path="/MaterialBuilder.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1371392994650" ignored="false" />
@@ -83,6 +83,7 @@
     <file path="/Lambertian.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384304677676" ignored="false" />
     <file path="/DrawOrders.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384396151048" ignored="false" />
     <file path="/PinholeCamera.java" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384436931500" ignored="false" />
+    <file path="/.gitignore" changelist="7ddef831-6bce-4951-af95-67879465c236" time="1384446134079" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -278,7 +279,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/brdf/AbstractBRDF.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/math/geometry/GeometricObject.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/material/Material.java" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/utility/ShadeRec.java" />
@@ -294,6 +294,7 @@
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/camera/AbstractCamera.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/gui/SampleFrame.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -732,7 +733,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed version number" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added .idea to git ignore" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -746,7 +747,6 @@
     <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
-    <MESSAGE value="Added regular sampling." />
     <MESSAGE value="Added javadoc." />
     <MESSAGE value="Added several samplers." />
     <MESSAGE value="Refactored sampling classes and added Multi-Jittered." />
@@ -771,6 +771,7 @@
     <MESSAGE value="Fixed formulas" />
     <MESSAGE value="Added a progress bar." />
     <MESSAGE value="Fixed version number" />
+    <MESSAGE value="Added .idea to git ignore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -780,11 +781,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/math/geometry/Sphere.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="42" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/br/com/vinigodoy/raytracer/sampler/Samples.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="151" column="57" selection-start="5333" selection-end="5333" vertical-scroll-proportion="0.0">
@@ -879,6 +875,13 @@
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-21.167883">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="9" selection-start="14" selection-end="14" vertical-scroll-proportion="0.070754714">
           <folding />
         </state>
       </provider>
