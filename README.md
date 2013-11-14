@@ -11,9 +11,9 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.
+- 13/11/2013 Updated tracer to gradually trace the scene with given drawing order. **v1.4**
 - 12/11/2013 Fixed Lambertian BRDF and changed demo light to point light.
-- 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material.
+- 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material. **v1.3**
 - 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera. **v1.2**
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
 - 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms. **v1.1**
