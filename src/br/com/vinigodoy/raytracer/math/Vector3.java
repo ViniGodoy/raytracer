@@ -225,6 +225,7 @@ public class Vector3 implements Cloneable {
      * @return The reflection.
      */
     public static Vector3 reflect(Vector3 direction, Vector3 normal) {
+        direction = negate(direction);
         return subtract(direction, multiply(normal, 2.0f * direction.dot(normal)));
     }
 

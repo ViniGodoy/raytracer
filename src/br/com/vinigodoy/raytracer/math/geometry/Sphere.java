@@ -13,7 +13,7 @@ package br.com.vinigodoy.raytracer.math.geometry;
 
 
 import br.com.vinigodoy.raytracer.material.Material;
-import br.com.vinigodoy.raytracer.material.Matte;
+import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
@@ -33,7 +33,7 @@ public class Sphere implements GeometricObject {
     }
 
     public Sphere(Vector3 center, float radius, Vector3 color) {
-        this(center, radius, new Matte(0.2f, 0.85f, color));
+        this(center, radius, new Phong(0.2f, 0.65f, 0.1f, 8.00f, color));
     }
 
 

@@ -89,6 +89,8 @@ public class SampleFrame extends JFrame {
             cmbDrawOrder.addItem(drawOrder);
         }
         cmbDrawOrder.setSelectedItem(DrawOrders.INTERLACED2);
+        pbProgress.setString("");
+        pbProgress.setStringPainted(true);
 
         JPanel pnlButtons = new JPanel(new FlowLayout());
         pnlButtons.add(new JLabel("Order:"));
@@ -106,12 +108,11 @@ public class SampleFrame extends JFrame {
         setVisible(true);
     }
 
-
     private World createScene() {
         world = new World(new Raycasting(), new Vector3(), camera);
 
         //Lights
-        world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 150.0f)));
+        world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 200.0f)));
 
         // colors
         Vector3 lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
@@ -254,6 +255,9 @@ public class SampleFrame extends JFrame {
 
             if (System.currentTimeMillis() - lastTimePainted > 500) {
                 pbProgress.setValue(count);
+                pbProgress.setString(String.format("%.2f%% - pixel %d of %d",
+                        (double) count / pbProgress.getMaximum(), count, pbProgress.getMaximum()));
+
                 lastTimePainted = System.currentTimeMillis();
                 repaint();
             }
@@ -270,6 +274,7 @@ public class SampleFrame extends JFrame {
                     btnDraw.setText("Draw");
                     btnDraw.setEnabled(true);
                     pbProgress.setValue(0);
+                    pbProgress.setString("Done!");
                     if (!renderToScreen) {
                         EventQueue.invokeLater(new Runnable() {
                             @Override
