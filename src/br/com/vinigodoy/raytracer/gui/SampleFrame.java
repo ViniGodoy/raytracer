@@ -15,7 +15,11 @@ import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.light.PointLight;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
-import br.com.vinigodoy.raytracer.scene.*;
+import br.com.vinigodoy.raytracer.scene.ViewPlane;
+import br.com.vinigodoy.raytracer.scene.World;
+import br.com.vinigodoy.raytracer.scene.WorldListener;
+import br.com.vinigodoy.raytracer.scene.order.DrawOrder;
+import br.com.vinigodoy.raytracer.scene.order.DrawOrders;
 import br.com.vinigodoy.raytracer.tracer.Raycasting;
 
 import javax.imageio.ImageIO;
@@ -84,7 +88,7 @@ public class SampleFrame extends JFrame {
         for (DrawOrder drawOrder : DrawOrders.values()) {
             cmbDrawOrder.addItem(drawOrder);
         }
-        cmbDrawOrder.setSelectedItem(DrawOrders.RANDOM);
+        cmbDrawOrder.setSelectedItem(DrawOrders.INTERLACED2);
 
         JPanel pnlButtons = new JPanel(new FlowLayout());
         pnlButtons.add(new JLabel("Order:"));

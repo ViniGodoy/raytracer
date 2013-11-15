@@ -18,6 +18,7 @@ import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
+import static br.com.vinigodoy.raytracer.scene.order.PixelArray.Pixel;
 
 public class PinholeCamera extends AbstractCamera {
     private float d;
@@ -51,9 +52,9 @@ public class PinholeCamera extends AbstractCamera {
         int n = (int) Math.sqrt(vp.getSampler().getNumSamples());
         float s = vp.getS() / zoom;
 
-        for (Vector2 pixel : vp.getPixels()) {
-            int c = (int) pixel.getX();
-            int r = (int) pixel.getY();
+        for (Pixel pixel : vp.getPixels()) {
+            int c = pixel.getX();
+            int r = pixel.getY();
 
             Vector3 L = new Vector3();
 

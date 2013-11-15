@@ -9,12 +9,8 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-package br.com.vinigodoy.raytracer.scene;
-
-import br.com.vinigodoy.raytracer.math.Vector2;
-
-import java.util.List;
+package br.com.vinigodoy.raytracer.scene.order;
 
 public interface DrawOrder {
-    public List<Vector2> getPixels(int w, int h);
+    public PixelArray getPixels(int w, int h);
 }

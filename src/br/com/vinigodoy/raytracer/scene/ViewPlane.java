@@ -11,10 +11,10 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.scene;
 
-import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
-
-import java.util.List;
+import br.com.vinigodoy.raytracer.scene.order.DrawOrder;
+import br.com.vinigodoy.raytracer.scene.order.DrawOrders;
+import br.com.vinigodoy.raytracer.scene.order.PixelArray;
 
 public class ViewPlane {
     private int hRes;
@@ -78,7 +78,7 @@ public class ViewPlane {
         sampler = Sampler.newDefault(numSamples);
     }
 
-    public List<Vector2> getPixels() {
+    public PixelArray getPixels() {
         return drawOrder.getPixels(getHRes(), getVRes());
     }
 
