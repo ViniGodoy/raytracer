@@ -11,7 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 15/11/2013 Added interlaced2 drawing order and specular reflection.
+- 15/11/2013 Added interlaced2 drawing order and specular reflection. **v1.4**
 - 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.
 - 12/11/2013 Fixed Lambertian BRDF and changed demo light to point light.
 - 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material. **v1.3**

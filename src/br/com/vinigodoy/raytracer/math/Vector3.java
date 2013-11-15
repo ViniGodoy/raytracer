@@ -391,10 +391,8 @@ public class Vector3 implements Cloneable {
      * @see #normalize()
      */
     public Vector3 saturate() {
-        x = x < 0 ? 0 : (x > 1 ? 1 : x);
-        y = y < 0 ? 0 : (y > 1 ? 1 : y);
-        z = z < 0 ? 0 : (z > 1 ? 1 : z);
-        return this;
+        float max = Math.max(Math.max(x, y), z);
+        return max > 1.0f ? divide(max) : this;
     }
 
     @Override
