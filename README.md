@@ -11,7 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 15/11/2013 Added interlaced2 drawing order and specular reflection. **v1.4**
+- 15/11/2013 [screenshot][7] - Added interlaced2 drawing order and specular reflection. **v1.4**
 - 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.
 - 12/11/2013 Fixed Lambertian BRDF and changed demo light to point light.
 - 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material. **v1.3**
@@ -30,3 +30,4 @@ Change History
 [4]: https://lh6.googleusercontent.com/-941Nz-j3HlE/UnrwnRnmSAI/AAAAAAAAAn8/R_aC_oi5x9U/w2166-h1218-no/raytracer+HD+2.png
 [5]: https://lh3.googleusercontent.com/--yIntWMu9xo/Un-9o1V4ZmI/AAAAAAAAApM/FAdwmTFHOE0/w2166-h1218-no/JavaTracer-v1_2.png
 [6]: https://lh4.googleusercontent.com/-cITg5h_czQs/UoGNOa3_1PI/AAAAAAAAAqk/TgiUZUK_wPc/w2166-h1218-no/JavaTracer-v1_3.png
+[7]: https://lh4.googleusercontent.com/-bvztZYWeD3g/UobIjPY42HI/AAAAAAAAAr8/YYlYYyUTPG8/w2052-h1154-no/JavaTracer-v1_4.png
