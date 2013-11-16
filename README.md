@@ -32,3 +32,4 @@ Change History
 [5]: https://lh3.googleusercontent.com/--yIntWMu9xo/Un-9o1V4ZmI/AAAAAAAAApM/FAdwmTFHOE0/w2166-h1218-no/JavaTracer-v1_2.png
 [6]: https://lh4.googleusercontent.com/-cITg5h_czQs/UoGNOa3_1PI/AAAAAAAAAqk/TgiUZUK_wPc/w2166-h1218-no/JavaTracer-v1_3.png
 [7]: https://lh4.googleusercontent.com/-bvztZYWeD3g/UobIjPY42HI/AAAAAAAAAr8/YYlYYyUTPG8/w2052-h1154-no/JavaTracer-v1_4.png
+[8]: https://lh6.googleusercontent.com/-XPU4i0vyCoI/Uobl0yz1RdI/AAAAAAAAAss/mvfhykmbREg/w2052-h1154-no/JavaTracer-v1_5.png
