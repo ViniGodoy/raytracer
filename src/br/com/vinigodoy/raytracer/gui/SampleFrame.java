@@ -34,7 +34,7 @@ import java.io.IOException;
 
 public class SampleFrame extends JFrame {
     private boolean renderToScreen = true;
-    private static final String version = "1.4b";
+    private static final String version = "1.4";
 
     private static final int SAMPLES = 4;
 
