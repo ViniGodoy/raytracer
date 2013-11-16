@@ -11,16 +11,16 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 15/11/2013 [screenshot][8] - Added shadows. **v1.5**
-- 15/11/2013 [screenshot][7] - Added interlaced2 drawing order and specular reflection. **v1.4**
+- 15/11/2013 [pic1][8] [pic2][9] - Added shadows. **v1.5**
+- 15/11/2013 [pic][7] - Added interlaced2 drawing order and specular reflection. **v1.4**
 - 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.
 - 12/11/2013 Fixed Lambertian BRDF and changed demo light to point light.
-- 11/11/2013 [screenshot][6] - Implemented ambient and directional light and matte material. **v1.3**
-- 10/11/2013 [screenshot][5] - Implemented a Pin Hole configurable perspective camera. **v1.2**
+- 11/11/2013 [pic][6] - Implemented ambient and directional light and matte material. **v1.3**
+- 10/11/2013 [pic][5] - Implemented a Pin Hole configurable perspective camera. **v1.2**
 - 09/11/2013 Refactored sampling classes and added Multi-Jittered sampling algorithm.
-- 06/11/2013 [screenshot][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms. **v1.1**
+- 06/11/2013 [pic][4] - Added Random, Jittered, N-Hooks and Hammersley sampling algorithms. **v1.1**
 - 04/11/2013 Added regular sampling for anti-aliasing.
-- 03/11/2013 [screenshot][3] - Restarted from scratch with a new architecture. **v1.0**
+- 03/11/2013 [pic][3] - Restarted from scratch with a new architecture. **v1.0**
 - 16/06/2013 Added refraction.
 - 10/06/2013 Refactored ray tracer classes.
 - 02/06/2013 First version of ray tracer.
@@ -33,3 +33,4 @@ Change History
 [6]: https://lh4.googleusercontent.com/-cITg5h_czQs/UoGNOa3_1PI/AAAAAAAAAqk/TgiUZUK_wPc/w2166-h1218-no/JavaTracer-v1_3.png
 [7]: https://lh4.googleusercontent.com/-bvztZYWeD3g/UobIjPY42HI/AAAAAAAAAr8/YYlYYyUTPG8/w2052-h1154-no/JavaTracer-v1_4.png
 [8]: https://lh6.googleusercontent.com/-XPU4i0vyCoI/Uobl0yz1RdI/AAAAAAAAAss/mvfhykmbREg/w2052-h1154-no/JavaTracer-v1_5.png
+[9]: https://lh3.googleusercontent.com/-uuXz46IKQdQ/Uofs_QJIgKI/AAAAAAAAAt8/oBLMQSbrTeo/w2236-h1258-no/Java+Raytracer-v1_5_Billiard.png

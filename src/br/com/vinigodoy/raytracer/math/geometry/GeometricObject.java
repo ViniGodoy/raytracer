@@ -17,7 +17,7 @@ import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 public interface GeometricObject {
-    public static final float K_EPSILON = 0.01f;
+    public static final float K_EPSILON = 0.1f;
 
     /**
      * Test if the object was hit by the ray and return shading information about the hit point.

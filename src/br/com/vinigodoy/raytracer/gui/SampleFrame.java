@@ -11,18 +11,12 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.gui;
 
-import br.com.vinigodoy.raytracer.camera.PinholeCamera;
-import br.com.vinigodoy.raytracer.light.PointLight;
-import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.math.geometry.Plane;
-import br.com.vinigodoy.raytracer.math.geometry.Sphere;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.scene.WorldListener;
 import br.com.vinigodoy.raytracer.scene.order.DrawOrder;
 import br.com.vinigodoy.raytracer.scene.order.DrawOrders;
-import br.com.vinigodoy.raytracer.tracer.Raycasting;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -33,43 +27,39 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private boolean renderToScreen = true;
-    private static final String version = "1.5";
+    private static final String VERSION = "1.6b";
+    private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
+            " - Scene: %s - Render time: %.2f seconds";
+    private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
 
     private static final int SAMPLES = 4;
+
+    private boolean renderToScreen = true;
 
     private JLabel output = new JLabel("");
     private JButton btnDraw = new JButton("Draw");
     private JButton btnSave = new JButton("Save in full HD");
+
+    private JComboBox<WorldMaker> cmbScene = new JComboBox<>();
     private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
 
     private JFileChooser chooser = new JFileChooser();
     private JProgressBar pbProgress = new JProgressBar();
 
-    private World world;
     private WorldWaiter waiter;
 
-    private PinholeCamera camera;
-    float deg = 0;
-
     public SampleFrame() {
-        super("Java Ray Tracer v" + version + " demo. Click in the button to draw.");
-        chooser.setSelectedFile(new File("JavaTracer-v" + version.replace(".", "_") + ".png"));
-        camera = new PinholeCamera(
-                new Vector3(0, 0, 800),
-                new Vector3(0, 0, 0),
-                new Vector3(0, 1, 0),
-                2000);
+        super("Java Ray Tracer v" + VERSION + " demo. Click in the button to draw.");
+        Locale.setDefault(Locale.US);
 
-        world = createScene();
         waiter = new WorldWaiter();
-        world.addListener(waiter);
 
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        output.setPreferredSize(new Dimension(800, 600));
+        output.setPreferredSize(new Dimension(800, 450));
 
         btnDraw.setPreferredSize(new Dimension(200, 25));
         btnDraw.addActionListener(new ActionListener() {
@@ -87,6 +77,11 @@ public class SampleFrame extends JFrame {
             }
         });
 
+        for (WorldMaker wm : WorldMaker.values()) {
+            cmbScene.addItem(wm);
+        }
+        cmbScene.setSelectedItem(WorldMaker.BILLIARD);
+
         for (DrawOrder drawOrder : DrawOrders.values()) {
             cmbDrawOrder.addItem(drawOrder);
         }
@@ -95,8 +90,12 @@ public class SampleFrame extends JFrame {
         pbProgress.setStringPainted(true);
 
         JPanel pnlButtons = new JPanel(new FlowLayout());
+        pnlButtons.add(new JLabel("Scene:"));
+        pnlButtons.add(cmbScene);
+
         pnlButtons.add(new JLabel("Order:"));
         pnlButtons.add(cmbDrawOrder);
+
         pnlButtons.add(btnDraw);
         pnlButtons.add(btnSave);
 
@@ -110,74 +109,10 @@ public class SampleFrame extends JFrame {
         setVisible(true);
     }
 
-    private World createScene() {
-        world = new World(new Raycasting(), new Vector3(), camera);
+    public void saveFile(World world, double renderTime) {
+        File fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
+        chooser.setSelectedFile(fileName);
 
-        //Lights
-        world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 200.0f)));
-
-        // colors
-        Vector3 lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
-        Vector3 green = new Vector3(0.0f, 0.6f, 0.3f);
-        Vector3 darkGreen = new Vector3(0.0f, 0.41f, 0.41f);
-
-        Vector3 yellow = new Vector3(1.0f, 1.0f, 0.0f);
-        Vector3 darkYellow = new Vector3(0.61f, 0.61f, 0.0f);
-
-        Vector3 lightPurple = new Vector3(0.65f, 0.3f, 1.0f);
-        Vector3 darkPurple = new Vector3(0.5f, 0.0f, 1.0f);
-
-        Vector3 brown = new Vector3(0.71f, 0.40f, 0.16f);
-        Vector3 orange = new Vector3(1.0f, 0.75f, 0.0f);
-
-        // spheres
-        world.add(new Plane(new Vector3(0, -85, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, new Vector3(1, 1, 1))));
-        world.add(new Sphere(new Vector3(5, 3, 0), 30, yellow));
-        world.add(new Sphere(new Vector3(45, -7, -60), 20, brown));
-        world.add(new Sphere(new Vector3(40, 43, -100), 17, darkGreen));
-        world.add(new Sphere(new Vector3(-20, 28, -15), 20, orange));
-        world.add(new Sphere(new Vector3(-25, -7, -35), 27, green));
-
-        world.add(new Sphere(new Vector3(20, -27, -35), 25, lightGreen));
-        world.add(new Sphere(new Vector3(35, 18, -35), 22, green));
-        world.add(new Sphere(new Vector3(-57, -17, -50), 15, brown));
-        world.add(new Sphere(new Vector3(-47, 16, -80), 23, lightGreen));
-        world.add(new Sphere(new Vector3(-15, -32, -60), 22, darkGreen));
-
-        world.add(new Sphere(new Vector3(-35, -37, -80), 22, darkYellow));
-        world.add(new Sphere(new Vector3(10, 43, -80), 22, darkYellow));
-        world.add(new Sphere(new Vector3(30, -7, -80), 10, darkYellow)); //(hidden)
-        world.add(new Sphere(new Vector3(-40, 48, -110), 18, darkGreen));
-        world.add(new Sphere(new Vector3(-10, 53, -120), 18, brown));
-
-        world.add(new Sphere(new Vector3(-55, -52, -100), 10, lightPurple));
-        world.add(new Sphere(new Vector3(5, -52, -100), 15, brown));
-        world.add(new Sphere(new Vector3(-20, -57, -120), 15, darkPurple));
-        world.add(new Sphere(new Vector3(55, -27, -100), 17, darkGreen));
-        world.add(new Sphere(new Vector3(50, -47, -120), 15, brown));
-
-        world.add(new Sphere(new Vector3(70, -42, -150), 10, lightPurple));
-        world.add(new Sphere(new Vector3(5, 73, -130), 12, lightPurple));
-        world.add(new Sphere(new Vector3(66, 21, -130), 13, darkPurple));
-        world.add(new Sphere(new Vector3(72, -12, -140), 12, lightPurple));
-        world.add(new Sphere(new Vector3(64, 5, -160), 11, green));
-
-        world.add(new Sphere(new Vector3(55, 38, -160), 12, lightPurple));
-        world.add(new Sphere(new Vector3(-73, -2, -160), 12, lightPurple));
-        world.add(new Sphere(new Vector3(30, -62, -140), 15, darkPurple));
-        world.add(new Sphere(new Vector3(25, 63, -140), 15, darkPurple));
-        world.add(new Sphere(new Vector3(-60, 46, -140), 15, darkPurple));
-
-        world.add(new Sphere(new Vector3(-30, 68, -130), 12, lightPurple));
-        world.add(new Sphere(new Vector3(58, 56, -180), 11, green));
-        world.add(new Sphere(new Vector3(-63, -39, -180), 11, green));
-        world.add(new Sphere(new Vector3(46, 68, -200), 10, lightPurple));
-        world.add(new Sphere(new Vector3(-3, -72, -130), 12, lightPurple));
-
-        return world;
-    }
-
-    public void saveFile(double renderTime) {
         if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION)
             return;
 
@@ -188,7 +123,7 @@ public class SampleFrame extends JFrame {
             g2d.setColor(Color.WHITE);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2d.setFont(new Font("Arial", Font.BOLD, 16));
-            g2d.drawString(String.format("Java Raytracer v%s - Render time: %.2f seconds - https://github.com/ViniGodoy/raytracer", version, renderTime), 20, 17);
+            g2d.drawString(String.format(COMPLETE_RENDER_INFO, world.getName(), renderTime), 20, 17);
             g2d.dispose();
 
             ImageIO.write(waiter.getImage(), "png", new FileOutputStream(chooser.getSelectedFile()));
@@ -203,17 +138,17 @@ public class SampleFrame extends JFrame {
 
     public void renderToScreen() {
         renderToScreen = true;
-        camera.setZoom(1.0f);
 
-        ViewPlane vp = new ViewPlane(800, 600, SAMPLES);
+        ViewPlane vp = new ViewPlane(800, 450, SAMPLES);
         vp.setDrawOrder((DrawOrder) cmbDrawOrder.getSelectedItem());
-
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(1.0f, waiter);
         world.render(vp);
     }
 
     private void renderToFile() {
         renderToScreen = false;
-        camera.setZoom(1080.0f / 600.0f);
+
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(2.4f, waiter);
         world.render(new ViewPlane(1920, 1080, SAMPLES));
     }
 
@@ -224,7 +159,7 @@ public class SampleFrame extends JFrame {
         private long lastTimePainted;
 
         @Override
-        public void traceStarted(int width, int height, Vector3 backgroundColor) {
+        public void traceStarted(World world, int width, int height) {
             image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
             pbProgress.setMinimum(0);
@@ -246,20 +181,20 @@ public class SampleFrame extends JFrame {
 
 
             g2d = image.createGraphics();
-            g2d.setColor(backgroundColor.toColor());
+            g2d.setColor(world.getBackgroundColor().toColor());
             g2d.fillRect(0, 0, width, height);
             lastTimePainted = System.currentTimeMillis();
         }
 
         @Override
-        public void pixelTraced(int x, int y, Vector3 color) {
+        public void pixelTraced(World world, int x, int y, Vector3 color) {
             image.setRGB(x, y, color.toColor().getRGB());
             count++;
 
             if (System.currentTimeMillis() - lastTimePainted > 500) {
                 pbProgress.setValue(count);
-                pbProgress.setString(String.format("%.2f%% - pixel %d of %d",
-                        (double) count / pbProgress.getMaximum(), count, pbProgress.getMaximum()));
+                pbProgress.setString(String.format("Drawing %s: %.2f%% - pixel %d of %d",
+                        world.getName(), (double) count / pbProgress.getMaximum(), count, pbProgress.getMaximum()));
 
                 lastTimePainted = System.currentTimeMillis();
                 repaint();
@@ -267,8 +202,9 @@ public class SampleFrame extends JFrame {
         }
 
         @Override
-        public void traceFinished(final double renderTime) {
-            setTitle(String.format("Java Raytracer v%s demo. Time to draw %.2f seconds", version, renderTime));
+        public void traceFinished(final World world, final double renderTime) {
+            setTitle(String.format(RENDER_INFO, world.getName(), renderTime));
+            world.removeListener(this);
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -282,7 +218,7 @@ public class SampleFrame extends JFrame {
                         EventQueue.invokeLater(new Runnable() {
                             @Override
                             public void run() {
-                                saveFile(renderTime);
+                                saveFile(world, renderTime);
                             }
                         });
                     }

@@ -22,11 +22,13 @@ import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 public class World {
     private volatile Thread renderThread;
+    private String name;
     private Vector3 backgroundColor;
     private Tracer tracer;
     private Camera camera;
@@ -34,14 +36,27 @@ public class World {
     private List<GeometricObject> objects = new ArrayList<>();
     private List<WorldListener> listeners = new ArrayList<>();
 
-    private Light ambientLight = new AmbientLight(1.0f, new Vector3(1.0f, 1.0f, 1.0f));
+    private Light ambientLight = new AmbientLight(0.5f, new Vector3(1.0f, 1.0f, 1.0f));
 
     private List<Light> lights = new ArrayList<>();
 
-    public World(Tracer tracer, Vector3 backgroundColor, Camera camera) {
+    public World(String name, Tracer tracer, Vector3 backgroundColor, Camera camera) {
+        this.name = name;
         this.tracer = tracer;
         this.backgroundColor = backgroundColor;
         this.camera = camera;
+    }
+
+    public World(Tracer tracer, Vector3 backgroundColor, Camera camera) {
+        this(String.format("%1$tF", Calendar.getInstance()), tracer, backgroundColor, camera);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void add(GeometricObject obj) {
@@ -126,19 +141,19 @@ public class World {
 
     private void fireTraceStarted(ViewPlane vp) {
         for (WorldListener listener : listeners) {
-            listener.traceStarted(vp.getHRes(), vp.getVRes(), getBackgroundColor());
+            listener.traceStarted(this, vp.getHRes(), vp.getVRes());
         }
     }
 
     public void drawPixel(int x, int y, Vector3 color) {
         for (WorldListener listener : listeners) {
-            listener.pixelTraced(x, y, color);
+            listener.pixelTraced(this, x, y, color);
         }
     }
 
     private void fireTraceFinished(double renderTime) {
-        for (WorldListener listener : listeners) {
-            listener.traceFinished(renderTime);
+        for (WorldListener listener : new ArrayList<>(listeners)) {
+            listener.traceFinished(this, renderTime);
         }
 
     }

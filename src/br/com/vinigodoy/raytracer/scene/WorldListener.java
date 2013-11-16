@@ -18,21 +18,27 @@ public interface WorldListener {
     /**
      * Indicate the scene rendering begun.
      *
-     * @param backgroundColor Background color.
+     * @param world  World, source of the event
+     * @param width  Viewport width
+     * @param height Viewport height
      */
-    void traceStarted(int width, int height, Vector3 backgroundColor);
+    void traceStarted(World world, int width, int height);
 
     /**
      * Indicate that a pixel was traced.
      *
+     * @param world World, source of the event
      * @param x     Pixel x position
      * @param y     Pixel y position
      * @param color Pixel color
      */
-    void pixelTraced(int x, int y, Vector3 color);
+    void pixelTraced(World world, int x, int y, Vector3 color);
 
     /**
      * Indicate that the image was fully rendered.
+     *
+     * @param world      World, source of the event
+     * @param renderTime Time of rendering, in seconds.
      */
-    void traceFinished(double renderTime);
+    void traceFinished(World world, double renderTime);
 }
