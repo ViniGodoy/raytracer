@@ -10,6 +10,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 package br.com.vinigodoy.raytracer.light;
 
+import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
@@ -19,7 +20,7 @@ import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 /**
  * Represents a point irradiating light. It's usually a reasonable simplification of lamps.
  */
-public class PointLight implements Light {
+public class PointLight extends AbstractLight {
     private float ls;
     private Vector3 color;
     private Vector3 position;
@@ -98,5 +99,10 @@ public class PointLight implements Light {
      */
     public void setPosition(Vector3 position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean inShadow(Ray ray, ShadeRec sr) {
+        return sr.world.shadowHit(ray, position.distance(ray.getOrigin()));
     }
 }

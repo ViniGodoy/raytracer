@@ -18,13 +18,12 @@ import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.tracer.Tracer;
+import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static br.com.vinigodoy.raytracer.math.geometry.GeometricObject.HitResult;
 
 public class World {
     private volatile Thread renderThread;
@@ -83,10 +82,10 @@ public class World {
         float tMin = Float.MAX_VALUE;
 
         for (GeometricObject obj : objects) {
-            HitResult hr = obj.hit(ray, sr);
-            if (hr.isHit() && hr.getT() < tMin) {
+            FloatRef fr = new FloatRef();
+            if (obj.hit(ray, sr, fr) && fr.value < tMin) {
                 sr.hitAnObject = true;
-                tMin = hr.getT();
+                tMin = fr.value;
                 sr.material = obj.getMaterial();
                 normal = sr.normal;
                 localHitPoint = sr.localHitPoint;
@@ -98,6 +97,15 @@ public class World {
             sr.localHitPoint = localHitPoint;
         }
         return sr;
+    }
+
+    public boolean shadowHit(Ray ray, float d) {
+        FloatRef t = new FloatRef();
+        for (GeometricObject obj : objects)
+            if (obj.shadow_hit(ray, t) && t.value < d)
+                return true;
+
+        return false;
     }
 
     public Tracer getTracer() {

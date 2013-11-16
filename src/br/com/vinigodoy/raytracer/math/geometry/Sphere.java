@@ -16,6 +16,7 @@ import br.com.vinigodoy.raytracer.material.Material;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
@@ -46,7 +47,7 @@ public class Sphere implements GeometricObject {
     }
 
     @Override
-    public HitResult hit(Ray ray, ShadeRec sr) {
+    public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         Vector3 temp = subtract(ray.getOrigin(), center);
 
         //Bhaskara equation a, b and c terms and delta calculation (bˆ2 - 4ac).
@@ -57,7 +58,7 @@ public class Sphere implements GeometricObject {
         float delta = b * b - 4.0f * c;
 
         if (delta < 0.0) {
-            return HitResult.MISS;
+            return false;
         }
 
         float e = (float) Math.sqrt(delta);
@@ -72,11 +73,45 @@ public class Sphere implements GeometricObject {
         if (t > K_EPSILON) {
             sr.normal = multiply(ray.getDirection(), t).add(temp).divide(radius);
             sr.localHitPoint = ray.pointAt(t);
-            return new HitResult(t);
+            tmin.value = t;
+            return true;
         }
 
         //Too close to hit
-        return HitResult.MISS;
+        return false;
+    }
+
+    @Override
+    public boolean shadow_hit(Ray ray, FloatRef tmin) {
+        Vector3 temp = subtract(ray.getOrigin(), center);
+
+        //Bhaskara equation a, b and c terms and delta calculation (bˆ2 - 4ac).
+
+        //float a = 1, since ray.getDirection().sizeSqr() is always one.
+        float b = multiply(temp, 2.0f).dot(ray.getDirection());
+        float c = temp.sizeSqr() - radius * radius;
+        float delta = b * b - 4.0f * c;
+
+        if (delta < 0.0) {
+            return false;
+        }
+
+        float e = (float) Math.sqrt(delta);
+
+        //Smaller root
+        float t = (-b - e) / 2.0f;
+        if (t <= K_EPSILON) {
+            //If not hit, tries the larger root
+            t = (-b + e) / 2.0f;
+        }
+
+        if (t > K_EPSILON) {
+            tmin.value = t;
+            return true;
+        }
+
+        //Too close to hit
+        return false;
     }
 
     @Override

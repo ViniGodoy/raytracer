@@ -17,31 +17,26 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.mul;
-import static br.com.vinigodoy.raytracer.math.Vector3.negate;
 
-public class Phong implements Material {
-    private Lambertian ambient;
+public class Phong extends AbstractMaterial {
     private Lambertian diffuse;
     private GlossySpecular specular;
 
-    private Phong() {
-
-    }
-
     public Phong(float ka, float kd, float ks, float exp, Vector3 color) {
-        ambient = new Lambertian(ka, color);
+        super(ka, color);
         diffuse = new Lambertian(kd, color);
         specular = new GlossySpecular(ks, color, exp);
-    }
-
-    public void setKa(float k) {
-        ambient.setKd(k);
     }
 
     public void setKd(float k) {
         diffuse.setKd(k);
     }
 
+    public float getKd() {
+        return diffuse.getKd();
+    }
+
+    @Override
     public void setCd(Vector3 color) {
         ambient.setCd(color);
         diffuse.setCd(color);
@@ -51,35 +46,35 @@ public class Phong implements Material {
         specular.setKs(k);
     }
 
+    public float getKs() {
+        return specular.getKs();
+    }
+
     public void setExp(float exp) {
         specular.setExp(exp);
     }
+
+    public float getExp() {
+        return specular.getExp();
+    }
+
 
     public void setCs(Vector3 color) {
         specular.setCs(color);
     }
 
-    @Override
-    public Vector3 shade(ShadeRec sr) {
-        Vector3 wo = negate(sr.ray.getDirection());
-        Vector3 L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
-        for (Light light : sr.world.getLights()) {
-            Vector3 wi = light.getDirection(sr);
+    public Vector3 getCs() {
+        return specular.getCs();
+    }
 
-            float ndotwi = sr.normal.dot(wi);
-            if (ndotwi > 0.0f) {
-                L.add(mul(diffuse.f(sr, wo, wi).add(specular.f(sr, wo, wi)), light.L(sr)).multiply(ndotwi));
-            }
-        }
-        return L;
+    protected Vector3 processLight(ShadeRec sr, Vector3 wo, Light light, Vector3 wi, float ndotwi) {
+        return mul(diffuse.f(sr, wo, wi).add(specular.f(sr, wo, wi)), light.L(sr)).multiply(ndotwi);
     }
 
     @Override
     public Phong clone() {
-        Phong p = new Phong();
-        p.ambient = new Lambertian(ambient.getKd(), ambient.getCd().clone());
-        p.diffuse = new Lambertian(diffuse.getKd(), diffuse.getCd().clone());
-        p.specular = new GlossySpecular(specular.getKs(), specular.getCs().clone(), specular.getExp());
+        Phong p = new Phong(getKa(), getKd(), getKs(), getExp(), getCd().clone());
+        p.setCs(getCs().clone());
         return p;
     }
 }

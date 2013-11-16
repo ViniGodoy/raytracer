@@ -8,21 +8,23 @@ This file was made available on https://github.com/ViniGodoy and it
 is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
-
 package br.com.vinigodoy.raytracer.light;
 
-import br.com.vinigodoy.raytracer.math.Ray;
-import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
-public interface Light extends Cloneable {
-    Vector3 getDirection(ShadeRec sr);
+public abstract class AbstractLight implements Light {
+    private boolean castShadows = true;
 
-    Vector3 L(ShadeRec sr);
+    public AbstractLight() {
+    }
 
-    boolean castShadows();
+    @Override
+    public boolean castShadows() {
+        return castShadows;
+    }
 
-    boolean inShadow(Ray ray, ShadeRec sr);
+    public void setCastShadows(boolean castShadows) {
+        this.castShadows = castShadows;
+    }
 
-    Light clone();
+    public abstract Light clone();
 }

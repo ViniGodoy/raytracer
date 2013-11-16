@@ -13,7 +13,9 @@ package br.com.vinigodoy.raytracer.gui;
 
 import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.light.PointLight;
+import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.math.geometry.Plane;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
@@ -34,7 +36,7 @@ import java.io.IOException;
 
 public class SampleFrame extends JFrame {
     private boolean renderToScreen = true;
-    private static final String version = "1.4";
+    private static final String version = "1.5";
 
     private static final int SAMPLES = 4;
 
@@ -129,6 +131,7 @@ public class SampleFrame extends JFrame {
         Vector3 orange = new Vector3(1.0f, 0.75f, 0.0f);
 
         // spheres
+        world.add(new Plane(new Vector3(0, -85, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, new Vector3(1, 1, 1))));
         world.add(new Sphere(new Vector3(5, 3, 0), 30, yellow));
         world.add(new Sphere(new Vector3(45, -7, -60), 20, brown));
         world.add(new Sphere(new Vector3(40, 43, -100), 17, darkGreen));

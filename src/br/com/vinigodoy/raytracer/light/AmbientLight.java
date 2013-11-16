@@ -11,6 +11,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.light;
 
+import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
@@ -82,5 +83,15 @@ public class AmbientLight implements Light {
     @Override
     public Vector3 L(ShadeRec sr) {
         return Vector3.multiply(color, ls);
+    }
+
+    @Override
+    public boolean inShadow(Ray ray, ShadeRec sr) {
+        return false;
+    }
+
+    @Override
+    public boolean castShadows() {
+        return false;
     }
 }

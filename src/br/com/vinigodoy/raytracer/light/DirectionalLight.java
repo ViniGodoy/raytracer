@@ -11,6 +11,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.light;
 
+import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
@@ -21,7 +22,7 @@ import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
  * Represents light comming from a given direction in the entire scene. This is not a real light source, but it is
  * usually a good simplification for really far light sources, such as the sun light.
  */
-public class DirectionalLight implements Light {
+public class DirectionalLight extends AbstractLight {
     private float ls;
     private Vector3 color;
     private Vector3 direction;
@@ -86,5 +87,10 @@ public class DirectionalLight implements Light {
      */
     public void setDirection(Vector3 direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public boolean inShadow(Ray ray, ShadeRec sr) {
+        return sr.world.shadowHit(ray, Float.MAX_VALUE);
     }
 }

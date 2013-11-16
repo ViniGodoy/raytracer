@@ -369,6 +369,16 @@ public class Vector3 implements Cloneable {
     }
 
     /**
+     * Calculate the distance between this point and another one.
+     *
+     * @param other Other point
+     * @return The distance
+     */
+    public float distance(Vector3 other) {
+        return subtract(this, other).sizeSqr();
+    }
+
+    /**
      * @return Trus if this is a unitary (normal) vector.
      */
     public boolean isUnit() {
