@@ -12,6 +12,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.gui;
 
 import br.com.vinigodoy.raytracer.camera.PinholeCamera;
+import br.com.vinigodoy.raytracer.camera.ThinLensCamera;
 import br.com.vinigodoy.raytracer.light.AmbientLight;
 import br.com.vinigodoy.raytracer.light.PointLight;
 import br.com.vinigodoy.raytracer.material.Matte;
@@ -122,11 +123,12 @@ public enum WorldMaker {
 
         @Override
         public World createScene(float zoom, WorldListener listener) {
-            PinholeCamera camera = new PinholeCamera(
+            ThinLensCamera camera = new ThinLensCamera(
                     new Vector3(20, 22, 670),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
-                    2000);
+                    2000, 170, 0.6f, 24);
+
             camera.setZoom(zoom);
 
             World world = new World(toString(), new Raycasting(), new Vector3(0f, 0f, 0f), camera);

@@ -20,26 +20,29 @@ import br.com.vinigodoy.raytracer.scene.World;
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 import static br.com.vinigodoy.raytracer.scene.order.PixelArray.Pixel;
 
+/**
+ * Represents a pinhole perspective camera. The camera can focus all objects within the camera lens.
+ */
 public class PinholeCamera extends AbstractCamera {
-    private float d;
+    private float viewPlaneDistance;
     private float zoom;
 
-    public PinholeCamera(Vector3 eyePosition, Vector3 lookPoint, Vector3 upDirection, float d) {
+    public PinholeCamera(Vector3 eyePosition, Vector3 lookPoint, Vector3 upDirection, float viewPlaneDistance) {
         super(eyePosition, lookPoint, upDirection);
-        this.d = d;
+        this.viewPlaneDistance = viewPlaneDistance;
         this.zoom = 1.0f;
     }
 
-    public float getD() {
-        return d;
+    public float getViewPlaneDistance() {
+        return viewPlaneDistance;
     }
 
     public float getZoom() {
         return zoom;
     }
 
-    public void setD(float d) {
-        this.d = d;
+    public void setViewPlaneDistance(float viewPlaneDistance) {
+        this.viewPlaneDistance = viewPlaneDistance;
     }
 
     public void setZoom(float zoom) {
@@ -49,7 +52,6 @@ public class PinholeCamera extends AbstractCamera {
     @Override
     public void render(World w, ViewPlane vp) {
         UVW uvw = computeUVW();
-        int n = (int) Math.sqrt(vp.getSampler().getNumSamples());
         float s = vp.getS() / zoom;
 
         for (Pixel pixel : vp.getPixels()) {
@@ -58,14 +60,15 @@ public class PinholeCamera extends AbstractCamera {
 
             Vector3 L = new Vector3();
 
-            for (int p = 0; p < n; p++)
-                for (int q = 0; q < n; q++) {
-                    Vector2 pp = new Vector2(
-                            s * (c - 0.5f * vp.getHRes() + (q + 0.5f) / n),
-                            s * (r - 0.5f * vp.getVRes() + (p + 0.5f) / n));
-                    Ray ray = new Ray(eye, getDirection(pp, uvw));
-                    L.add(w.getTracer().trace(w, ray, 0));
-                }
+            for (int i = 0; i < vp.getSampler().getNumSamples(); i++) {
+                Vector2 sp = vp.getSampler().nextSampleSquare();
+
+                Vector2 pp = new Vector2(
+                        s * (c - 0.5f * vp.getHRes() + sp.getX()),
+                        s * (r - 0.5f * vp.getVRes() + sp.getY()));
+                Ray ray = new Ray(eye, getDirection(pp, uvw));
+                L.add(w.getTracer().trace(w, ray, 0));
+            }
 
             L.divide(vp.getSampler().getNumSamples()).multiply(exposureTime);
             drawPixel(w, vp, c, r, L);
@@ -75,6 +78,6 @@ public class PinholeCamera extends AbstractCamera {
     public Vector3 getDirection(Vector2 p, UVW uvw) {
         return multiply(uvw.getU(), p.getX())
                 .add(multiply(uvw.getV(), p.getY()))
-                .add(multiply(uvw.getW(), -d)).normalize();
+                .add(multiply(uvw.getW(), -viewPlaneDistance)).normalize();
     }
 }

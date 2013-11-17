@@ -30,9 +30,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private static final String VERSION = "1.6b";
+    private static final String VERSION = "1.6";
     private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
-            " - Scene: %s - Render time: %.2f seconds";
+            " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
 
     private static final int SAMPLES = 4;
@@ -109,7 +109,21 @@ public class SampleFrame extends JFrame {
         setVisible(true);
     }
 
-    public void saveFile(World world, double renderTime) {
+    private String formatRenderTime(long renderTime) {
+        if (renderTime < 60000)
+            return String.format("%.2f seconds", (renderTime / 1000.0));
+
+        renderTime /= 1000;
+        int s = (int) (renderTime % 60);
+        renderTime /= 60;
+        int m = (int) (renderTime % 60);
+
+        String strMin = m == 1 ? "minute" : "minutes";
+        String strSec = s == 1 ? "second" : "seconds";
+        return String.format("%d %s %d %s", m, strMin, s, strSec);
+    }
+
+    public void saveFile(World world, long renderTime) {
         File fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
         chooser.setSelectedFile(fileName);
 
@@ -123,7 +137,7 @@ public class SampleFrame extends JFrame {
             g2d.setColor(Color.WHITE);
             g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             g2d.setFont(new Font("Arial", Font.BOLD, 16));
-            g2d.drawString(String.format(COMPLETE_RENDER_INFO, world.getName(), renderTime), 20, 17);
+            g2d.drawString(String.format(COMPLETE_RENDER_INFO, world.getName(), formatRenderTime(renderTime)), 20, 17);
             g2d.dispose();
 
             ImageIO.write(waiter.getImage(), "png", new FileOutputStream(chooser.getSelectedFile()));
@@ -202,8 +216,8 @@ public class SampleFrame extends JFrame {
         }
 
         @Override
-        public void traceFinished(final World world, final double renderTime) {
-            setTitle(String.format(RENDER_INFO, world.getName(), renderTime));
+        public void traceFinished(final World world, final long renderTime) {
+            setTitle(String.format(RENDER_INFO, world.getName(), formatRenderTime(renderTime)));
             world.removeListener(this);
             EventQueue.invokeLater(new Runnable() {
                 @Override

@@ -11,12 +11,14 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.sampler;
 
 import br.com.vinigodoy.raytracer.math.Vector2;
+import br.com.vinigodoy.raytracer.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static br.com.vinigodoy.raytracer.utility.Rnd.rndInt;
+import static java.lang.Math.*;
 
 /**
  * Generate several sample sets of a given sample type. Also, contains methods to map samples into a disk and a
@@ -25,7 +27,9 @@ import static br.com.vinigodoy.raytracer.utility.Rnd.rndInt;
 public final class Sampler {
     public static final int DEFAULT_NUM_SETS = 83;
 
-    private List<Vector2> samples = new ArrayList<>();
+    private List<Vector2> samples;
+    private List<Vector2> diskSamples;
+    private List<Vector3> hemisphereSamples;
 
     private List<Integer> shuffledIndices = new ArrayList<>();
     private Sample sample;
@@ -36,9 +40,10 @@ public final class Sampler {
     private int jump = 0;
 
     public Sampler(Sample sample, int numSamples, int numSets) {
+        this.samples = new ArrayList<>(numSets * numSamples);
         this.sample = sample;
         this.numSamples = numSamples <= 0 ? 1 : numSamples;
-        this.numSets = numSets <= 0 ? 1 : numSamples;
+        this.numSets = numSets <= 0 ? 1 : numSets;
         createSamples(numSamples, numSets);
     }
 
@@ -47,11 +52,11 @@ public final class Sampler {
     }
 
     public static Sampler newDefault(int numSamples) {
-        numSamples = Math.max(numSamples, 1);
+        numSamples = max(numSamples, 1);
 
         Sample sample = Samples.Regular;
         if (numSamples > 1) {
-            int n = (int) Math.sqrt(numSamples);
+            int n = (int) sqrt(numSamples);
             sample = n * n == numSamples ? Samples.MultiJittered : Samples.NRooks;
         }
 
@@ -77,12 +82,34 @@ public final class Sampler {
         }
     }
 
-    public Vector2 nextSampleUnitSquare() {
+    public Vector2 nextSampleSquare() {
         if (count % numSamples == 0) {
             jump = rndInt(numSets) * numSamples;
         }
 
         return samples.get(jump + shuffledIndices.get(jump + (count++ % numSamples)));
+    }
+
+    public Vector2 nextSampleDisk() {
+        if (diskSamples == null)
+            mapToDisk();
+
+        if (count % numSamples == 0) {
+            jump = rndInt(numSets) * numSamples;
+        }
+
+        return diskSamples.get(jump + shuffledIndices.get(jump + (count++ % numSamples)));
+    }
+
+    public Vector3 nextSampleHemisphere() {
+        if (hemisphereSamples == null)
+            mapToHemisphere(1.0f);
+
+        if (count % numSamples == 0) {
+            jump = rndInt(numSets) * numSamples;
+        }
+
+        return hemisphereSamples.get(jump + shuffledIndices.get(jump + (count++ % numSamples)));
     }
 
     public int getNumSamples() {
@@ -91,5 +118,51 @@ public final class Sampler {
 
     protected int getNumSets() {
         return numSets;
+    }
+
+    /**
+     * Maps the sample configuration of this samples to a disk.
+     */
+    private void mapToDisk() {
+        diskSamples = new ArrayList<>(samples.size());
+        float r;
+        float phi;
+
+        for (Vector2 sample : samples) {
+            Vector2 sp = new Vector2(2 * sample.getX() - 1.0f, 2 * sample.getY() - 1.0f);
+
+            if (sp.getX() > -sp.getY()) {               //Sector 1
+                if (sp.getX() > sp.getY()) {
+                    r = sp.getX();
+                    phi = sp.getY() / sp.getX();
+                } else {                                //Sector 2
+                    r = sp.getY();
+                    phi = 2 - sp.getX() / sp.getY();
+                }
+            } else {
+                if (sp.getX() < sp.getY()) {            //Sector 3
+                    r = -sp.getX();
+                    phi = 4 + sp.getY() / sp.getX();
+                } else {                                //Sector 4
+                    r = -sp.getY();
+                    phi = sp.getY() != 0.0f ? 6 - sp.getX() / sp.getY() : 0.0f;
+                }
+            }
+            phi *= PI / 4.0f;
+            diskSamples.add(new Vector2((float) (r * cos(phi)), (float) (r * sin(phi))));
+        }
+    }
+
+    public void mapToHemisphere(float e) {
+        hemisphereSamples = new ArrayList<>(samples.size());
+        for (Vector2 sample : samples) {
+            float cosPhi = (float) cos(2.0 * PI * sample.getX());
+            float sinPhi = (float) sin(2.0 * PI * sample.getX());
+            float cosTheta = (float) pow(1.0 - sample.getY(), 1.0 / (e + 1.0));
+            float sinTheta = (float) sqrt(1.0 - cosTheta * cosTheta);
+            float pu = sinTheta * cosPhi;
+            float pv = sinTheta * sinPhi;
+            hemisphereSamples.add(new Vector3(pu, pv, cosTheta));
+        }
     }
 }

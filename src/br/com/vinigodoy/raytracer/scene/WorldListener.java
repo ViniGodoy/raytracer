@@ -38,7 +38,7 @@ public interface WorldListener {
      * Indicate that the image was fully rendered.
      *
      * @param world      World, source of the event
-     * @param renderTime Time of rendering, in seconds.
+     * @param renderTime Time of rendering, in milliseconds.
      */
-    void traceFinished(World world, double renderTime);
+    void traceFinished(World world, long renderTime);
 }

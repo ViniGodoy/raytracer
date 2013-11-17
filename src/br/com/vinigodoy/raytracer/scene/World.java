@@ -77,7 +77,7 @@ public class World {
                 fireTraceStarted(vp);
                 long before = System.currentTimeMillis();
                 camera.render(World.this, vp);
-                double renderTime = (System.currentTimeMillis() - before) / 1000.0;
+                long renderTime = (System.currentTimeMillis() - before);
                 fireTraceFinished(renderTime);
                 renderThread = null;
             }
@@ -151,7 +151,7 @@ public class World {
         }
     }
 
-    private void fireTraceFinished(double renderTime) {
+    private void fireTraceFinished(long renderTime) {
         for (WorldListener listener : new ArrayList<>(listeners)) {
             listener.traceFinished(this, renderTime);
         }
