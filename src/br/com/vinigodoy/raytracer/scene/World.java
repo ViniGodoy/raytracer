@@ -81,7 +81,8 @@ public class World {
                 fireTraceFinished(renderTime);
                 renderThread = null;
             }
-        });
+        }, "Raytracer Render");
+        renderThread.setDaemon(true);
         renderThread.start();
     }
 
