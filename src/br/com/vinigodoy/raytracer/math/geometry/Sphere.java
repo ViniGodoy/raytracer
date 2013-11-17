@@ -72,7 +72,7 @@ public class Sphere implements GeometricObject {
 
         if (t > K_EPSILON) {
             sr.normal = multiply(ray.getDirection(), t).add(temp).divide(radius);
-            sr.localHitPoint = ray.pointAt(t);
+            sr.hitPoint = ray.pointAt(t);
             tmin.value = t;
             return true;
         }

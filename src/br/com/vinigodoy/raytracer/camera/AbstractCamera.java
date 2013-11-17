@@ -14,6 +14,7 @@ package br.com.vinigodoy.raytracer.camera;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
+import br.com.vinigodoy.raytracer.utility.UVW;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.*;
 
@@ -88,29 +89,6 @@ public abstract class AbstractCamera implements Camera {
         return new UVW(u, v, w);
     }
 
-    protected static class UVW {
-        private Vector3 u;
-        private Vector3 v;
-        private Vector3 w;
-
-        public UVW(Vector3 u, Vector3 v, Vector3 w) {
-            this.u = u;
-            this.v = v;
-            this.w = w;
-        }
-
-        public Vector3 getU() {
-            return u;
-        }
-
-        public Vector3 getV() {
-            return v;
-        }
-
-        public Vector3 getW() {
-            return w;
-        }
-    }
 
     public void drawPixel(World world, ViewPlane vp, int col, int row, Vector3 color) {
         if (vp.getGamma() != 1.0f)

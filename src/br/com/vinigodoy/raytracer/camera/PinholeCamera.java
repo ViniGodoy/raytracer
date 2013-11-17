@@ -16,8 +16,8 @@ import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
+import br.com.vinigodoy.raytracer.utility.UVW;
 
-import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 import static br.com.vinigodoy.raytracer.scene.order.PixelArray.Pixel;
 
 /**
@@ -76,8 +76,6 @@ public class PinholeCamera extends AbstractCamera {
     }
 
     public Vector3 getDirection(Vector2 p, UVW uvw) {
-        return multiply(uvw.getU(), p.getX())
-                .add(multiply(uvw.getV(), p.getY()))
-                .add(multiply(uvw.getW(), -viewPlaneDistance)).normalize();
+        return uvw.transform(p, -viewPlaneDistance);
     }
 }

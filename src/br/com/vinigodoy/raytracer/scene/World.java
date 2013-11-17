@@ -104,13 +104,13 @@ public class World {
                 tMin = fr.value;
                 sr.material = obj.getMaterial();
                 normal = sr.normal;
-                localHitPoint = sr.localHitPoint;
+                localHitPoint = sr.hitPoint;
             }
         }
 
         if (sr.hitAnObject) {
             sr.normal = normal;
-            sr.localHitPoint = localHitPoint;
+            sr.hitPoint = localHitPoint;
         }
         return sr;
     }

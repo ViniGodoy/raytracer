@@ -33,9 +33,6 @@ public class ShadeRec implements Cloneable {
      */
     public Vector3 hitPoint = null;
 
-    //For attaching texture to objects
-    public Vector3 localHitPoint = null;
-
     /**
      * Normal at hit point.
      */
@@ -64,7 +61,7 @@ public class ShadeRec implements Cloneable {
         sr.hitAnObject = hitAnObject;
         sr.material = material == null ? null : material.clone();
         sr.hitPoint = hitPoint == null ? null : hitPoint.clone();
-        sr.localHitPoint = localHitPoint == null ? null : localHitPoint.clone();
+        sr.hitPoint = hitPoint == null ? null : hitPoint.clone();
         sr.ray = ray == null ? null : new Ray(ray.getOrigin(), ray.getDirection());
         sr.depth = depth;
         sr.dir = dir == null ? null : dir.clone();

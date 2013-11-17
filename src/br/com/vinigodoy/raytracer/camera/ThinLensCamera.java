@@ -19,6 +19,7 @@ import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.scene.order.PixelArray;
+import br.com.vinigodoy.raytracer.utility.UVW;
 
 import static br.com.vinigodoy.raytracer.math.Vector2.multiply;
 import static br.com.vinigodoy.raytracer.math.Vector3.add;
@@ -35,21 +36,18 @@ public class ThinLensCamera extends AbstractCamera {
     private Sampler sampler;
 
     public ThinLensCamera(Vector3 eyePosition, Vector3 lookPoint, Vector3 upDirection, float viewPlaneDistance,
-                          float focalDistance, float lensRadius, int numSamples) {
+                          float focalDistance, float lensRadius, Sampler sampler) {
         super(eyePosition, lookPoint, upDirection);
         this.viewPlaneDistance = viewPlaneDistance;
         this.focalDistance = focalDistance;
         this.lensRadius = lensRadius;
         this.zoom = 1.0f;
-        this.sampler = Sampler.newDefault(numSamples);
+        this.sampler = sampler;
     }
 
     Vector3 getDirection(Vector2 pixel, Vector2 lensPoint, UVW uvw) {
         Vector2 p = multiply(pixel, focalDistance / viewPlaneDistance).subtract(lensPoint);
-        return multiply(uvw.getU(), p.getX())
-                .add(multiply(uvw.getV(), p.getY()))
-                .subtract(multiply(uvw.getW(), focalDistance))
-                .normalize();
+        return uvw.transform(p, -focalDistance).normalize();
     }
 
     @Override
@@ -63,8 +61,6 @@ public class ThinLensCamera extends AbstractCamera {
 
             Vector3 L = new Vector3();
 
-            int count = 0;
-
             for (int i = 0; i < vp.getSampler().getNumSamples(); i++) {
                 Vector2 sp = vp.getSampler().nextSampleSquare();
 
@@ -72,19 +68,17 @@ public class ThinLensCamera extends AbstractCamera {
                         s * (c - 0.5f * vp.getHRes() + sp.getX()),
                         s * (r - 0.5f * vp.getVRes() + sp.getY()));
 
-                for (int j = 0; j < sampler.getNumSamples(); j++) {
-                    Vector2 dp = sampler.nextSampleDisk();
-                    Vector2 lp = multiply(dp, lensRadius);
-                    Vector3 o = add(eye, multiply(uvw.getU(), lp.getX()))
-                            .add(multiply(uvw.getV(), lp.getY()));
 
-                    Ray ray = new Ray(o, getDirection(pp, lp, uvw));
-                    L.add(world.getTracer().trace(world, ray, 0));
-                    count++;
-                }
+                Vector2 dp = sampler.nextSampleDisk();
+                Vector2 lp = multiply(dp, lensRadius);
+                Vector3 o = add(eye, multiply(uvw.getU(), lp.getX()))
+                        .add(multiply(uvw.getV(), lp.getY()));
+
+                Ray ray = new Ray(o, getDirection(pp, lp, uvw));
+                L.add(world.getTracer().trace(world, ray, 0));
             }
 
-            L.divide(count).multiply(exposureTime);
+            L.divide(vp.getSampler().getNumSamples()).multiply(exposureTime);
             drawPixel(world, vp, c, r, L);
         }
     }

@@ -11,7 +11,8 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 17/11/2013 [pic1][10][pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**
+- 17/11/2013 Ambient occlusion.
+- 16/11/2013 [pic1][10][pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**
 - 15/11/2013 [pic1][8] [pic2][9] - Created the billiard scene and added shadows. **v1.5**
 - 15/11/2013 [pic][7] - Interlaced2 drawing order and specular reflections. **v1.4**
 - 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.

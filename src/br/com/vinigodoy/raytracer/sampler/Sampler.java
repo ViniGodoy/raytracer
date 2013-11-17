@@ -24,7 +24,7 @@ import static java.lang.Math.*;
  * Generate several sample sets of a given sample type. Also, contains methods to map samples into a disk and a
  * hemisphere.
  */
-public final class Sampler {
+public final class Sampler implements Cloneable {
     public static final int DEFAULT_NUM_SETS = 83;
 
     private List<Vector2> samples;
@@ -164,5 +164,10 @@ public final class Sampler {
             float pv = sinTheta * sinPhi;
             hemisphereSamples.add(new Vector3(pu, pv, cosTheta));
         }
+    }
+
+    @Override
+    public Sampler clone() {
+        return new Sampler(sample, numSamples, numSets);
     }
 }

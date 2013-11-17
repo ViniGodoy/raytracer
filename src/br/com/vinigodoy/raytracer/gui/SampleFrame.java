@@ -30,12 +30,12 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private static final String VERSION = "1.6";
+    private static final String VERSION = "1.7b";
     private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
             " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
 
-    private static final int SAMPLES = 4;
+    private static final int SAMPLES = 49;
 
     private boolean renderToScreen = true;
 
@@ -155,14 +155,14 @@ public class SampleFrame extends JFrame {
 
         ViewPlane vp = new ViewPlane(800, 450, SAMPLES);
         vp.setDrawOrder((DrawOrder) cmbDrawOrder.getSelectedItem());
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(1.0f, waiter);
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(SAMPLES, 1.0f, waiter);
         world.render(vp);
     }
 
     private void renderToFile() {
         renderToScreen = false;
 
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(2.4f, waiter);
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(SAMPLES, 2.4f, waiter);
         world.render(new ViewPlane(1920, 1080, SAMPLES));
     }
 

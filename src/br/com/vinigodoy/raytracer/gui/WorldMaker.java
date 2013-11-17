@@ -14,12 +14,14 @@ package br.com.vinigodoy.raytracer.gui;
 import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.camera.ThinLensCamera;
 import br.com.vinigodoy.raytracer.light.AmbientLight;
+import br.com.vinigodoy.raytracer.light.AmbientOccludedLight;
 import br.com.vinigodoy.raytracer.light.PointLight;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.Plane;
 import br.com.vinigodoy.raytracer.math.geometry.Sphere;
+import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.scene.WorldListener;
 import br.com.vinigodoy.raytracer.tracer.Raycasting;
@@ -27,7 +29,7 @@ import br.com.vinigodoy.raytracer.tracer.Raycasting;
 public enum WorldMaker {
     BALLS {
         @Override
-        public World createScene(float zoom, WorldListener listener) {
+        public World createScene(int numSamples, float zoom, WorldListener listener) {
             PinholeCamera camera = new PinholeCamera(
                     new Vector3(0, 0, 800),
                     new Vector3(0, 0, 0),
@@ -122,17 +124,18 @@ public enum WorldMaker {
         }
 
         @Override
-        public World createScene(float zoom, WorldListener listener) {
+        public World createScene(int numSamples, float zoom, WorldListener listener) {
             ThinLensCamera camera = new ThinLensCamera(
                     new Vector3(20, 22, 670),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
-                    2000, 670, 0.6f, 24);
+                    2000, 670, 0.6f, Sampler.newDefault(numSamples));
 
             camera.setZoom(zoom);
-
             World world = new World(toString(), new Raycasting(), new Vector3(0f, 0f, 0f), camera);
-            world.setAmbientLight(new AmbientLight(0.8f, new Vector3(1.0f, 1.0f, 1.0f)));
+            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.35f,
+                    Sampler.newDefault(numSamples)));
+
             world.addListener(listener);
 
             //Lights
@@ -188,7 +191,7 @@ public enum WorldMaker {
         }
     };
 
-    public abstract World createScene(float zoom, WorldListener listener);
+    public abstract World createScene(int numSamples, float zoom, WorldListener listener);
 
     @Override
     public String toString() {

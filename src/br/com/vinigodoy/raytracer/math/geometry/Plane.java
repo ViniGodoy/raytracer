@@ -37,7 +37,7 @@ public class Plane implements GeometricObject {
             return false;
 
         sr.normal = normal;
-        sr.localHitPoint = ray.pointAt(t);
+        sr.hitPoint = ray.pointAt(t);
         tmin.value = t;
 
         return true;
