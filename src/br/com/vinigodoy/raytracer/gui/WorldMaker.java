@@ -127,7 +127,7 @@ public enum WorldMaker {
                     new Vector3(20, 22, 670),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
-                    2000, 170, 0.6f, 24);
+                    2000, 670, 0.6f, 24);
 
             camera.setZoom(zoom);
 
