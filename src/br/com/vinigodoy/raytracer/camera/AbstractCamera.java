@@ -95,6 +95,6 @@ public abstract class AbstractCamera implements Camera {
             color.pow(vp.invGamma());
 
         int invR = vp.getVRes() - row - 1;
-        world.drawPixel(col, invR, saturate(color));
+        world.drawPixel(col, invR, color);
     }
 }

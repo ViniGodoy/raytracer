@@ -30,7 +30,8 @@ public interface WorldListener {
      * @param world World, source of the event
      * @param x     Pixel x position
      * @param y     Pixel y position
-     * @param color Pixel color
+     * @param color Pixel unsaturated pixel color. Use the Vector3#toRGB() method to
+     *              saturate and convert to a RGB format.
      */
     void pixelTraced(World world, int x, int y, Vector3 color);
 

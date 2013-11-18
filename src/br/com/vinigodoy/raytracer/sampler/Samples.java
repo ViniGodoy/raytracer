@@ -169,7 +169,7 @@ public enum Samples implements Sample {
     protected List<Vector2> createList(int numSamples) {
         if (numSamples < 0)
             throw new IllegalArgumentException("Number of samples cannot be smaller than zero! numSamples=" + numSamples);
-        return new ArrayList<>(numSamples);
+        return new ArrayList<Vector2>(numSamples);
 
     }
 
@@ -177,7 +177,7 @@ public enum Samples implements Sample {
     public List<Vector2> createSamples(int numSamples) {
         if (numSamples < 1)
             throw new RaytraceException("Number of samples cannot be smaller than one! numSamples = %d", numSamples);
-        List<Vector2> samples = new ArrayList<>(numSamples);
+        List<Vector2> samples = new ArrayList<Vector2>(numSamples);
         fillSamples(samples, numSamples);
         return samples;
     }

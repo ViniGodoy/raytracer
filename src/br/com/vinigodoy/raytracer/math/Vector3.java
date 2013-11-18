@@ -11,8 +11,6 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.math;
 
-import java.awt.*;
-
 /**
  * Represents a vector in 3D coordinate space.
  * This class has two versions of most methods:
@@ -427,14 +425,20 @@ public class Vector3 implements Cloneable {
     }
 
     /**
-     * Converts this vector to a Color.
+     * Converts this vector to an RGB color.
+     * If any of the color components are bigger than one, a saturation algorithm
+     * will be used.
      *
-     * @return The color.
-     * @see Color
-     * @see Color#Color(float, float, float)
+     * @return The color as int with RGB format.
      */
-    public Color toColor() {
-        return new Color(x, y, z);
+    public int toRGB() {
+        Vector3 color = saturate(this);
+
+        int r = (Math.round(color.x * 255) & 0xFF);
+        int g = (Math.round(color.y * 255) & 0xFF);
+        int b = (Math.round(color.z * 255) & 0xFF);
+
+        return r << 16 | g << 8 | b;
     }
 
     @Override

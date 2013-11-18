@@ -31,7 +31,7 @@ public final class Sampler implements Cloneable {
     private List<Vector2> diskSamples;
     private List<Vector3> hemisphereSamples;
 
-    private List<Integer> shuffledIndices = new ArrayList<>();
+    private List<Integer> shuffledIndices = new ArrayList<Integer>();
     private Sample sample;
     private int numSamples;
     private int numSets;
@@ -40,7 +40,7 @@ public final class Sampler implements Cloneable {
     private int jump = 0;
 
     public Sampler(Sample sample, int numSamples, int numSets) {
-        this.samples = new ArrayList<>(numSets * numSamples);
+        this.samples = new ArrayList<Vector2>(numSets * numSamples);
         this.sample = sample;
         this.numSamples = numSamples <= 0 ? 1 : numSamples;
         this.numSets = numSets <= 0 ? 1 : numSets;
@@ -72,7 +72,7 @@ public final class Sampler implements Cloneable {
 
     private void shuffleIndices() {
         shuffledIndices.clear();
-        List<Integer> indices = new ArrayList<>();
+        List<Integer> indices = new ArrayList<Integer>();
         for (int i = 0; i < numSamples; i++)
             indices.add(i);
 
@@ -124,7 +124,7 @@ public final class Sampler implements Cloneable {
      * Maps the sample configuration of this samples to a disk.
      */
     private void mapToDisk() {
-        diskSamples = new ArrayList<>(samples.size());
+        diskSamples = new ArrayList<Vector2>(samples.size());
         float r;
         float phi;
 
@@ -154,7 +154,7 @@ public final class Sampler implements Cloneable {
     }
 
     public void mapToHemisphere(float e) {
-        hemisphereSamples = new ArrayList<>(samples.size());
+        hemisphereSamples = new ArrayList<Vector3>(samples.size());
         for (Vector2 sample : samples) {
             float cosPhi = (float) cos(2.0 * PI * sample.getX());
             float sinPhi = (float) sin(2.0 * PI * sample.getX());

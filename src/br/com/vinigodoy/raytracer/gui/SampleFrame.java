@@ -43,8 +43,8 @@ public class SampleFrame extends JFrame {
     private JButton btnDraw = new JButton("Draw");
     private JButton btnSave = new JButton("Save in full HD");
 
-    private JComboBox<WorldMaker> cmbScene = new JComboBox<>();
-    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
+    private JComboBox<WorldMaker> cmbScene = new JComboBox<WorldMaker>();
+    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<DrawOrder>();
 
     private JFileChooser chooser = new JFileChooser();
     private JProgressBar pbProgress = new JProgressBar();
@@ -195,14 +195,14 @@ public class SampleFrame extends JFrame {
 
 
             g2d = image.createGraphics();
-            g2d.setColor(world.getBackgroundColor().toColor());
+            g2d.setColor(new Color(world.getBackgroundColor().toRGB()));
             g2d.fillRect(0, 0, width, height);
             lastTimePainted = System.currentTimeMillis();
         }
 
         @Override
         public void pixelTraced(World world, int x, int y, Vector3 color) {
-            image.setRGB(x, y, color.toColor().getRGB());
+            image.setRGB(x, y, color.toRGB());
             count++;
 
             if (System.currentTimeMillis() - lastTimePainted > 500) {

@@ -33,12 +33,12 @@ public class World {
     private Tracer tracer;
     private Camera camera;
 
-    private List<GeometricObject> objects = new ArrayList<>();
-    private List<WorldListener> listeners = new ArrayList<>();
+    private List<GeometricObject> objects = new ArrayList<GeometricObject>();
+    private List<WorldListener> listeners = new ArrayList<WorldListener>();
 
     private Light ambientLight = new AmbientLight(0.5f, new Vector3(1.0f, 1.0f, 1.0f));
 
-    private List<Light> lights = new ArrayList<>();
+    private List<Light> lights = new ArrayList<Light>();
 
     public World(String name, Tracer tracer, Vector3 backgroundColor, Camera camera) {
         this.name = name;
@@ -153,7 +153,7 @@ public class World {
     }
 
     private void fireTraceFinished(long renderTime) {
-        for (WorldListener listener : new ArrayList<>(listeners)) {
+        for (WorldListener listener : new ArrayList<WorldListener>(listeners)) {
             listener.traceFinished(this, renderTime);
         }
 
