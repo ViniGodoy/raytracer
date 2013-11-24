@@ -11,10 +11,22 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.light;
 
 
+import br.com.vinigodoy.raytracer.utility.ShadeRec;
+
 public abstract class AbstractLight implements Light {
     private boolean castShadows = true;
 
     public AbstractLight() {
+    }
+
+    @Override
+    public float G(ShadeRec sr) {
+        return 1.0f;
+    }
+
+    @Override
+    public float pdf(ShadeRec sr) {
+        return 1.0f;
     }
 
     @Override

@@ -46,6 +46,10 @@ public class Vector3 implements Cloneable {
         this.z = z;
     }
 
+    public static Vector3 fromRGB(int r, int g, int b) {
+        return new Vector3(r / 255.0f, g / 255.0f, b / 255.0f);
+    }
+
     /**
      * @return The x component of this vector
      */
@@ -373,6 +377,16 @@ public class Vector3 implements Cloneable {
      * @return The distance
      */
     public float distance(Vector3 other) {
+        return subtract(this, other).size();
+    }
+
+    /**
+     * Calculate the squared distance between this point and another one.
+     *
+     * @param other Other point
+     * @return The squared distance
+     */
+    public float distanceSqr(Vector3 other) {
         return subtract(this, other).sizeSqr();
     }
 

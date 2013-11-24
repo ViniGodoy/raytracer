@@ -68,7 +68,6 @@ public class ThinLensCamera extends AbstractCamera {
                         s * (c - 0.5f * vp.getHRes() + sp.getX()),
                         s * (r - 0.5f * vp.getVRes() + sp.getY()));
 
-
                 Vector2 dp = sampler.nextSampleDisk();
                 Vector2 lp = multiply(dp, lensRadius);
                 Vector3 o = add(eye, multiply(uvw.getU(), lp.getX()))

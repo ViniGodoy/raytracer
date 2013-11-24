@@ -13,17 +13,20 @@ package br.com.vinigodoy.raytracer.gui;
 
 import br.com.vinigodoy.raytracer.camera.PinholeCamera;
 import br.com.vinigodoy.raytracer.camera.ThinLensCamera;
-import br.com.vinigodoy.raytracer.light.AmbientLight;
 import br.com.vinigodoy.raytracer.light.AmbientOccludedLight;
+import br.com.vinigodoy.raytracer.light.AreaLight;
 import br.com.vinigodoy.raytracer.light.PointLight;
+import br.com.vinigodoy.raytracer.material.Emissive;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.math.geometry.Plane;
-import br.com.vinigodoy.raytracer.math.geometry.Sphere;
+import br.com.vinigodoy.raytracer.math.geometry.primitive.Plane;
+import br.com.vinigodoy.raytracer.math.geometry.primitive.Rectangle;
+import br.com.vinigodoy.raytracer.math.geometry.primitive.Sphere;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.scene.WorldListener;
+import br.com.vinigodoy.raytracer.tracer.AreaLightTracer;
 import br.com.vinigodoy.raytracer.tracer.Raycasting;
 
 public enum WorldMaker {
@@ -39,7 +42,8 @@ public enum WorldMaker {
             camera.setZoom(zoom);
 
             World world = new World(toString(), new Raycasting(), new Vector3(), camera);
-            world.setAmbientLight(new AmbientLight(1.0f, new Vector3(1.0f, 1.0f, 1.0f)));
+            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
+                    Sampler.newDefault(numSamples)));
             world.addListener(listener);
 
             //Lights
@@ -107,10 +111,10 @@ public enum WorldMaker {
         }
     },
     BILLIARD {
-        private static final float BALL_CM = 5.715f;
+        private static final float BALL_CM = 5.715f / 2.0f;
 
         private Sphere createCarom(float x, float z) {
-            float caromCm = 6.15f;
+            float caromCm = 6.15f / 2.0f;
             return new Sphere(new Vector3(x, caromCm, z), caromCm,
                     new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1, 1, 1)));
         }
@@ -123,24 +127,47 @@ public enum WorldMaker {
                     material);
         }
 
+        private void createLamp(World world, float w, float y, float z, int numSamples) {
+            float hw = w / 2.0f;
+
+            Rectangle shape = new Rectangle(
+                    new Vector3(-hw, y, -hw + z),
+                    new Vector3(w, 0, 0),
+                    new Vector3(0, 0, w),
+                    new Vector3(0, -1, 0),
+                    new Emissive(40000, new Vector3(1, 1, 1)), Sampler.newDefault(numSamples));
+
+            world.add(new AreaLight(shape));
+            world.add(shape);
+        }
+
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
             ThinLensCamera camera = new ThinLensCamera(
-                    new Vector3(20, 22, 670),
+                    new Vector3(10, 10, 190),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
-                    2000, 670, 0.6f, Sampler.newDefault(numSamples));
+                    2000, 190 + 86, 0.25f, Sampler.newDefault(numSamples));
+
+            /*
+            Camera sobre a mesa
+            ThinLensCamera camera = new ThinLensCamera(
+                    new Vector3(0, 760, 0),
+                    new Vector3(0, 0, 0),
+                    new Vector3(0, 1, 0),
+                    2000, 700, 0.6f, Sampler.newDefault(numSamples));*/
+
 
             camera.setZoom(zoom);
-            World world = new World(toString(), new Raycasting(), new Vector3(0f, 0f, 0f), camera);
-            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.35f,
+            World world = new World(toString(), new AreaLightTracer(), new Vector3(0f, 0f, 0f), camera);
+            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
                     Sampler.newDefault(numSamples)));
 
             world.addListener(listener);
 
             //Lights
-            world.add(new PointLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 200.0f, 300.0f)));
-            world.add(new PointLight(2.5f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 200.0f, 800.0f)));
+            createLamp(world, 20, 100, -60, numSamples);
+            createLamp(world, 20, 100, 60, numSamples);
 
             // colors
             Vector3 one = new Vector3(1.0f, 1.0f, 0.0f);            //Yellow
@@ -160,32 +187,34 @@ public enum WorldMaker {
             Vector3 fourteen = new Vector3(0.0f, 0.41f, 0.41f);     //Green and white
             Vector3 fifteen = new Vector3(0.545f, 0.27f, 0.074f);   //Brown and white
 
-            Vector3 table = new Vector3(0.188f, 0.5f, 0.14f);       //Green
+            //Vector3 table = new Vector3(0.188f, 0.5f, 0.14f);       //Green
+            Vector3 table = Vector3.fromRGB(10, 108, 3);
 
             // Table
-            world.add(new Plane(new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, table)));
+            world.add(new Rectangle(new Vector3(-71, 0, -142), new Vector3(142, 0, 0), new Vector3(0, 0, 284), new Vector3(0, 1, 0),
+                    new Matte(0.2f, 0.5f, table)));
 
             // Balls
-            world.add(createCarom(0, 500));
-            world.add(createBall(0, 0, one));
+            world.add(createCarom(0, 122));
+            world.add(createBall(0, -86, one));
 
-            world.add(createBall(-6, -11.0f, two));
-            world.add(createBall(6, -11.0f, three));
+            world.add(createBall(-3, -92.0f, two));
+            world.add(createBall(3, -92.0f, three));
 
-            world.add(createBall(-12, -24.0f, four));
-            world.add(createBall(0, -24.0f, five));
-            world.add(createBall(12, -24.0f, six));
+            world.add(createBall(-6, -98.0f, four));
+            world.add(createBall(0, -98.0f, five));
+            world.add(createBall(6, -98.0f, six));
 
-            world.add(createBall(-18, -37.0f, seven));
-            world.add(createBall(-6, -37.0f, eight));
-            world.add(createBall(6, -37.0f, nine));
-            world.add(createBall(18, -37.0f, ten));
+            world.add(createBall(-9, -104.0f, seven));
+            world.add(createBall(-3, -104.0f, eight));
+            world.add(createBall(3, -104.0f, nine));
+            world.add(createBall(9, -104.0f, ten));
 
-            world.add(createBall(-24, -50.0f, eleven));
-            world.add(createBall(-12, -50.0f, twelve));
-            world.add(createBall(0, -50.0f, thirteen));
-            world.add(createBall(12, -50.0f, fourteen));
-            world.add(createBall(24, -50.0f, fifteen));
+            world.add(createBall(-12, -110.0f, eleven));
+            world.add(createBall(-6, -110.0f, twelve));
+            world.add(createBall(0, -110.0f, thirteen));
+            world.add(createBall(6, -110.0f, fourteen));
+            world.add(createBall(12, -110.0f, fifteen));
 
             return world;
         }

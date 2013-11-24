@@ -47,6 +47,11 @@ public class Matte extends AbstractMaterial {
     }
 
     @Override
+    protected Vector3 processAreaLight(ShadeRec sr, Vector3 wo, Light light, Vector3 wi, float ndotwi) {
+        return processLight(sr, wo, light, wi, ndotwi).multiply(light.G(sr) / light.pdf(sr));
+    }
+
+    @Override
     public Matte clone() {
         return new Matte(ambient.getKd(), diffuse.getKd(), ambient.getCd().clone());
     }

@@ -27,8 +27,7 @@ public abstract class AbstractMaterial implements Material {
         this.ambient = new Lambertian(ka, color);
     }
 
-    @Override
-    public Vector3 shade(ShadeRec sr) {
+    private Vector3 shade(ShadeRec sr, boolean area) {
         Vector3 wo = negate(sr.ray.getDirection());
         Vector3 L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
         for (Light light : sr.world.getLights()) {
@@ -43,11 +42,21 @@ public abstract class AbstractMaterial implements Material {
                 }
 
                 if (!inShadow) {
-                    L.add(processLight(sr, wo, light, wi, ndotwi));
+                    L.add(area ? processLight(sr, wo, light, wi, ndotwi) : processAreaLight(sr, wo, light, wi, ndotwi));
                 }
             }
         }
         return L;
+    }
+
+    @Override
+    public Vector3 shade(ShadeRec sr) {
+        return shade(sr, false);
+    }
+
+    @Override
+    public Vector3 areaLightShade(ShadeRec sr) {
+        return shade(sr, true);
     }
 
     public void setKa(float k) {
@@ -70,4 +79,8 @@ public abstract class AbstractMaterial implements Material {
     public abstract Material clone();
 
     protected abstract Vector3 processLight(ShadeRec sr, Vector3 wo, Light light, Vector3 wi, float ndotwi);
+
+    protected Vector3 processAreaLight(ShadeRec sr, Vector3 wo, Light light, Vector3 wi, float ndotwi) {
+        return processLight(sr, wo, light, wi, ndotwi).multiply(light.G(sr) / light.pdf(sr));
+    }
 }

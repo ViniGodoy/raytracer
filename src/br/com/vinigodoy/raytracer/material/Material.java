@@ -16,7 +16,22 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 public interface Material extends Cloneable {
+
+    /**
+     * Provides shading information indefinite area lights, such as Ambient, Point and Directional lights.
+     *
+     * @param sr The shade rect
+     * @return The shading color
+     */
     Vector3 shade(ShadeRec sr);
+
+    /**
+     * Provides shading information area lights
+     *
+     * @param sr The shade rect
+     * @return The shading color
+     */
+    Vector3 areaLightShade(ShadeRec sr);
 
     Material clone();
 }

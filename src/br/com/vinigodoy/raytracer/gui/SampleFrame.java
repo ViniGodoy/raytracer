@@ -35,7 +35,7 @@ public class SampleFrame extends JFrame {
             " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
 
-    private static final int SAMPLES = 49;
+    private static final int SAMPLES = 100;
 
     private boolean renderToScreen = true;
 
@@ -208,7 +208,7 @@ public class SampleFrame extends JFrame {
             if (System.currentTimeMillis() - lastTimePainted > 500) {
                 pbProgress.setValue(count);
                 pbProgress.setString(String.format("Drawing %s: %.2f%% - pixel %d of %d",
-                        world.getName(), (double) count / pbProgress.getMaximum(), count, pbProgress.getMaximum()));
+                        world.getName(), count * 100.0 / pbProgress.getMaximum(), count, pbProgress.getMaximum()));
 
                 lastTimePainted = System.currentTimeMillis();
                 repaint();

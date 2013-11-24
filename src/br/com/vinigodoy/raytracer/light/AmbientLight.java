@@ -19,7 +19,7 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
  * Defines an uniform ambient light. Ambient lights leaves no shading and are usually used to represent the
  * "maximum darkness" of a scene. Use ambient lights to see object contours in almost absolute darkness.
  */
-public class AmbientLight implements Light {
+public class AmbientLight extends AbstractLight {
     private float ls;
     private Vector3 color;
 

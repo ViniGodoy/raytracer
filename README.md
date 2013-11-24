@@ -11,8 +11,9 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 24/11/2013 [pic][12] - Area lights, bounding box, triangle and rectangle geometric objects.
 - 17/11/2013 Ambient occlusion.
-- 16/11/2013 [pic1][10][pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**
+- 16/11/2013 [pic1][10] [pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**
 - 15/11/2013 [pic1][8] [pic2][9] - Created the billiard scene and added shadows. **v1.5**
 - 15/11/2013 [pic][7] - Interlaced2 drawing order and specular reflections. **v1.4**
 - 13/11/2013 Updated tracer to gradually trace the scene with given drawing order.
@@ -38,3 +39,4 @@ Change History
 [9]: https://lh3.googleusercontent.com/-uuXz46IKQdQ/Uofs_QJIgKI/AAAAAAAAAt8/oBLMQSbrTeo/w2236-h1258-no/Java+Raytracer-v1_5_Billiard.png
 [10]: https://lh6.googleusercontent.com/-9lyr5F29fq8/Uogopv2JY3I/AAAAAAAAAus/_RlVGEBpDaI/w2166-h1218-no/Java+Raytracer-v1_6_Billiard.png
 [11]: https://lh5.googleusercontent.com/-sbpa31fUUqg/UogsAEPO72I/AAAAAAAAAvM/ZqereRyMQ0A/w2166-h1218-no/Java+Raytracer-v1_6_Billiard_2.png
+[13]: https://lh4.googleusercontent.com/-TYZSbG9S8RA/UpGBThuw1II/AAAAAAAAAwk/Xoktz2Pw-no/w2166-h1218-no/Java+Raytracer-v1_7b_Billiard.png
