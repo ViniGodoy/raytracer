@@ -18,6 +18,7 @@ import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
+import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
 import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 
 public class Plane implements GeometricObject {
@@ -27,7 +28,7 @@ public class Plane implements GeometricObject {
 
     public Plane(Vector3 point, Vector3 normal, Material material) {
         this.point = point;
-        this.normal = normal.normalize();
+        this.normal = normalize(normal);
         this.material = material;
     }
 

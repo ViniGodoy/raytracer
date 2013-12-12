@@ -39,6 +39,7 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     private Material material;
 
+
     public Rectangle(Vector3 p0, Vector3 a, Vector3 b, Vector3 normal, Material material) {
         this.p0 = p0;
 
@@ -59,15 +60,15 @@ public class Rectangle implements GeometricObject, EmissiveObject {
     }
 
     public Rectangle(Material material) {
-        this.p0 = new Vector3(-1, 0, 1);
+        this.p0 = new Vector3(-1, 0, -1);
 
-        this.a = new Vector3(0, 0, 2);
-        this.aLenSquared = 4;
+        this.a = new Vector3(0, 0, 1);
+        this.aLenSquared = 1;
 
-        this.b = new Vector3(2, 0, 0);
-        this.bLenSquared = 4;
+        this.b = new Vector3(1, 0, 0);
+        this.bLenSquared = 1;
 
-        this.invArea = 0.25f;
+        this.invArea = 0.5f;
 
         this.normal = new Vector3(0, 1, 0);
         this.material = material;
