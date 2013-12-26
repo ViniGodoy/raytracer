@@ -13,6 +13,7 @@ package br.com.vinigodoy.raytracer.math.geometry.primitive;
 
 
 import br.com.vinigodoy.raytracer.material.Material;
+import br.com.vinigodoy.raytracer.math.BBox;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
@@ -98,6 +99,10 @@ public class OpenCylinder implements GeometricObject {
         }
 
         return false;
+    }
+
+    public BBox getBounds() {
+        return new BBox(-radius, radius, y0, y1, -radius, radius);
     }
 
     @Override

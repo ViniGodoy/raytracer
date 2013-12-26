@@ -11,7 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
-- 26/12/2013 - Box, Torus and Open Cylinder primitives.
+- 26/12/2013 [pic][13] - Box, Torus, Annulus and Open Cylinder primitives. Added ConvexPartSpheres.
 - 24/11/2013 [pic][12] - Area lights, bounding box, triangle and rectangle geometric objects.
 - 17/11/2013 Ambient occlusion.
 - 16/11/2013 [pic1][10] [pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**
@@ -41,3 +41,4 @@ Change History
 [10]: https://lh6.googleusercontent.com/-9lyr5F29fq8/Uogopv2JY3I/AAAAAAAAAus/_RlVGEBpDaI/w2166-h1218-no/Java+Raytracer-v1_6_Billiard.png
 [11]: https://lh5.googleusercontent.com/-sbpa31fUUqg/UogsAEPO72I/AAAAAAAAAvM/ZqereRyMQ0A/w2166-h1218-no/Java+Raytracer-v1_6_Billiard_2.png
 [12]: https://lh4.googleusercontent.com/-TYZSbG9S8RA/UpGBThuw1II/AAAAAAAAAwk/Xoktz2Pw-no/w2166-h1218-no/Java+Raytracer-v1_7b_Billiard.png
+[13]: https://lh5.googleusercontent.com/-iTzZAUql6Bc/Urxy3kjAHRI/AAAAAAAAAzo/PTjOzKKd9Os/w2166-h1218-no/Java+Raytracer-v1_7b_Objects.png

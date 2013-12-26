@@ -20,7 +20,6 @@ import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
-
 public class Torus implements GeometricObject {
     private float a; //Swept radius
     private float b; //Tube radius
@@ -119,5 +118,9 @@ public class Torus implements GeometricObject {
     @Override
     public Torus clone() {
         return new Torus(a, b, material.clone());
+    }
+
+    public BBox getBounds() {
+        return bbox;
     }
 }

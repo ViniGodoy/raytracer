@@ -14,6 +14,7 @@ package br.com.vinigodoy.raytracer.math.geometry.primitive;
 
 import br.com.vinigodoy.raytracer.material.Material;
 import br.com.vinigodoy.raytracer.material.Phong;
+import br.com.vinigodoy.raytracer.math.BBox;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
@@ -118,4 +119,9 @@ public class Sphere implements GeometricObject {
     public Material getMaterial() {
         return material;
     }
+
+    public BBox getBounds() {
+        return new BBox(-radius, radius, -radius, radius, -radius, radius);
+    }
+
 }

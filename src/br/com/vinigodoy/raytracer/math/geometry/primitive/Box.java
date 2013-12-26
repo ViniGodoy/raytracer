@@ -13,6 +13,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.math.geometry.primitive;
 
 import br.com.vinigodoy.raytracer.material.Material;
+import br.com.vinigodoy.raytracer.math.BBox;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
@@ -227,5 +228,9 @@ public class Box implements GeometricObject {
     @Override
     public Material getMaterial() {
         return material;
+    }
+
+    public BBox getBounds() {
+        return new BBox(x0, x1, y0, y1, z0, z1);
     }
 }

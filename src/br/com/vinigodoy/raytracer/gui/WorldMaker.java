@@ -20,6 +20,7 @@ import br.com.vinigodoy.raytracer.material.Emissive;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.math.geometry.part.ConvexPartSphere;
 import br.com.vinigodoy.raytracer.math.geometry.primitive.*;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.World;
@@ -221,7 +222,7 @@ public enum WorldMaker {
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
             PinholeCamera camera = new PinholeCamera(
-                    new Vector3(30, 60, 100),
+                    new Vector3(-30, 50, 110),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
                     200);
@@ -232,9 +233,9 @@ public enum WorldMaker {
             world.addListener(listener);
 
             //Lights
-            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
+            world.setAmbientLight(new AmbientOccludedLight(1.0f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
                     Sampler.newDefault(numSamples)));
-            world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 200.0f)));
+            world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(20.0f, 70.0f, 100.0f)));
 
 
             //Objects
@@ -242,6 +243,19 @@ public enum WorldMaker {
             world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
             world.add(new OpenCylinder(-20, 10, 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
             world.add(new Box(-15, 15, -15, 15, -15, 15, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.3f, 0.3f, 1.0f))));
+
+            world.add(ConvexPartSphere.withDegrees(new Vector3(0, 0, 0), 80,
+                    0f, 360, 90, 180,
+                    new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
+
+            world.add(ConvexPartSphere.withDegrees(new Vector3(0, 0, 0), 75,
+                    0f, 360, 90, 180,
+                    new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
+
+            world.add(new Annulus(new Vector3(0, 0, 0), new Vector3(0, 1, 0), 80, 75,
+                    new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
+
+            world.add(new Plane(new Vector3(0, -80, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, new Vector3(1, 1, 1))));
             return world;
         }
     };
