@@ -11,6 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 26/12/2013 - Box, Torus and Open Cylinder primitives.
 - 24/11/2013 [pic][12] - Area lights, bounding box, triangle and rectangle geometric objects.
 - 17/11/2013 Ambient occlusion.
 - 16/11/2013 [pic1][10] [pic2][11] - Disk and hemisphere sample mapping and a Thin Lens Camera. **v1.6**

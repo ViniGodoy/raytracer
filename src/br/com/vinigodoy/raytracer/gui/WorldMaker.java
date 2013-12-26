@@ -20,9 +20,7 @@ import br.com.vinigodoy.raytracer.material.Emissive;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.math.geometry.primitive.Plane;
-import br.com.vinigodoy.raytracer.math.geometry.primitive.Rectangle;
-import br.com.vinigodoy.raytracer.math.geometry.primitive.Sphere;
+import br.com.vinigodoy.raytracer.math.geometry.primitive.*;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.scene.WorldListener;
@@ -150,7 +148,7 @@ public enum WorldMaker {
                     2000, 190 + 86, 0.25f, Sampler.newDefault(numSamples));
 
             /*
-            Camera sobre a mesa
+            Camera over the table
             ThinLensCamera camera = new ThinLensCamera(
                     new Vector3(0, 760, 0),
                     new Vector3(0, 0, 0),
@@ -216,6 +214,34 @@ public enum WorldMaker {
             world.add(createBall(6, -110.0f, fourteen));
             world.add(createBall(12, -110.0f, fifteen));
 
+            return world;
+        }
+    },
+    OBJECTS {
+        @Override
+        public World createScene(int numSamples, float zoom, WorldListener listener) {
+            PinholeCamera camera = new PinholeCamera(
+                    new Vector3(30, 60, 100),
+                    new Vector3(0, 0, 0),
+                    new Vector3(0, 1, 0),
+                    200);
+
+            camera.setZoom(zoom);
+
+            World world = new World(toString(), new Raycasting(), new Vector3(), camera);
+            world.addListener(listener);
+
+            //Lights
+            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
+                    Sampler.newDefault(numSamples)));
+            world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 200.0f)));
+
+
+            //Objects
+            world.add(new Torus(45, 6f, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.8f, 0.3f))));
+            world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
+            world.add(new OpenCylinder(-20, 10, 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
+            world.add(new Box(-15, 15, -15, 15, -15, 15, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.3f, 0.3f, 1.0f))));
             return world;
         }
     };

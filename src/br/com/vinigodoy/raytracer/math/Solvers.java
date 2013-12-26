@@ -45,7 +45,7 @@ public class Solvers {
         return 2;
     }
 
-    public int solveCubic(double c[], double s[]) {
+    public static int solveCubic(double c[], double s[]) {
         /* normal form: x^3 + Ax^2 + Bx + C = 0 */
 
         double A = c[2] / c[3];
@@ -101,7 +101,7 @@ public class Solvers {
         return num;
     }
 
-    public int solveQuartic(double c[], double s[]) {
+    public static int solveQuartic(double c[], double s[]) {
         /* normal form: x^4 + Ax^3 + Bx^2 + Cx + D = 0 */
 
         double A = c[3] / c[4];

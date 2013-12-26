@@ -52,12 +52,9 @@ public class OpenCylinder implements GeometricObject {
         float inv_radius = 1.0f / radius;
 
         sr.normal = new Vector3((ox + t * dx) * inv_radius, 0.0f, (oz + t * dz) * inv_radius);
-
-        // test for hitting from inside
-        if (-ray.getDirection().dot(sr.normal) < 0.0)
+        if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0.0)
             sr.normal.negate();
-
-        sr.hitPoint = ray.pointAt(t);
+        sr.hitPoint = ray.pointAt(tmin.value);
         return true;
     }
 
@@ -76,25 +73,28 @@ public class OpenCylinder implements GeometricObject {
         float disc = b * b - 4.0f * a * c;
 
         if (disc < 0.0)
-            return (false);
+            return false;
 
         float e = (float) sqrt(disc);
         float denom = 2.0f * a;
-        float t = (-b - e) / denom;
+        float t = (-b - e) / denom;    // smaller root
 
-        if (t <= K_EPSILON) {
-            //If not hit, tries the larger root
-            t = (-b + e) / denom;
+        if (t > K_EPSILON) {
+            double yhit = oy + t * dy;
+
+            if (yhit > y0 && yhit < y1) {
+                tmin.value = t;
+                return true;
+            }
         }
 
-        if (t <= K_EPSILON) {
-            return false;
-        }
-
-        float yhit = oy + t * dy;
-        if (yhit > y0 && yhit < y1) {
-            tmin.value = t;
-            return true;
+        t = (-b + e) / denom;    // bigger root
+        if (t > K_EPSILON) {
+            double yhit = oy + t * dy;
+            if (yhit > y0 && yhit < y1) {
+                tmin.value = t;
+                return true;
+            }
         }
 
         return false;

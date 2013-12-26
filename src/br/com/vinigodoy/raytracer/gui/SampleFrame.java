@@ -80,7 +80,7 @@ public class SampleFrame extends JFrame {
         for (WorldMaker wm : WorldMaker.values()) {
             cmbScene.addItem(wm);
         }
-        cmbScene.setSelectedItem(WorldMaker.BILLIARD);
+        cmbScene.setSelectedItem(WorldMaker.OBJECTS);
 
         for (DrawOrder drawOrder : DrawOrders.values()) {
             cmbDrawOrder.addItem(drawOrder);

@@ -25,8 +25,9 @@ public class BBox {
                 p1.getX(), p1.getY(), p1.getZ());
     }
 
-    public BBox(float x0, float y0, float z0,
-                float x1, float y1, float z1) {
+    public BBox(float x0, float x1,
+                float y0, float y1,
+                float z0, float z1) {
         this.x0 = x0;
         this.y0 = y0;
         this.z0 = z0;
@@ -46,6 +47,7 @@ public class BBox {
         double ox = ray.getOrigin().getX();
         double oy = ray.getOrigin().getY();
         double oz = ray.getOrigin().getZ();
+
         double dx = ray.getDirection().getX();
         double dy = ray.getDirection().getY();
         double dz = ray.getDirection().getZ();
@@ -80,14 +82,25 @@ public class BBox {
             tz_max = (z0 - oz) * c;
         }
 
+        double t0, t1;
 
         // find largest entering t value
-        double t0 = tx_min > ty_min ? tx_min : ty_min;
+
+        if (tx_min > ty_min)
+            t0 = tx_min;
+        else
+            t0 = ty_min;
+
         if (tz_min > t0)
             t0 = tz_min;
 
         // find smallest exiting t value
-        double t1 = tx_max < ty_max ? tx_max : ty_max;
+
+        if (tx_max < ty_max)
+            t1 = tx_max;
+        else
+            t1 = ty_max;
+
         if (tz_max < t1)
             t1 = tz_max;
 
