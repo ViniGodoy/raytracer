@@ -77,10 +77,270 @@ public final class Matrix4 implements Cloneable {
      * Creates an identity matrix
      */
     public static Matrix4 newIdentity() {
-        return new Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
+        return new Matrix4(
+                1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,
                 0.0f, 0.0f, 1.0f, 0.0f,
                 0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Creates a translation matrix.
+     * @param x X displacement
+     * @param y Y displacement
+     * @param z Z displacement
+     * @return The translation matrix.
+     */
+    public static Matrix4 newTranslation(float x, float y, float z) {
+        return new Matrix4(
+                1, 0, 0, x,
+                0, 1, 0, y,
+                0, 0, 1, z,
+                0, 0, 0, 1);
+    }
+
+    /**
+     * Creates a translation matrix.
+     *
+     * @param translation The displacement
+     * @return The translation matrix.
+     */
+    public static Matrix4 newTranslation(Vector3 translation) {
+        return newTranslation(translation.getX(), translation.getY(), translation.getZ());
+    }
+
+    /**
+     * Create a scale matrix
+     *
+     * @param x Scale in x axis
+     * @param y Scale in y axis
+     * @param z Scale in z axis
+     * @return The scale matrix.
+     */
+    public static Matrix4 newScale(float x, float y, float z) {
+        return new Matrix4(
+                x, 0, 0, 0,
+                0, y, 0, 0,
+                0, 0, z, 0,
+                0, 0, 0, 1);
+    }
+
+    /**
+     * Create an uniform scale matrix.
+     *
+     * @param scale The scale.
+     * @return The scale matrix.
+     */
+    public static Matrix4 newScale(float scale) {
+        return newScale(scale, scale, scale);
+    }
+
+    /**
+     * Create a matrix to rotate around the x axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newRotationX(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                1, 0, 0, 0,
+                0, cosA, -sinA, 0,
+                0, sinA, cosA, 0,
+                0, 0, 0, 1);
+    }
+
+    /**
+     * Create a matrix to rotate around the y axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newRotationY(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                cosA, 0.0f, sinA, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.0f,
+                -sinA, 0.0f, cosA, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Create a matrix to rotate around the z axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newRotationZ(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                cosA, -sinA, 0.0f, 0.0f,
+                sinA, cosA, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Creates a X reflection matrix
+     *
+     * @return The scale matrix
+     */
+    public static Matrix4 newReflectionX() {
+        return newScale(-1, 1, 1);
+    }
+
+    /**
+     * Creates a Y reflection matrix
+     *
+     * @return The scale matrix
+     */
+    public static Matrix4 newReflectionY() {
+        return newScale(1, -1, 1);
+    }
+
+    /**
+     * Creates a Z reflection matrix
+     *
+     * @return The scale matrix
+     */
+    public static Matrix4 newReflectionZ() {
+        return newScale(1, 1, -1);
+    }
+
+    /**
+     * Creates a shearing matrix
+     *
+     * @param xy Shearing factor.
+     * @param xz Shearing factor.
+     * @param yx Shearing factor.
+     * @param yz Shearing factor.
+     * @param zx Shearing factor.
+     * @param zy Shearing factor.
+     * @return The shearing matrix.
+     */
+    public static Matrix4 newShearing(float xy, float xz, float yx, float yz, float zx, float zy) {
+        return new Matrix4(
+                1, yx, zx, 0,
+                xy, 1, zy, 0,
+                xz, yz, 1, 0,
+                0, 0, 0, 1);
+    }
+
+    /**
+     * Creates an inverse transformation matrix.
+     *
+     * @param x The x displacement.
+     * @param y The y displacement.
+     * @param z The z displacement.
+     * @return The inverse transformation matrix.
+     */
+    public static Matrix4 newInvTranslation(float x, float y, float z) {
+        return newTranslation(-x, -y, -z);
+    }
+
+    /**
+     * Creates an inverse transformation matrix.
+     *
+     * @param translation The translation.
+     * @return The inverse transformation matrix.
+     */
+    public static Matrix4 newInvTranslation(Vector3 translation) {
+        return newInvTranslation(translation.getX(), translation.getY(), translation.getZ());
+    }
+
+    /**
+     * Creates an inverse scale matrix.
+     *
+     * @param x The scale in x axis.
+     * @param y The scale in y axis.
+     * @param z The scale in z axis.
+     * @return The inverse scale matrix.
+     */
+    public static Matrix4 newInvScale(float x, float y, float z) {
+        return newScale(1.0f / x, 1.0f / y, 1.0f / z);
+    }
+
+    /**
+     * Creates an inverse uniform scale matrix.
+     *
+     * @param scale The scale.
+     * @return The inverse uniform scale matrix.
+     */
+    public static Matrix4 newInvScale(float scale) {
+        return newInvScale(scale, scale, scale);
+    }
+
+    /**
+     * Create an inverse matrix to rotate around the x axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newInvRotationX(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                1.0f, 0.0f, 0.0f, 0.0f,
+                0.0f, cosA, sinA, 0.0f,
+                0.0f, -sinA, cosA, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Create an inverse matrix to rotate around the y axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newInvRotationY(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                cosA, 0.0f, -sinA, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.0f,
+                sinA, 0.0f, cosA, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Create an inverse matrix to rotate around the z axis.
+     *
+     * @param angle The angle, in radians.
+     * @return The new matrix.
+     */
+    public static Matrix4 newInvRotationZ(float angle) {
+        float cosA = (float) Math.cos(angle);
+        float sinA = (float) Math.sin(angle);
+        return new Matrix4(
+                cosA, sinA, 0.0f, 0.0f,
+                -sinA, cosA, 0.0f, 0.0f,
+                0.0f, 0.0f, 1.0f, 0.0f,
+                0.0f, 0.0f, 0.0f, 1.0f);
+    }
+
+    /**
+     * Creates an inverse shearing transformation
+     *
+     * @param xy Shear factor.
+     * @param xz Shear factor.
+     * @param yx Shear factor.
+     * @param yz Shear factor.
+     * @param zx Shear factor.
+     * @param zy Shear factor.
+     * @return The inverse shearing.
+     */
+    public static Matrix4 newInvShearing(float xy, float xz, float yx, float yz, float zx, float zy) {
+        float D = 1 - xy * yx - xz * zx - yz * zy + xy * yz * zx + xz * yx * zy;
+
+        return new Matrix4(
+                1 - yz * zy, -yx + yz * zx, -zx + yx * zy, 0,
+                -xy + xz * zy, 1 - xz * zx, -zy + xy * zx, 0,
+                -xz + xy * yz, -yz + xz * yx, 1 - xy * yx, 0,
+                0, 0, 0, D)
+                .multiply(1.0f / D);
     }
 
     /**
