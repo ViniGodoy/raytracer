@@ -222,11 +222,11 @@ public enum WorldMaker {
     OBJECTS {
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
-            PinholeCamera camera = new PinholeCamera(
-                    new Vector3(-30, 50, 110),
+            ThinLensCamera camera = new ThinLensCamera(
+                    new Vector3(-50, 80, 210),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
-                    200);
+                    400, 110, 0.25f, Sampler.newDefault(numSamples));
 
             camera.setZoom(zoom);
 
@@ -254,13 +254,11 @@ public enum WorldMaker {
             Instance arc4 = new Instance(torus, green).rotateX(angle2).translate(20, 50, 0);
             Instance arc5 = new Instance(torus, red).rotateX(angle1).translate(40, 60, 0);
 
-            Instance box = new Instance(new Box(-30, 30, -30, 30, -30, 30, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.3f, 0.3f, 1.0f))));
-            box.translate(230, -50, 30);
+            Instance box = new Instance(new Box(60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.5f, 1.0f))));
+            box.translate(180, -50, 30);
 
             //Objects
             world.addAll(arc1, arc2, arc3, arc4, arc5);
-
-            world.add(new Torus(45, 6f, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.8f, 0.3f))));
             world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
             world.add(new OpenCylinder(-20, 10, 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
             world.add(box);
