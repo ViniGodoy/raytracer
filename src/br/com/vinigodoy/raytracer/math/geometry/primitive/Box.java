@@ -20,6 +20,9 @@ import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
 import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
+/**
+ * Represents an axis-aligned box.
+ */
 public class Box implements GeometricObject {
     private enum Face {LEFT, RIGHT, BOTTOM, TOP, FRONT, BACK}
 
@@ -27,10 +30,57 @@ public class Box implements GeometricObject {
     private float x1, y1, z1;
     private Material material;
 
+    /**
+     * Creates a cube with side 1 and centered at origin.
+     *
+     * @param material Cube's material.
+     */
     public Box(Material material) {
-        this(-0.5f, 0.5f, -0.5f, 0.5f, -0.5f, 0.5f, material);
+        this(1.0f, material);
     }
 
+    /**
+     * Create a cube with side size centered at origin.
+     *
+     * @param side     Size of the cube side.
+     * @param material Cube material.
+     */
+    public Box(float side, Material material) {
+        this(side, side, side, material);
+    }
+
+    /**
+     * Creates a box with the given dimensions centered at origin.
+     *
+     * @param width    Box width (x-axis)
+     * @param height   Box height (y-axis)
+     * @param depth    Box depth (z-axis)
+     * @param material The material.
+     */
+    public Box(float width, float height, float depth, Material material) {
+        float hw = width / 2.0f;
+        float hh = height / 2.0f;
+        float hd = depth / 2.0f;
+
+        x0 = -hw;
+        x1 = hw;
+        y0 = -hh;
+        y1 = hh;
+        z0 = -hd;
+        z1 = hd;
+        this.material = material;
+    }
+
+    /**
+     * Creates a box in the given coordinates.
+     * @param x0 x0 coordinate
+     * @param x1 x1 coordinate
+     * @param y0 y0 coordinate
+     * @param y1 y1 coordinate
+     * @param z0 z0 coordinate
+     * @param z1 z1 coordinate.
+     * @param material The box material.
+     */
     public Box(float x0, float x1,
                float y0, float y1,
                float z0, float z1,
