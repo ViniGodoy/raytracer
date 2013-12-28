@@ -43,4 +43,4 @@ Change History
 [11]: https://lh5.googleusercontent.com/-sbpa31fUUqg/UogsAEPO72I/AAAAAAAAAvM/ZqereRyMQ0A/w2166-h1218-no/Java+Raytracer-v1_6_Billiard_2.png
 [12]: https://lh4.googleusercontent.com/-TYZSbG9S8RA/UpGBThuw1II/AAAAAAAAAwk/Xoktz2Pw-no/w2166-h1218-no/Java+Raytracer-v1_7b_Billiard.png
 [13]: https://lh5.googleusercontent.com/-iTzZAUql6Bc/Urxy3kjAHRI/AAAAAAAAAzo/PTjOzKKd9Os/w2166-h1218-no/Java+Raytracer-v1_7b_Objects.png
-[14]: https://lh6.googleusercontent.com/-3ZGZ7Kf-VJU/Ur4qwa3wdwI/AAAAAAAAA0M/AVPjXlH0ed0/w2236-h1258-no/Java+Raytracer-v1_7b_Objects.png
+[14]: https://lh3.googleusercontent.com/-iMX6XsUjJoE/Ur41qAo-HXI/AAAAAAAAA1E/kGuJsYV1Kwo/w2236-h1258-no/Java+Raytracer-v1_7b_Objects.png
