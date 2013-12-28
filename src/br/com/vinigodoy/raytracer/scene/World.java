@@ -21,10 +21,7 @@ import br.com.vinigodoy.raytracer.tracer.Tracer;
 import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class World {
     private volatile Thread renderThread;
@@ -59,12 +56,24 @@ public class World {
         this.name = name;
     }
 
-    public void add(GeometricObject obj) {
+    public World add(GeometricObject obj) {
         objects.add(obj);
+        return this;
     }
 
-    public void add(Light light) {
+    public World addAll(GeometricObject objs) {
+        objects.addAll(Arrays.asList(objs));
+        return this;
+    }
+
+    public World add(Light light) {
         lights.add(light);
+        return this;
+    }
+
+    public World addAll(Light... lights) {
+        this.lights.addAll(Arrays.asList(lights));
+        return this;
     }
 
     public void render(final ViewPlane vp) {
