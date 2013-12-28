@@ -220,6 +220,20 @@ public enum WorldMaker {
         }
     },
     OBJECTS {
+        private void createLamp(World world, float w, float y, float z, int numSamples) {
+            float hw = w / 2.0f;
+
+            Rectangle shape = new Rectangle(
+                    new Vector3(-hw, y, -hw + z),
+                    new Vector3(w, 0, 0),
+                    new Vector3(0, 0, w),
+                    new Vector3(0, -1, 0),
+                    new Emissive(40000, new Vector3(1, 1, 1)), Sampler.newDefault(numSamples));
+
+            world.add(new AreaLight(shape));
+            world.add(shape);
+        }
+
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
             ThinLensCamera camera = new ThinLensCamera(
@@ -231,13 +245,16 @@ public enum WorldMaker {
             camera.setZoom(zoom);
 
             World world = new World(toString(), new Raycasting(), new Vector3(), camera);
+            world.getBackgroundColor().set(0.7f, 0.7f, 0.7f);
             world.addListener(listener);
 
             //Lights
-            world.setAmbientLight(new AmbientOccludedLight(1.5f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
+            world.setAmbientLight(new AmbientOccludedLight(1.0f, new Vector3(1.0f, 1.0f, 1.0f), 0.4f,
                     Sampler.newDefault(numSamples)));
-            world.add(new PointLight(4.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(50.0f, 80.0f, 150.0f)));
-            world.getBackgroundColor().set(1, 1, 1);
+            createLamp(world, 30, 100, -70, numSamples);
+            createLamp(world, 30, 100, 70, numSamples);
+
+
             Phong blue = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.0f, 1.0f));
             Phong yellow = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 1.0f, 0.0f));
             Phong black = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.1f, 0.1f, 0.1f));
