@@ -1,0 +1,113 @@
+/*===========================================================================
+COPYRIGHT 2013 Vinícius G. Mendonça ALL RIGHTS RESERVED.
+
+This software cannot be copied, stored, distributed without
+Vinícius G. Mendonça prior authorization.
+
+This file was made available on https://github.com/ViniGodoy and it
+is free to be redistributed or used under Creative Commons license 2.5 br:
+http://creativecommons.org/licenses/by-sa/2.5/br/
+============================================================================*/
+
+package br.com.vinigodoy.raytracer.math.geometry;
+
+import br.com.vinigodoy.raytracer.material.Material;
+import br.com.vinigodoy.raytracer.math.Matrix4;
+import br.com.vinigodoy.raytracer.math.Ray;
+import br.com.vinigodoy.raytracer.math.Vector3;
+import br.com.vinigodoy.raytracer.utility.FloatRef;
+import br.com.vinigodoy.raytracer.utility.ShadeRec;
+
+public class Instance implements GeometricObject {
+    private GeometricObject object;
+    private Material material;
+    private Matrix4 invMatrix = Matrix4.newIdentity();
+
+    public Instance(GeometricObject object) {
+        this(object, object.getMaterial().clone());
+    }
+
+    public Instance(GeometricObject object, Material material) {
+        this.object = object;
+        this.material = material;
+    }
+
+    public void setObject(GeometricObject object) {
+        this.object = object;
+    }
+
+    @Override
+    public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
+        Ray inv_ray = new Ray(
+                invMatrix.transformPoint(ray.getOrigin()),
+                invMatrix.transformDirection(ray.getDirection()));
+
+        if (object.hit(inv_ray, sr, tmin)) {
+            sr.hitPoint = ray.pointAt(tmin.value);
+            sr.normal = invMatrix.transformNormal(sr.normal);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean shadow_hit(Ray ray, FloatRef tmin) {
+        Ray inv_ray = new Ray(
+                invMatrix.transformPoint(ray.getOrigin()),
+                invMatrix.transformDirection(ray.getDirection()));
+
+        return object.shadow_hit(inv_ray, tmin);
+    }
+
+    @Override
+    public Material getMaterial() {
+        return material;
+    }
+
+    public Instance translate(float x, float y, float z) {
+        invMatrix.multiply(Matrix4.newInvTranslation(x, y, z));
+        return this;
+    }
+
+    public Instance translate(Vector3 position) {
+        invMatrix.multiply(Matrix4.newInvTranslation(position));
+        return this;
+    }
+
+    public Instance rotateX(float angle) {
+        invMatrix.multiply(Matrix4.newInvRotationX(angle));
+        return this;
+    }
+
+    public Instance rotateY(float angle) {
+        invMatrix.multiply(Matrix4.newInvRotationY(angle));
+        return this;
+    }
+
+    public Instance rotateZ(float angle) {
+        invMatrix.multiply(Matrix4.newInvRotationZ(angle));
+        return this;
+    }
+
+    public Instance scale(float x, float y, float z) {
+        invMatrix.multiply(Matrix4.newInvScale(x, y, z));
+        return this;
+    }
+
+    public Instance scale(float scale) {
+        invMatrix.multiply(Matrix4.newInvScale(scale));
+        return this;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    @Override
+    public Instance clone() {
+        Instance instance = new Instance(object, material.clone());
+        instance.invMatrix = invMatrix.clone();
+        return instance;
+    }
+}
