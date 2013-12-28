@@ -61,7 +61,6 @@ public class ShadeRec implements Cloneable {
         sr.hitAnObject = hitAnObject;
         sr.material = material == null ? null : material.clone();
         sr.hitPoint = hitPoint == null ? null : hitPoint.clone();
-        sr.hitPoint = hitPoint == null ? null : hitPoint.clone();
         sr.ray = ray == null ? null : new Ray(ray.getOrigin(), ray.getDirection());
         sr.depth = depth;
         sr.dir = dir == null ? null : dir.clone();
