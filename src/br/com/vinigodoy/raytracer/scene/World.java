@@ -61,7 +61,7 @@ public class World {
         return this;
     }
 
-    public World addAll(GeometricObject objs) {
+    public World addAll(GeometricObject... objs) {
         objects.addAll(Arrays.asList(objs));
         return this;
     }
