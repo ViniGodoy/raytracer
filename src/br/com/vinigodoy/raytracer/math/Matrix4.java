@@ -86,6 +86,7 @@ public final class Matrix4 implements Cloneable {
 
     /**
      * Creates a translation matrix.
+     *
      * @param x X displacement
      * @param y Y displacement
      * @param z Z displacement
@@ -300,7 +301,7 @@ public final class Matrix4 implements Cloneable {
         float sinA = (float) Math.sin(angle);
         return new Matrix4(
                 cosA, 0.0f, -sinA, 0.0f,
-                0.0f, 0.0f, 1.0f, 0.0f,
+                0.0f, 1.0f, 0.0f, 0.0f,
                 sinA, 0.0f, cosA, 0.0f,
                 0.0f, 0.0f, 0.0f, 1.0f);
     }
@@ -391,16 +392,6 @@ public final class Matrix4 implements Cloneable {
      */
     public static Matrix4 multiply(Matrix4 m, float scalar) {
         return m.clone().multiply(scalar);
-    }
-
-    /**
-     * Multiplies the matrix by the given vector.
-     *
-     * @param v The vector to multiply
-     * @return The transformed vector.
-     */
-    public static Vector3 multiply(Matrix4 m, Vector3 v) {
-        return m.multiply(v);
     }
 
     /**
@@ -723,14 +714,40 @@ public final class Matrix4 implements Cloneable {
     /**
      * Multiplies the matrix by the given vector. The result is a transformed vector.
      *
-     * @param v The vector to multiply
+     * @param p The point
      * @return The transformed vector.
      */
-    public Vector3 multiply(Vector3 v) {
+    public Vector3 transformPoint(Vector3 p) {
         return new Vector3(
-                A[0][0] * v.getX() + A[0][1] * v.getY() + A[0][2] * v.getZ(),
-                A[1][0] * v.getX() + A[1][1] * v.getY() + A[1][2] * v.getZ(),
-                A[2][0] * v.getX() + A[2][1] * v.getY() + A[2][2] * v.getZ());
+                A[0][0] * p.getX() + A[0][1] * p.getY() + A[0][2] * p.getZ() + A[0][3],
+                A[1][0] * p.getX() + A[1][1] * p.getY() + A[1][2] * p.getZ() + A[1][3],
+                A[2][0] * p.getX() + A[2][1] * p.getY() + A[2][2] * p.getZ() + A[2][3]);
+    }
+
+    /**
+     * Multiplies the matrix by the given vector. The result is a transformed vector.
+     *
+     * @param d The point
+     * @return The transformed vector.
+     */
+    public Vector3 transformDirection(Vector3 d) {
+        return new Vector3(
+                A[0][0] * d.getX() + A[0][1] * d.getY() + A[0][2] * d.getZ(),
+                A[1][0] * d.getX() + A[1][1] * d.getY() + A[1][2] * d.getZ(),
+                A[2][0] * d.getX() + A[2][1] * d.getY() + A[2][2] * d.getZ());
+    }
+
+    /**
+     * Multiplies the matrix by the given vector. The result is a transformed vector.
+     *
+     * @param n The normal
+     * @return The transformed vector.
+     */
+    public Vector3 transformNormal(Vector3 n) {
+        return new Vector3(
+                A[0][0] * n.getX() + A[1][0] * n.getY() + A[2][0] * n.getZ(),
+                A[0][1] * n.getX() + A[1][1] * n.getY() + A[2][1] * n.getZ(),
+                A[0][2] * n.getX() + A[1][2] * n.getY() + A[2][2] * n.getZ());
     }
 
     /**
@@ -821,7 +838,7 @@ public final class Matrix4 implements Cloneable {
     }
 
     @Override
-    protected Matrix4 clone() {
+    public Matrix4 clone() {
         Matrix4 other = new Matrix4();
         for (int i = 0; i < 4; i++)
             System.arraycopy(A[i], 0, other.A[i], 0, 4);
