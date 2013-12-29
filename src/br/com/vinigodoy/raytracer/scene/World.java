@@ -14,14 +14,19 @@ package br.com.vinigodoy.raytracer.scene;
 import br.com.vinigodoy.raytracer.camera.Camera;
 import br.com.vinigodoy.raytracer.light.AmbientLight;
 import br.com.vinigodoy.raytracer.light.Light;
+import br.com.vinigodoy.raytracer.material.Material;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
+import br.com.vinigodoy.raytracer.math.geometry.Instance;
 import br.com.vinigodoy.raytracer.tracer.Tracer;
 import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 public class World {
     private volatile Thread renderThread;
@@ -61,18 +66,20 @@ public class World {
         return this;
     }
 
-    public World addAll(GeometricObject... objs) {
-        objects.addAll(Arrays.asList(objs));
-        return this;
+    public Instance addInstance(GeometricObject obj) {
+        Instance instance = new Instance(obj);
+        objects.add(instance);
+        return instance;
+    }
+
+    public Instance addInstance(GeometricObject obj, Material mtrl) {
+        Instance instance = new Instance(obj, mtrl);
+        objects.add(instance);
+        return instance;
     }
 
     public World add(Light light) {
         lights.add(light);
-        return this;
-    }
-
-    public World addAll(Light... lights) {
-        this.lights.addAll(Arrays.asList(lights));
         return this;
     }
 

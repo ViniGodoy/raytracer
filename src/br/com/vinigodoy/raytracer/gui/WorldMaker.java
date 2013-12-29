@@ -20,7 +20,6 @@ import br.com.vinigodoy.raytracer.material.Emissive;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.math.geometry.Instance;
 import br.com.vinigodoy.raytracer.math.geometry.part.ConvexPartSphere;
 import br.com.vinigodoy.raytracer.math.geometry.primitive.*;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
@@ -254,31 +253,29 @@ public enum WorldMaker {
             createLamp(world, 30, 100, -70, numSamples);
             createLamp(world, 30, 100, 70, numSamples);
 
-
             Phong blue = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.0f, 1.0f));
             Phong yellow = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 1.0f, 0.0f));
             Phong black = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.1f, 0.1f, 0.1f));
             Phong green = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 1.0f, 0.0f));
             Phong red = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.0f, 0.0f));
 
+            //Objects
             Torus torus = new Torus(15, 3f, blue);
             float angle1 = (float) Math.toRadians(90);
             float angle2 = (float) Math.toRadians(80);
 
-            Instance arc1 = new Instance(torus).rotateX(angle1).translate(-40, 60, 0);
-            Instance arc2 = new Instance(torus, yellow).rotateX(angle2).translate(-20, 50, 0);
-            Instance arc3 = new Instance(torus, black).rotateX(angle1).translate(-0, 60, 0);
-            Instance arc4 = new Instance(torus, green).rotateX(angle2).translate(20, 50, 0);
-            Instance arc5 = new Instance(torus, red).rotateX(angle1).translate(40, 60, 0);
+            world.addInstance(torus).rotateX(angle1).translate(-40, 60, 0);
+            world.addInstance(torus, yellow).rotateX(angle2).translate(-20, 50, 0);
+            world.addInstance(torus, black).rotateX(angle1).translate(-0, 60, 0);
+            world.addInstance(torus, green).rotateX(angle2).translate(20, 50, 0);
+            world.addInstance(torus, red).rotateX(angle1).translate(40, 60, 0);
 
-            Instance box = new Instance(new Box(new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.5f, 1.0f))));
-            box.scale(60).translate(180, -50, 30);
+            world.addInstance(new Box(new Matte(0.2f, 0.65f, new Vector3(0.0f, 0.5f, 1.0f))))
+                    .scale(60)
+                    .translate(180, -50, 30);
 
-            //Objects
-            world.addAll(arc1, arc2, arc3, arc4, arc5);
-            world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
-            world.add(new OpenCylinder(-20, 10, 60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.3f, 0.3f))));
-            world.add(box);
+            world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.3f, 0.3f))));
+            world.add(new OpenCylinder(-20, 10, 60, new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.3f, 0.3f))));
 
             world.add(ConvexPartSphere.withDegrees(new Vector3(0, 0, 0), 80,
                     0f, 360, 90, 180,
@@ -289,7 +286,7 @@ public enum WorldMaker {
                     new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
 
             world.add(new Annulus(new Vector3(0, 0, 0), new Vector3(0, 1, 0), 80, 75,
-                    new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
+                    new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.6f, 0.2f))));
 
             world.add(new Plane(new Vector3(0, -80, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, new Vector3(1, 1, 1))));
             return world;
