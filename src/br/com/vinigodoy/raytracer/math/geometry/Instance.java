@@ -24,7 +24,7 @@ public class Instance implements GeometricObject {
     private Matrix4 invTransform = Matrix4.newIdentity();
 
     public Instance(GeometricObject object) {
-        this(object, object.getMaterial().clone());
+        this(object, null);
     }
 
     public Instance(GeometricObject object, Material material) {
@@ -63,7 +63,7 @@ public class Instance implements GeometricObject {
 
     @Override
     public Material getMaterial() {
-        return material;
+        return material != null ? material : object.getMaterial();
     }
 
     public Instance translate(float x, float y, float z) {
