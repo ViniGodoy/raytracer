@@ -30,12 +30,10 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private static final String VERSION = "1.7b";
+    private static final String VERSION = "1.7";
     private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
             " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
-
-    private static final int SAMPLES = 100;
 
     private boolean renderToScreen = true;
 
@@ -45,6 +43,7 @@ public class SampleFrame extends JFrame {
 
     private JComboBox<WorldMaker> cmbScene = new JComboBox<WorldMaker>();
     private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<DrawOrder>();
+    private JComboBox<Quality> cmbQuality = new JComboBox<Quality>();
 
     private JFileChooser chooser = new JFileChooser();
     private JProgressBar pbProgress = new JProgressBar();
@@ -61,42 +60,50 @@ public class SampleFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         output.setPreferredSize(new Dimension(800, 450));
 
-        btnDraw.setPreferredSize(new Dimension(200, 25));
+        pbProgress.setString("");
+        pbProgress.setStringPainted(true);
+
+        JPanel pnlButtons = new JPanel(new FlowLayout());
+
+        //Scene
+        pnlButtons.add(new JLabel("Scene:"));
+        for (WorldMaker wm : WorldMaker.values()) {
+            cmbScene.addItem(wm);
+        }
+        cmbScene.setSelectedItem(WorldMaker.OBJECTS);
+        pnlButtons.add(cmbScene);
+
+        //Draw order
+        pnlButtons.add(new JLabel("Order:"));
+        for (DrawOrder drawOrder : DrawOrders.values()) {
+            cmbDrawOrder.addItem(drawOrder);
+        }
+        cmbDrawOrder.setSelectedItem(DrawOrders.INTERLACED2);
+        pnlButtons.add(cmbDrawOrder);
+
+        //Quality
+        pnlButtons.add(new JLabel("Quality:"));
+        for (Quality quality : Quality.values()) {
+            cmbQuality.addItem(quality);
+        }
+        cmbQuality.setSelectedItem(Quality.LOW);
+        pnlButtons.add(cmbQuality);
+
+        //Buttons
         btnDraw.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 renderToScreen();
             }
         });
+        pnlButtons.add(btnDraw);
 
-        btnSave.setPreferredSize(new Dimension(200, 25));
         btnSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 renderToFile();
             }
         });
-
-        for (WorldMaker wm : WorldMaker.values()) {
-            cmbScene.addItem(wm);
-        }
-        cmbScene.setSelectedItem(WorldMaker.OBJECTS);
-
-        for (DrawOrder drawOrder : DrawOrders.values()) {
-            cmbDrawOrder.addItem(drawOrder);
-        }
-        cmbDrawOrder.setSelectedItem(DrawOrders.INTERLACED2);
-        pbProgress.setString("");
-        pbProgress.setStringPainted(true);
-
-        JPanel pnlButtons = new JPanel(new FlowLayout());
-        pnlButtons.add(new JLabel("Scene:"));
-        pnlButtons.add(cmbScene);
-
-        pnlButtons.add(new JLabel("Order:"));
-        pnlButtons.add(cmbDrawOrder);
-
-        pnlButtons.add(btnDraw);
         pnlButtons.add(btnSave);
 
         add(output, BorderLayout.CENTER);
@@ -153,17 +160,18 @@ public class SampleFrame extends JFrame {
     public void renderToScreen() {
         renderToScreen = true;
 
-        ViewPlane vp = new ViewPlane(800, 450, SAMPLES);
+        int samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        ViewPlane vp = new ViewPlane(800, 450, samples);
         vp.setDrawOrder((DrawOrder) cmbDrawOrder.getSelectedItem());
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(SAMPLES, 1.0f, waiter);
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 1.0f, waiter);
         world.render(vp);
     }
 
     private void renderToFile() {
         renderToScreen = false;
-
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(SAMPLES, 2.4f, waiter);
-        world.render(new ViewPlane(1920, 1080, SAMPLES));
+        int samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 2.4f, waiter);
+        world.render(new ViewPlane(1920, 1080, samples));
     }
 
     public class WorldWaiter implements WorldListener {
@@ -243,6 +251,27 @@ public class SampleFrame extends JFrame {
 
         public BufferedImage getImage() {
             return image;
+        }
+    }
+
+    private static enum Quality {
+        LOW(16), MEDIUM(49), HIGH(100), ULTRA(144);
+
+        private int samples;
+
+        private Quality(int samples) {
+            this.samples = samples;
+        }
+
+        public int getSamples() {
+            return samples;
+        }
+
+        @Override
+        public String toString() {
+            String name = super.toString();
+            return name.charAt(0) + name.substring(1).toLowerCase();
+
         }
     }
 }
