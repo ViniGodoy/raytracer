@@ -110,7 +110,7 @@ public class World {
         ShadeRec sr = new ShadeRec(this);
 
         Vector3 normal = null;
-        Vector3 localHitPoint = null;
+        Vector3 hitPoint = null;
         float tMin = Float.MAX_VALUE;
 
         for (GeometricObject obj : objects) {
@@ -120,13 +120,13 @@ public class World {
                 tMin = fr.value;
                 sr.material = obj.getMaterial();
                 normal = sr.normal;
-                localHitPoint = sr.worldHitPoint;
+                hitPoint = sr.worldHitPoint;
             }
         }
 
         if (sr.hitAnObject) {
             sr.normal = normal;
-            sr.worldHitPoint = localHitPoint;
+            sr.worldHitPoint = hitPoint;
         }
         return sr;
     }

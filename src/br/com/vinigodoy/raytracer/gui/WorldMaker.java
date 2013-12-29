@@ -20,7 +20,7 @@ import br.com.vinigodoy.raytracer.material.Emissive;
 import br.com.vinigodoy.raytracer.material.Matte;
 import br.com.vinigodoy.raytracer.material.Phong;
 import br.com.vinigodoy.raytracer.math.Vector3;
-import br.com.vinigodoy.raytracer.math.geometry.part.ConvexPartSphere;
+import br.com.vinigodoy.raytracer.math.geometry.compound.Compounds;
 import br.com.vinigodoy.raytracer.math.geometry.primitive.*;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.World;
@@ -253,11 +253,11 @@ public enum WorldMaker {
             createLamp(world, 30, 100, -70, numSamples);
             createLamp(world, 30, 100, 70, numSamples);
 
-            Phong blue = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.0f, 1.0f));
-            Phong yellow = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 1.0f, 0.0f));
-            Phong black = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.1f, 0.1f, 0.1f));
-            Phong green = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 1.0f, 0.0f));
-            Phong red = new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.0f, 0.0f));
+            Phong blue = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 0.0f, 1.0f));
+            Phong yellow = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 1.0f, 0.0f));
+            Phong black = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.1f, 0.1f, 0.1f));
+            Phong green = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 1.0f, 0.0f));
+            Phong red = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 0.0f, 0.0f));
 
             //Objects
             Torus torus = new Torus(15, 3f, blue);
@@ -270,23 +270,15 @@ public enum WorldMaker {
             world.addInstance(torus, green).rotateX(angle2).translate(20, 50, 0);
             world.addInstance(torus, red).rotateX(angle1).translate(40, 60, 0);
 
-            world.addInstance(new Box(new Matte(0.2f, 0.65f, new Vector3(0.0f, 0.5f, 1.0f))))
+            world.addInstance(Compounds.newRoundBox(true, 0.05f, new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 0.5f, 1.0f))))
                     .scale(60)
                     .translate(180, -50, 30);
 
             world.add(new Disk(new Vector3(0, -20, 0), new Vector3(0, 1, 0), 60, new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.3f, 0.3f))));
             world.add(new OpenCylinder(-20, 10, 60, new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.3f, 0.3f))));
 
-            world.add(ConvexPartSphere.withDegrees(new Vector3(0, 0, 0), 80,
-                    0f, 360, 90, 180,
+            world.add(Compounds.newBowl(true, 75, 80, (float) Math.toRadians(90),
                     new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
-
-            world.add(ConvexPartSphere.withDegrees(new Vector3(0, 0, 0), 75,
-                    0f, 360, 90, 180,
-                    new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1.0f, 0.6f, 0.2f))));
-
-            world.add(new Annulus(new Vector3(0, 0, 0), new Vector3(0, 1, 0), 80, 75,
-                    new Matte(0.2f, 0.65f, new Vector3(1.0f, 0.6f, 0.2f))));
 
             world.add(new Plane(new Vector3(0, -80, 0), new Vector3(0, 1, 0), new Matte(0.2f, 0.5f, new Vector3(1, 1, 1))));
             return world;
