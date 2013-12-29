@@ -271,8 +271,8 @@ public enum WorldMaker {
             Instance arc4 = new Instance(torus, green).rotateX(angle2).translate(20, 50, 0);
             Instance arc5 = new Instance(torus, red).rotateX(angle1).translate(40, 60, 0);
 
-            Instance box = new Instance(new Box(60, new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.5f, 1.0f))));
-            box.translate(180, -50, 30);
+            Instance box = new Instance(new Box(new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(0.0f, 0.5f, 1.0f))));
+            box.scale(60).translate(180, -50, 30);
 
             //Objects
             world.addAll(arc1, arc2, arc3, arc4, arc5);
