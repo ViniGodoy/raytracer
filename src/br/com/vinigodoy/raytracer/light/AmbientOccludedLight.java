@@ -68,7 +68,7 @@ public class AmbientOccludedLight extends AbstractLight {
         Vector3 u = cross(v, w);
         uvw = new UVW(u, v, w);
 
-        Ray shadow_ray = new Ray(sr.hitPoint, getDirection(sr));
+        Ray shadow_ray = new Ray(sr.worldHitPoint, getDirection(sr));
         if (inShadow(shadow_ray, sr))
             return multiply(color, ls * minAmount);
         else

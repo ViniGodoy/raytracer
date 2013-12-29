@@ -38,8 +38,10 @@ public class Torus implements GeometricObject {
         if (!shadow_hit(ray, tmin))
             return false;
 
-        sr.hitPoint = ray.pointAt(tmin.value);
-        sr.normal = getNormal(sr.hitPoint);
+        sr.worldHitPoint = ray.pointAt(tmin.value);
+        sr.localHitPoint = sr.worldHitPoint;
+        sr.normal = getNormal(sr.worldHitPoint);
+
         return true;
     }
 

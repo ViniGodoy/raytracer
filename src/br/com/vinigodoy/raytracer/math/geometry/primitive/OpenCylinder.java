@@ -55,7 +55,8 @@ public class OpenCylinder implements GeometricObject {
         sr.normal = new Vector3((ox + t * dx) * inv_radius, 0.0f, (oz + t * dz) * inv_radius);
         if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0.0)
             sr.normal.negate();
-        sr.hitPoint = ray.pointAt(tmin.value);
+        sr.worldHitPoint = ray.pointAt(tmin.value);
+        sr.localHitPoint = sr.worldHitPoint;
         return true;
     }
 

@@ -102,7 +102,7 @@ public class ConvexPartSphere implements GeometricObject {
                 sr.normal = Vector3.multiply(ray.getDirection(), t).add(temp).divide(radius);   // points outwards
                 if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0)
                     sr.normal.negate();
-                sr.hitPoint = hitPoint;
+                sr.worldHitPoint = hitPoint;
                 return true;
             }
         }
@@ -125,7 +125,7 @@ public class ConvexPartSphere implements GeometricObject {
                 sr.normal = Vector3.multiply(ray.getDirection(), t).add(temp).divide(radius);   // points outwards
                 if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0)
                     sr.normal.negate();
-                sr.hitPoint = hitPoint;
+                sr.worldHitPoint = hitPoint;
                 return true;
             }
         }

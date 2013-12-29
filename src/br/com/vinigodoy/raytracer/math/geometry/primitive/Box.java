@@ -73,12 +73,13 @@ public class Box implements GeometricObject {
 
     /**
      * Creates a box in the given coordinates.
-     * @param x0 x0 coordinate
-     * @param x1 x1 coordinate
-     * @param y0 y0 coordinate
-     * @param y1 y1 coordinate
-     * @param z0 z0 coordinate
-     * @param z1 z1 coordinate.
+     *
+     * @param x0       x0 coordinate
+     * @param x1       x1 coordinate
+     * @param y0       y0 coordinate
+     * @param y1       y1 coordinate
+     * @param z0       z0 coordinate
+     * @param z1       z1 coordinate.
      * @param material The box material.
      */
     public Box(float x0, float x1,
@@ -174,7 +175,8 @@ public class Box implements GeometricObject {
                 tmin.value = (float) t1;
                 sr.normal = getNormal(faceOut);
             }
-            sr.hitPoint = ray.pointAt(tmin.value);
+            sr.worldHitPoint = ray.pointAt(tmin.value);
+            sr.localHitPoint = sr.worldHitPoint;
             return true;
         }
 

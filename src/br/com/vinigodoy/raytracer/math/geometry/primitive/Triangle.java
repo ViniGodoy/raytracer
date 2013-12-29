@@ -83,7 +83,8 @@ public class Triangle implements GeometricObject {
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         if (shadow_hit(ray, tmin)) {
-            sr.hitPoint = ray.pointAt(tmin.value);
+            sr.worldHitPoint = ray.pointAt(tmin.value);
+            sr.localHitPoint = sr.worldHitPoint;
             sr.normal = normal;
             return true;
         }

@@ -40,7 +40,7 @@ public class PointLight extends AbstractLight {
 
     @Override
     public Vector3 getDirection(ShadeRec sr) {
-        return subtract(position, sr.hitPoint).normalize();
+        return subtract(position, sr.worldHitPoint).normalize();
     }
 
     @Override

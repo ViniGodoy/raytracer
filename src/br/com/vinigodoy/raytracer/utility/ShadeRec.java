@@ -31,7 +31,12 @@ public class ShadeRec implements Cloneable {
     /**
      * World coordinates of hit point.
      */
-    public Vector3 hitPoint = null;
+    public Vector3 worldHitPoint = null;
+
+    /**
+     * Local coordinates of hit point. Will only be different from world coordinates in transformed objects.
+     */
+    public Vector3 localHitPoint = null;
 
     /**
      * Normal at hit point.
@@ -60,7 +65,7 @@ public class ShadeRec implements Cloneable {
         ShadeRec sr = new ShadeRec(world);
         sr.hitAnObject = hitAnObject;
         sr.material = material == null ? null : material.clone();
-        sr.hitPoint = hitPoint == null ? null : hitPoint.clone();
+        sr.worldHitPoint = worldHitPoint == null ? null : worldHitPoint.clone();
         sr.ray = ray == null ? null : new Ray(ray.getOrigin(), ray.getDirection());
         sr.depth = depth;
         sr.dir = dir == null ? null : dir.clone();

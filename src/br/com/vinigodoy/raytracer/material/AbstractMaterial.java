@@ -37,7 +37,7 @@ public abstract class AbstractMaterial implements Material {
             if (ndotwi > 0.0f) {
                 boolean inShadow = false;
                 if (light.castShadows()) {
-                    Ray shadowRay = new Ray(sr.hitPoint, wi);
+                    Ray shadowRay = new Ray(sr.worldHitPoint, wi);
                     inShadow = light.inShadow(shadowRay, sr);
                 }
 

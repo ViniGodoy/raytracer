@@ -35,7 +35,7 @@ public class AreaLight extends AbstractLight {
     public Vector3 getDirection(ShadeRec sr) {
         samplePoint = object.sample();
         lightNormal = object.getNormal(samplePoint);
-        wi = subtract(samplePoint, sr.hitPoint).normalize();
+        wi = subtract(samplePoint, sr.worldHitPoint).normalize();
         return wi;
     }
 
@@ -48,7 +48,7 @@ public class AreaLight extends AbstractLight {
     @Override
     public float G(ShadeRec sr) {
         float ndotd = negate(lightNormal).dot(wi);
-        float d2 = samplePoint.distanceSqr(sr.hitPoint);
+        float d2 = samplePoint.distanceSqr(sr.worldHitPoint);
         return ndotd / d2;
     }
 

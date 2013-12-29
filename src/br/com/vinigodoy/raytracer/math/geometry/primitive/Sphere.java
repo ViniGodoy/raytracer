@@ -76,7 +76,8 @@ public class Sphere implements GeometricObject {
         if (shadow_hit(ray, tmin)) {
             Vector3 temp = subtract(ray.getOrigin(), center);
             sr.normal = multiply(ray.getDirection(), tmin.value).add(temp).divide(radius);
-            sr.hitPoint = ray.pointAt(tmin.value);
+            sr.worldHitPoint = ray.pointAt(tmin.value);
+            sr.localHitPoint = sr.worldHitPoint;
             return true;
         }
         return false;

@@ -62,7 +62,8 @@ public class Annulus implements GeometricObject {
 
         tmin.value = t;
         sr.normal = normal;
-        sr.hitPoint = p;
+        sr.worldHitPoint = p;
+        sr.localHitPoint = sr.worldHitPoint;
         return true;
     }
 

@@ -44,7 +44,8 @@ public class Plane implements GeometricObject {
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         if (shadow_hit(ray, tmin)) {
             sr.normal = normal;
-            sr.hitPoint = ray.pointAt(tmin.value);
+            sr.worldHitPoint = ray.pointAt(tmin.value);
+            sr.localHitPoint = sr.worldHitPoint;
             return true;
         }
         return false;
