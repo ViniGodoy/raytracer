@@ -35,10 +35,10 @@ public class Annulus implements GeometricObject {
      * @param material The disk material
      */
     public Annulus(Material material) {
-        this(new Vector3(), new Vector3(0, 1, 0), 1.0f, 0.5f, material);
+        this(new Vector3(), new Vector3(0, 1, 0), 0.5f, 1.0f, material);
     }
 
-    public Annulus(Vector3 center, Vector3 normal, float outerRadius, float innerRadius, Material material) {
+    public Annulus(Vector3 center, Vector3 normal, float innerRadius, float outerRadius, Material material) {
         this.center = center;
         this.normal = normalize(normal);
         this.outerRadius = outerRadius;
