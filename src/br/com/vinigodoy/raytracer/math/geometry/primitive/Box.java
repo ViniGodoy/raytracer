@@ -95,6 +95,19 @@ public class Box implements GeometricObject {
         this.material = material;
     }
 
+    /**
+     * Creates a box in the given coordinates.
+     *
+     * @param minCorner Minimum corner
+     * @param maxCorner Maximum corner
+     * @param material  Material
+     */
+    public Box(Vector3 minCorner, Vector3 maxCorner, Material material) {
+        this(minCorner.getX(), minCorner.getY(), minCorner.getZ(),
+                maxCorner.getX(), maxCorner.getY(), maxCorner.getZ(),
+                material);
+    }
+
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         double ox = ray.getOrigin().getX();

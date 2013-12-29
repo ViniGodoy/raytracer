@@ -20,9 +20,10 @@ public class BBox {
     private float x0, y0, z0;
     private float x1, y1, z1;
 
-    public BBox(Vector3 p0, Vector3 p1) {
-        this(p0.getX(), p0.getY(), p0.getZ(),
-                p1.getX(), p1.getY(), p1.getZ());
+    public BBox(Vector3 minCorner, Vector3 maxCorner) {
+        this(minCorner.getX(), maxCorner.getX(),
+                minCorner.getY(), maxCorner.getY(),
+                minCorner.getZ(), maxCorner.getZ());
     }
 
     public BBox(float x0, float x1,
