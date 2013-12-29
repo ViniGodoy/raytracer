@@ -11,6 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 29/12/2013 [pic][15] - Added compound objects and some default compound beveled objects. **v1.7**
 - 27/12/2013 [pic][14] - Added transformations.
 - 26/12/2013 [pic][13] - Box, Torus, Annulus and Open Cylinder primitives. Added ConvexPartSpheres.
 - 24/11/2013 [pic][12] - Area lights, bounding box, triangle and rectangle geometric objects.
@@ -44,3 +45,4 @@ Change History
 [12]: https://lh4.googleusercontent.com/-TYZSbG9S8RA/UpGBThuw1II/AAAAAAAAAwk/Xoktz2Pw-no/w2166-h1218-no/Java+Raytracer-v1_7b_Billiard.png
 [13]: https://lh5.googleusercontent.com/-iTzZAUql6Bc/Urxy3kjAHRI/AAAAAAAAAzo/PTjOzKKd9Os/w2166-h1218-no/Java+Raytracer-v1_7b_Objects.png
 [14]: https://lh3.googleusercontent.com/-iMX6XsUjJoE/Ur41qAo-HXI/AAAAAAAAA1E/kGuJsYV1Kwo/w2236-h1258-no/Java+Raytracer-v1_7b_Objects.png
+[15]: https://lh4.googleusercontent.com/-QH7dE8P-THI/Ur_JifWJ9TI/AAAAAAAAA14/ui1us1GDawA/w2236-h1258-no/Java+Raytracer-v1_7_Objects.png
