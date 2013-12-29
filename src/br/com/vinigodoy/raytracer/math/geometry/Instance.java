@@ -21,7 +21,7 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 public class Instance implements GeometricObject {
     private GeometricObject object;
     private Material material;
-    private Matrix4 invMatrix = Matrix4.newIdentity();
+    private Matrix4 invTransform = Matrix4.newIdentity();
 
     public Instance(GeometricObject object) {
         this(object, object.getMaterial().clone());
@@ -39,12 +39,13 @@ public class Instance implements GeometricObject {
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         Ray inv_ray = new Ray(
-                invMatrix.transformPoint(ray.getOrigin()),
-                invMatrix.transformDirection(ray.getDirection()));
+                invTransform.transformPoint(ray.getOrigin()),
+                invTransform.transformDirection(ray.getDirection()));
 
         if (object.hit(inv_ray, sr, tmin)) {
-            sr.hitPoint = ray.pointAt(tmin.value);
-            sr.normal = invMatrix.transformNormal(sr.normal);
+            Matrix4 transform = Matrix4.inverse(invTransform);
+            sr.worldHitPoint = transform.transformPoint(sr.worldHitPoint);
+            sr.normal = invTransform.transformNormal(sr.normal);
             return true;
         }
 
@@ -54,8 +55,8 @@ public class Instance implements GeometricObject {
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
         Ray inv_ray = new Ray(
-                invMatrix.transformPoint(ray.getOrigin()),
-                invMatrix.transformDirection(ray.getDirection()));
+                invTransform.transformPoint(ray.getOrigin()),
+                invTransform.transformDirection(ray.getDirection()));
 
         return object.shadow_hit(inv_ray, tmin);
     }
@@ -66,37 +67,37 @@ public class Instance implements GeometricObject {
     }
 
     public Instance translate(float x, float y, float z) {
-        invMatrix.multiply(Matrix4.newInvTranslation(x, y, z));
+        invTransform.multiply(Matrix4.newInvTranslation(x, y, z));
         return this;
     }
 
     public Instance translate(Vector3 position) {
-        invMatrix.multiply(Matrix4.newInvTranslation(position));
+        invTransform.multiply(Matrix4.newInvTranslation(position));
         return this;
     }
 
     public Instance rotateX(float angle) {
-        invMatrix.multiply(Matrix4.newInvRotationX(angle));
+        invTransform.multiply(Matrix4.newInvRotationX(angle));
         return this;
     }
 
     public Instance rotateY(float angle) {
-        invMatrix.multiply(Matrix4.newInvRotationY(angle));
+        invTransform.multiply(Matrix4.newInvRotationY(angle));
         return this;
     }
 
     public Instance rotateZ(float angle) {
-        invMatrix.multiply(Matrix4.newInvRotationZ(angle));
+        invTransform.multiply(Matrix4.newInvRotationZ(angle));
         return this;
     }
 
     public Instance scale(float x, float y, float z) {
-        invMatrix.multiply(Matrix4.newInvScale(x, y, z));
+        invTransform.multiply(Matrix4.newInvScale(x, y, z));
         return this;
     }
 
     public Instance scale(float scale) {
-        invMatrix.multiply(Matrix4.newInvScale(scale));
+        invTransform.multiply(Matrix4.newInvScale(scale));
         return this;
     }
 
@@ -107,7 +108,7 @@ public class Instance implements GeometricObject {
     @Override
     public Instance clone() {
         Instance instance = new Instance(object, material.clone());
-        instance.invMatrix = invMatrix.clone();
+        instance.invTransform = invTransform.clone();
         return instance;
     }
 }

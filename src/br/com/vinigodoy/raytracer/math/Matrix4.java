@@ -747,7 +747,8 @@ public final class Matrix4 implements Cloneable {
         return new Vector3(
                 A[0][0] * n.getX() + A[1][0] * n.getY() + A[2][0] * n.getZ(),
                 A[0][1] * n.getX() + A[1][1] * n.getY() + A[2][1] * n.getZ(),
-                A[0][2] * n.getX() + A[1][2] * n.getY() + A[2][2] * n.getZ());
+                A[0][2] * n.getX() + A[1][2] * n.getY() + A[2][2] * n.getZ())
+                .normalize();
     }
 
     /**
