@@ -6,11 +6,12 @@ Project description
 
 A Simple Java raytracer written in Java 2D.
 
-The code is based in [Ray Tracing from the Ground Up book][1] and in [this excelent tutorial of flipcode][2].
+The code is based in [Ray Tracing from the Ground Up book][1] and in [this excellent tutorial of flipcode][2].
 With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 23/03/2014 Updated project to Java 8
 - 29/12/2013 [pic][15] - Added compound objects and some default compound beveled objects. **v1.7**
 - 27/12/2013 [pic][14] - Added transformations.
 - 26/12/2013 [pic][13] - Box, Torus, Annulus and Open Cylinder primitives. Added ConvexPartSpheres.

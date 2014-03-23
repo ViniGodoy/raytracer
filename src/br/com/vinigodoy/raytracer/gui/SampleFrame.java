@@ -21,8 +21,6 @@ import br.com.vinigodoy.raytracer.scene.order.DrawOrders;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,7 +28,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private static final String VERSION = "1.7";
+    private static final String VERSION = "1.8b";
     private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
             " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
@@ -41,9 +39,9 @@ public class SampleFrame extends JFrame {
     private JButton btnDraw = new JButton("Draw");
     private JButton btnSave = new JButton("Save in full HD");
 
-    private JComboBox<WorldMaker> cmbScene = new JComboBox<WorldMaker>();
-    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<DrawOrder>();
-    private JComboBox<Quality> cmbQuality = new JComboBox<Quality>();
+    private JComboBox<WorldMaker> cmbScene = new JComboBox<>();
+    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
+    private JComboBox<Quality> cmbQuality = new JComboBox<>();
 
     private JFileChooser chooser = new JFileChooser();
     private JProgressBar pbProgress = new JProgressBar();
@@ -90,20 +88,10 @@ public class SampleFrame extends JFrame {
         pnlButtons.add(cmbQuality);
 
         //Buttons
-        btnDraw.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderToScreen();
-            }
-        });
+        btnDraw.addActionListener(e -> renderToScreen());
         pnlButtons.add(btnDraw);
 
-        btnSave.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                renderToFile();
-            }
-        });
+        btnSave.addActionListener(e -> renderToFile());
         pnlButtons.add(btnSave);
 
         add(output, BorderLayout.CENTER);
@@ -114,6 +102,10 @@ public class SampleFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new SampleFrame().setVisible(true);
     }
 
     private String formatRenderTime(long renderTime) {
@@ -153,10 +145,6 @@ public class SampleFrame extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        new SampleFrame().setVisible(true);
-    }
-
     public void renderToScreen() {
         renderToScreen = true;
 
@@ -174,6 +162,27 @@ public class SampleFrame extends JFrame {
         world.render(new ViewPlane(1920, 1080, samples));
     }
 
+    private static enum Quality {
+        LOW(16), MEDIUM(49), HIGH(100), ULTRA(144);
+
+        private int samples;
+
+        private Quality(int samples) {
+            this.samples = samples;
+        }
+
+        public int getSamples() {
+            return samples;
+        }
+
+        @Override
+        public String toString() {
+            String name = super.toString();
+            return name.charAt(0) + name.substring(1).toLowerCase();
+
+        }
+    }
+
     public class WorldWaiter implements WorldListener {
         private int count;
         private BufferedImage image;
@@ -187,19 +196,17 @@ public class SampleFrame extends JFrame {
             pbProgress.setMinimum(0);
             pbProgress.setMaximum(width * height);
             count = 0;
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    btnDraw.setEnabled(false);
-                    btnSave.setEnabled(false);
-                    if (renderToScreen) {
-                        btnDraw.setText("Drawing...");
-                        output.setIcon(new ImageIcon(image));
-                    } else {
-                        btnSave.setText("Drawing...");
+            EventQueue.invokeLater(() -> {
+                        btnDraw.setEnabled(false);
+                        btnSave.setEnabled(false);
+                        if (renderToScreen) {
+                            btnDraw.setText("Drawing...");
+                            output.setIcon(new ImageIcon(image));
+                        } else {
+                            btnSave.setText("Drawing...");
+                        }
                     }
-                }
-            });
+            );
 
 
             g2d = image.createGraphics();
@@ -227,51 +234,23 @@ public class SampleFrame extends JFrame {
         public void traceFinished(final World world, final long renderTime) {
             setTitle(String.format(RENDER_INFO, world.getName(), formatRenderTime(renderTime)));
             world.removeListener(this);
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    btnSave.setText("Save in full HD");
-                    btnSave.setEnabled(true);
-                    btnDraw.setText("Draw");
-                    btnDraw.setEnabled(true);
-                    pbProgress.setValue(0);
-                    pbProgress.setString("Done!");
-                    if (!renderToScreen) {
-                        EventQueue.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                saveFile(world, renderTime);
-                            }
-                        });
+            EventQueue.invokeLater(() -> {
+                        btnSave.setText("Save in full HD");
+                        btnSave.setEnabled(true);
+                        btnDraw.setText("Draw");
+                        btnDraw.setEnabled(true);
+                        pbProgress.setValue(0);
+                        pbProgress.setString("Done!");
+                        if (!renderToScreen) {
+                            saveFile(world, renderTime);
+                        }
                     }
-                }
-            });
+            );
             repaint();
         }
 
         public BufferedImage getImage() {
             return image;
-        }
-    }
-
-    private static enum Quality {
-        LOW(16), MEDIUM(49), HIGH(100), ULTRA(144);
-
-        private int samples;
-
-        private Quality(int samples) {
-            this.samples = samples;
-        }
-
-        public int getSamples() {
-            return samples;
-        }
-
-        @Override
-        public String toString() {
-            String name = super.toString();
-            return name.charAt(0) + name.substring(1).toLowerCase();
-
         }
     }
 }
