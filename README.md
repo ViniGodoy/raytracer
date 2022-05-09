@@ -11,6 +11,7 @@ With some refactorings, corrections and ideas of my own.
 
 Change History
 --------------
+- 09/05/2022 Updated project to Java 18
 - 23/03/2014 Updated project to Java 8
 - 29/12/2013 [pic][15] - Added compound objects and some default compound beveled objects. **v1.7**
 - 27/12/2013 [pic][14] - Added transformations.
