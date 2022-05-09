@@ -12,28 +12,28 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 
-import java.util.Random;
+import java.util.random.RandomGenerator;
 
 /**
  * Random number generator utilities
  */
 public class Rnd {
-    private static final Random RND = new Random();
+    private static final RandomGenerator RND = RandomGenerator.of("Xoroshiro128PlusPlus");
 
-    public synchronized static float rndFloat() {
+    public static float rndFloat() {
         return RND.nextFloat();
     }
 
     public static float rndFloat(float min, float max) {
-        return min + rndFloat() * (max - min);
+        return RND.nextFloat(min, max);
     }
 
-    public synchronized static int rndInt(int range) {
+    public static int rndInt(int range) {
         return RND.nextInt(range);
     }
 
-    public synchronized static int rndInt(int min, int max) {
-        var range = max - min;
-        return range == 0 ? min : min + RND.nextInt(range);
+    public static int rndInt(int min, int max) {
+        if (min == max) return min;
+        return RND.nextInt(min, max);
     }
 }
