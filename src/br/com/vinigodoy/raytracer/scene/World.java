@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class World {
-    private volatile Thread renderThread;
+    private Thread renderThread;
     private String name;
     private final Vector3 backgroundColor;
     private final Tracer tracer;
