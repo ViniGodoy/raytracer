@@ -11,6 +11,8 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 
 package br.com.vinigodoy.raytracer.math;
 
+import java.util.Objects;
+
 /**
  * Represents a vector in 3D coordinate space.
  * This class has two versions of most methods:
@@ -242,9 +244,9 @@ public class Vector3 implements Cloneable {
      * @return The refracted ray.
      */
     public static Vector3 refract(Vector3 direction, Vector3 normal, float r1, float r2) {
-        float n = r1 / r2;
-        float cosI = normal.dot(direction);
-        float cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
+        var n = r1 / r2;
+        var cosI = normal.dot(direction);
+        var cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
         if (cosT2 <= 0)
             return null; //No refraction
         return multiply(direction, n).add(multiply(normal, n * cosI - (float) Math.sqrt(cosT2)));
@@ -413,7 +415,7 @@ public class Vector3 implements Cloneable {
      * @see #normalize()
      */
     public Vector3 saturate() {
-        float max = Math.max(Math.max(x, y), z);
+        var max = Math.max(Math.max(x, y), z);
         return max > 1.0f ? divide(max) : this;
     }
 
@@ -421,16 +423,13 @@ public class Vector3 implements Cloneable {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != getClass()) return false;
-        Vector3 other = (Vector3) obj;
+        var other = (Vector3) obj;
         return x == other.x && y == other.y && z == other.z;
     }
 
     @Override
     public int hashCode() {
-        int result = (x != +0.0f ? Float.floatToIntBits(x) : 0);
-        result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
-        result = 31 * result + (z != +0.0f ? Float.floatToIntBits(z) : 0);
-        return result;
+        return Objects.hash(x, y, z);
     }
 
     @Override
@@ -446,11 +445,11 @@ public class Vector3 implements Cloneable {
      * @return The color as int with RGB format.
      */
     public int toRGB() {
-        Vector3 color = saturate(this);
+        var color = saturate(this);
 
-        int r = (Math.round(color.x * 255) & 0xFF);
-        int g = (Math.round(color.y * 255) & 0xFF);
-        int b = (Math.round(color.z * 255) & 0xFF);
+        var r = (Math.round(color.x * 255) & 0xFF);
+        var g = (Math.round(color.y * 255) & 0xFF);
+        var b = (Math.round(color.z * 255) & 0xFF);
 
         return r << 16 | g << 8 | b;
     }
@@ -461,19 +460,19 @@ public class Vector3 implements Cloneable {
     }
 
     public Vector3 rotate(Vector3 axis, float radians) {
-        float s = (float) Math.sin(radians);
-        float c = (float) Math.cos(radians);
-        float k = 1.0F - c;
+        var s = (float) Math.sin(radians);
+        var c = (float) Math.cos(radians);
+        var k = 1.0F - c;
 
-        float nx = x * (c + k * axis.x * axis.x) +
+        var nx = x * (c + k * axis.x * axis.x) +
                 y * (k * axis.x * axis.y - s * axis.z) +
                 z * (k * axis.x * axis.z + s * axis.y);
 
-        float ny = x * (k * axis.x * axis.y + s * axis.z) +
+        var ny = x * (k * axis.x * axis.y + s * axis.z) +
                 y * (c + k * axis.y * axis.y) +
                 z * (k * axis.y * axis.z - s * axis.x);
 
-        float nz = x * (k * axis.x * axis.z - s * axis.y) +
+        var nz = x * (k * axis.x * axis.z - s * axis.y) +
                 y * (k * axis.y * axis.z + s * axis.x) +
                 z * (c + k * axis.z * axis.z);
 

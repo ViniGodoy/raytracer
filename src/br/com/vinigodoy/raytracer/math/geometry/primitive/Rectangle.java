@@ -14,7 +14,6 @@ package br.com.vinigodoy.raytracer.math.geometry.primitive;
 import br.com.vinigodoy.raytracer.material.EmissiveMaterial;
 import br.com.vinigodoy.raytracer.material.Material;
 import br.com.vinigodoy.raytracer.math.Ray;
-import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.math.geometry.EmissiveObject;
 import br.com.vinigodoy.raytracer.math.geometry.GeometricObject;
@@ -25,19 +24,18 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 import static br.com.vinigodoy.raytracer.math.Vector3.*;
 
 public class Rectangle implements GeometricObject, EmissiveObject {
+    private final Vector3 p0;            // corner vertex
+    private final Vector3 a;              // side
+    private final double aLenSquared;
+    private final Vector3 b;                // side
+    private final double bLenSquared;
 
-    private Vector3 p0;            // corner vertex
-    private Vector3 a;              // side
-    private double aLenSquared;
-    private Vector3 b;                // side
-    private double bLenSquared;
+    private final Vector3 normal;
 
-    private Vector3 normal;
-
-    private float invArea;
+    private final float invArea;
     private Sampler sampler;
 
-    private Material material;
+    private final Material material;
 
 
     public Rectangle(Vector3 p0, Vector3 a, Vector3 b, Vector3 normal, Material material) {
@@ -103,7 +101,7 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     @Override
     public Vector3 sample() {
-        Vector2 sp = sampler.nextSampleSquare();
+        var sp = sampler.nextSampleSquare();
         return multiply(a, sp.getX()).add(multiply(b, sp.getY())).add(p0);
     }
 
@@ -119,28 +117,25 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     @Override
     public Rectangle clone() {
-        Rectangle rect = new Rectangle(p0.clone(), a.clone(), b.clone(), normal.clone(), material.clone());
+        var rect = new Rectangle(p0.clone(), a.clone(), b.clone(), normal.clone(), material.clone());
         rect.sampler = sampler == null ? null : sampler.clone();
         return rect;
     }
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        float t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
 
-        if (t <= K_EPSILON)
-            return false;
+        if (t <= K_EPSILON) return false;
 
-        Vector3 p = ray.pointAt(t);
-        Vector3 d = subtract(p, p0);
+        var p = ray.pointAt(t);
+        var d = subtract(p, p0);
 
-        double ddota = d.dot(a);
-        if (ddota < 0.0 || ddota > aLenSquared)
-            return false;
+        var ddota = d.dot(a);
+        if (ddota < 0.0 || ddota > aLenSquared) return false;
 
-        double ddotb = d.dot(b);
-        if (ddotb < 0.0 || ddotb > bLenSquared)
-            return false;
+        var ddotb = d.dot(b);
+        if (ddotb < 0.0 || ddotb > bLenSquared) return false;
 
         tmin.value = t;
         sr.normal = normal;
@@ -151,24 +146,20 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        if (material instanceof EmissiveMaterial)
-            return false;
+        if (material instanceof EmissiveMaterial) return false;
 
-        float t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
 
-        if (t <= K_EPSILON)
-            return false;
+        if (t <= K_EPSILON) return false;
 
-        Vector3 p = ray.pointAt(t);
-        Vector3 d = subtract(p, p0);
+        var p = ray.pointAt(t);
+        var d = subtract(p, p0);
 
-        double ddota = d.dot(a);
-        if (ddota < 0.0 || ddota > aLenSquared)
-            return false;
+        var ddota = d.dot(a);
+        if (ddota < 0.0 || ddota > aLenSquared) return false;
 
-        double ddotb = d.dot(b);
-        if (ddotb < 0.0 || ddotb > bLenSquared)
-            return false;
+        var ddotb = d.dot(b);
+        if (ddotb < 0.0 || ddotb > bLenSquared) return false;
 
         tmin.value = t;
         return true;

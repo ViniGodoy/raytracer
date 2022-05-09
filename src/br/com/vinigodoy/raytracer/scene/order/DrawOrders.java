@@ -21,25 +21,25 @@ public enum DrawOrders implements DrawOrder {
     INTERLACED {
         @Override
         public PixelArray getPixels(int w, int h) {
-            PixelArray pixels = new PixelArray(w, h);
-            int count = 0;
+            var pixels = new PixelArray(w, h);
+            var count = 0;
             //Add even lines
-            for (int y = 0; y < h; y += 2) {
-                for (int x = 0; x < w; x++) {
+            for (var y = 0; y < h; y += 2) {
+                for (var x = 0; x < w; x++) {
                     pixels.setPixel(count++, x, y);
                 }
             }
 
             //Add even columns
-            for (int y = 1; y < h; y += 2) {
-                for (int x = 0; x < w; x += 2) {
+            for (var y = 1; y < h; y += 2) {
+                for (var x = 0; x < w; x += 2) {
                     pixels.setPixel(count++, x, y);
                 }
             }
 
             //Add odd lines and columns
-            for (int y = 1; y < h; y += 2) {
-                for (int x = 1; x < w; x += 2) {
+            for (var y = 1; y < h; y += 2) {
+                for (var x = 1; x < w; x += 2) {
                     pixels.setPixel(count++, x, y);
                 }
             }
@@ -50,39 +50,39 @@ public enum DrawOrders implements DrawOrder {
     INTERLACED2 {
         @Override
         public PixelArray getPixels(int w, int h) {
-            PixelArray pixels = new PixelArray(w, h);
-            int count = 0;
+            var pixels = new PixelArray(w, h);
+            var count = 0;
 
-            for (int y = 0; y < pixels.getHeight(); y += 4)
-                for (int x = 0; x < pixels.getWidth(); x += 4) {
+            for (var y = 0; y < pixels.getHeight(); y += 4)
+                for (var x = 0; x < pixels.getWidth(); x += 4) {
                     pixels.setPixel(count++, x, y);
                 }
 
-            for (int y = 1; y < pixels.getHeight(); y += 2)
-                for (int x = 2; x < pixels.getWidth(); x += 4) {
+            for (var y = 1; y < pixels.getHeight(); y += 2)
+                for (var x = 2; x < pixels.getWidth(); x += 4) {
                     pixels.setPixel(count++, x, y);
                 }
 
-            for (int y = 2; y < pixels.getHeight(); y += 4)
-                for (int x = 0; x < pixels.getWidth(); x += 4) {
+            for (var y = 2; y < pixels.getHeight(); y += 4)
+                for (var x = 0; x < pixels.getWidth(); x += 4) {
                     pixels.setPixel(count++, x, y);
                 }
 
-            for (int y = 0; y < pixels.getHeight(); y += 2)
-                for (int x = 0; x < pixels.getWidth(); x += 4) {
+            for (var y = 0; y < pixels.getHeight(); y += 2)
+                for (var x = 0; x < pixels.getWidth(); x += 4) {
                     if (x + 2 < pixels.getWidth())
                         pixels.setPixel(count++, x + 2, y);
                     if (y + 1 < pixels.getHeight())
                         pixels.setPixel(count++, x, y + 1);
                 }
 
-            for (int y = 0; y < pixels.getHeight(); y += 2)
-                for (int x = 1; x < pixels.getWidth(); x += 2) {
+            for (var y = 0; y < pixels.getHeight(); y += 2)
+                for (var x = 1; x < pixels.getWidth(); x += 2) {
                     pixels.setPixel(count++, x, y);
                 }
 
-            for (int y = 1; y < pixels.getHeight(); y += 2)
-                for (int x = 1; x < pixels.getWidth(); x += 2) {
+            for (var y = 1; y < pixels.getHeight(); y += 2)
+                for (var x = 1; x < pixels.getWidth(); x += 2) {
                     pixels.setPixel(count++, x, y);
                 }
 
@@ -92,7 +92,7 @@ public enum DrawOrders implements DrawOrder {
     RANDOM {
         @Override
         public PixelArray getPixels(int w, int h) {
-            PixelArray pixels = NORMAL.getPixels(w, h);
+            var pixels = NORMAL.getPixels(w, h);
             pixels.shuffle();
             return pixels;
         }
@@ -100,7 +100,7 @@ public enum DrawOrders implements DrawOrder {
 
     @Override
     public String toString() {
-        String name = super.toString();
+        var name = super.toString();
         return name.charAt(0) + name.substring(1).toLowerCase();
     }
 }

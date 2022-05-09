@@ -31,16 +31,16 @@ import java.util.List;
 public class World {
     private volatile Thread renderThread;
     private String name;
-    private Vector3 backgroundColor;
-    private Tracer tracer;
-    private Camera camera;
+    private final Vector3 backgroundColor;
+    private final Tracer tracer;
+    private final Camera camera;
 
-    private List<GeometricObject> objects = new ArrayList<GeometricObject>();
-    private List<WorldListener> listeners = new ArrayList<WorldListener>();
+    private final List<GeometricObject> objects = new ArrayList<>();
+    private final List<WorldListener> listeners = new ArrayList<>();
 
     private Light ambientLight = new AmbientLight(0.5f, new Vector3(1.0f, 1.0f, 1.0f));
 
-    private List<Light> lights = new ArrayList<Light>();
+    private final List<Light> lights = new ArrayList<>();
 
     public World(String name, Tracer tracer, Vector3 backgroundColor, Camera camera) {
         this.name = name;
@@ -66,14 +66,19 @@ public class World {
         return this;
     }
 
+    public World addAll(GeometricObject ... objs) {
+        for (var obj : objs) add(obj);
+        return this;
+    }
+
     public Instance addInstance(GeometricObject obj) {
-        Instance instance = new Instance(obj);
+        var instance = new Instance(obj);
         objects.add(instance);
         return instance;
     }
 
     public Instance addInstance(GeometricObject obj, Material mtrl) {
-        Instance instance = new Instance(obj, mtrl);
+        var instance = new Instance(obj, mtrl);
         objects.add(instance);
         return instance;
     }
@@ -83,20 +88,21 @@ public class World {
         return this;
     }
 
-    public void render(final ViewPlane vp) {
-        if (renderThread != null)
-            throw new IllegalStateException("Cannot render two images at the same time!");
+    public World addAll(Light ... lights) {
+        for (var light : lights) add(light);
+        return this;
+    }
 
-        renderThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                fireTraceStarted(vp);
-                long before = System.currentTimeMillis();
-                camera.render(World.this, vp);
-                long renderTime = (System.currentTimeMillis() - before);
-                fireTraceFinished(renderTime);
-                renderThread = null;
-            }
+    public void render(final ViewPlane vp) {
+        if (renderThread != null) throw new IllegalStateException("Cannot render two images at the same time!");
+
+        renderThread = new Thread(() -> {
+            fireTraceStarted(vp);
+            var before = System.currentTimeMillis();
+            camera.render(World.this, vp);
+            var renderTime = (System.currentTimeMillis() - before);
+            fireTraceFinished(renderTime);
+            renderThread = null;
         }, "Raytracer Render");
         renderThread.setDaemon(true);
         renderThread.start();
@@ -107,14 +113,14 @@ public class World {
     }
 
     public ShadeRec hit(Ray ray) {
-        ShadeRec sr = new ShadeRec(this);
+        var sr = new ShadeRec(this);
 
         Vector3 normal = null;
         Vector3 hitPoint = null;
-        float tMin = Float.MAX_VALUE;
+        var tMin = Float.MAX_VALUE;
 
-        for (GeometricObject obj : objects) {
-            FloatRef fr = new FloatRef();
+        for (var obj : objects) {
+            var fr = new FloatRef();
             if (obj.hit(ray, sr, fr) && fr.value < tMin) {
                 sr.hitAnObject = true;
                 tMin = fr.value;
@@ -132,12 +138,8 @@ public class World {
     }
 
     public boolean shadowHit(Ray ray, float d) {
-        FloatRef t = new FloatRef();
-        for (GeometricObject obj : objects)
-            if (obj.shadow_hit(ray, t) && t.value < d)
-                return true;
-
-        return false;
+        var t = new FloatRef();
+        return objects.stream().anyMatch(obj -> obj.shadow_hit(ray, t) && t.value < d);
     }
 
     public Tracer getTracer() {
@@ -148,8 +150,9 @@ public class World {
         return ambientLight;
     }
 
-    public void setAmbientLight(Light ambientLight) {
+    public World setAmbientLight(Light ambientLight) {
         this.ambientLight = ambientLight;
+        return this;
     }
 
     public List<Light> getLights() {
@@ -157,29 +160,24 @@ public class World {
     }
 
     private void fireTraceStarted(ViewPlane vp) {
-        for (WorldListener listener : listeners) {
-            listener.traceStarted(this, vp.getHRes(), vp.getVRes());
-        }
+        listeners.forEach(l -> l.traceStarted(this, vp.getHRes(), vp.getVRes()));
     }
 
     public void drawPixel(int x, int y, Vector3 color) {
-        for (WorldListener listener : listeners) {
-            listener.pixelTraced(this, x, y, color);
-        }
+        listeners.forEach(l -> l.pixelTraced(this, x, y, color));
     }
 
     private void fireTraceFinished(long renderTime) {
-        for (WorldListener listener : new ArrayList<WorldListener>(listeners)) {
-            listener.traceFinished(this, renderTime);
-        }
-
+        new ArrayList<>(listeners).forEach(l -> l.traceFinished(this, renderTime));
     }
 
-    public void addListener(WorldListener listener) {
+    public World addListener(WorldListener listener) {
         listeners.add(listener);
+        return this;
     }
 
-    public void removeListener(WorldListener listener) {
+    public World removeListener(WorldListener listener) {
         listeners.add(listener);
+        return this;
     }
 }

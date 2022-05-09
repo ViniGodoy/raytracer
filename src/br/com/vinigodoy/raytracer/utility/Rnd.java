@@ -33,10 +33,7 @@ public class Rnd {
     }
 
     public synchronized static int rndInt(int min, int max) {
-        int range = max - min;
-        if (range == 0)
-            return min;
-
-        return min + RND.nextInt(range);
+        var range = max - min;
+        return range == 0 ? min : min + RND.nextInt(range);
     }
 }

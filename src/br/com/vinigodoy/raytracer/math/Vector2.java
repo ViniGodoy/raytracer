@@ -12,6 +12,8 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.math;
 
 
+import java.util.Objects;
+
 /**
  * Represents a vector in 2D coordinate space.
  * This class has two versions of most methods:
@@ -335,16 +337,13 @@ public class Vector2 implements Cloneable {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != getClass()) return false;
-        Vector2 other = (Vector2) obj;
+        var other = (Vector2) obj;
         return x == other.x && y == other.y;
     }
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + (x != +0.0f ? Float.floatToIntBits(x) : 0);
-        result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0);
-        return result;
+        return Objects.hash(x, y);
     }
 
     @Override

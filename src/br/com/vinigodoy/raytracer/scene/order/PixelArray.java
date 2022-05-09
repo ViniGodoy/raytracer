@@ -19,8 +19,8 @@ import java.util.Iterator;
  * Represents all screen pixels. The pixels can be reordered in a specific drawing order.
  */
 public class PixelArray implements Iterable<PixelArray.Pixel> {
-    private int[] pixels;
-    private int width;
+    private final int[] pixels;
+    private final int width;
 
     public PixelArray(int w, int h) {
         this.pixels = new int[w * h];
@@ -32,7 +32,7 @@ public class PixelArray implements Iterable<PixelArray.Pixel> {
      * That is, the pixels are displaced in x order followed by y order.
      */
     public PixelArray setNaturalOrder() {
-        for (int i = 0; i < pixels.length; i++)
+        for (var i = 0; i < pixels.length; i++)
             pixels[i] = i;
         return this;
     }
@@ -55,8 +55,8 @@ public class PixelArray implements Iterable<PixelArray.Pixel> {
      * @return The pixel coordinates.
      */
     public Pixel getPixel(int index) {
-        final int x = pixels[index] % width;
-        final int y = pixels[index] / width;
+        final var x = pixels[index] % width;
+        final var y = pixels[index] / width;
         return new Pixel(x, y);
     }
 
@@ -85,11 +85,11 @@ public class PixelArray implements Iterable<PixelArray.Pixel> {
      * Shuflles the entire pixel array
      */
     public void shuffle() {
-        for (int i = 0; i < pixels.length - 1; i++) {
-            int max = pixels.length - i - 1;
-            int ind = Rnd.rndInt(max);
+        for (var i = 0; i < pixels.length - 1; i++) {
+            var max = pixels.length - i - 1;
+            var ind = Rnd.rndInt(max);
 
-            int aux = pixels[ind];
+            var aux = pixels[ind];
             pixels[ind] = pixels[max];
             pixels[max] = aux;
         }
@@ -103,29 +103,7 @@ public class PixelArray implements Iterable<PixelArray.Pixel> {
     /**
      * Represents one pixel.
      */
-    public static class Pixel {
-        private int x;
-        private int y;
-
-        public Pixel(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        /**
-         * @return The pixel x position
-         */
-        public int getX() {
-            return x;
-        }
-
-        /**
-         * @return The pixel y position
-         */
-        public int getY() {
-            return y;
-        }
-    }
+    public record Pixel(int x, int y) {}
 
     public class PixelIterator implements Iterator<Pixel> {
         private int count = 0;

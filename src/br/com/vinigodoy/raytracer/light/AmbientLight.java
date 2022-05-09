@@ -15,6 +15,7 @@ import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
+import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 /**
  * Defines an uniform ambient light. Ambient lights leaves no shading and are usually used to represent the
  * "maximum darkness" of a scene. Use ambient lights to see object contours in almost absolute darkness.
@@ -82,7 +83,7 @@ public class AmbientLight extends AbstractLight {
 
     @Override
     public Vector3 L(ShadeRec sr) {
-        return Vector3.multiply(color, ls);
+        return multiply(color, ls);
     }
 
     @Override

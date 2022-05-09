@@ -19,9 +19,9 @@ import br.com.vinigodoy.raytracer.utility.UVW;
 import static br.com.vinigodoy.raytracer.math.Vector3.*;
 
 public abstract class AbstractCamera implements Camera {
-    protected Vector3 eye;
-    protected Vector3 look;
-    protected Vector3 up;
+    protected final Vector3 eye;
+    protected final Vector3 look;
+    protected final Vector3 up;
 
     protected float roll;
     protected float exposureTime;
@@ -64,37 +64,35 @@ public abstract class AbstractCamera implements Camera {
     }
 
     protected UVW computeUVW() {
-        Vector3 w = subtract(eye, look).normalize();
+        var w = subtract(eye, look).normalize();
 
-        Vector3 up = rotate(this.up, w, roll);
+        var up = rotate(this.up, w, roll);
         // take care of the singularity by hardwiring in specific camera orientations
         if (eye.getX() == look.getX() && eye.getZ() == look.getZ() && eye.getY() > look.getY()) { // camera looking vertically down
             return new UVW(
-                    new Vector3(0, 0, 1),
-                    new Vector3(1, 0, 0),
-                    new Vector3(0, 1, 0));
+                new Vector3(0, 0, 1),
+                new Vector3(1, 0, 0),
+                new Vector3(0, 1, 0)
+            );
         }
 
         if (eye.getX() == look.getX() && eye.getZ() == look.getZ() && eye.getY() < look.getY()) { // camera looking vertically up
             return new UVW(
-                    new Vector3(1, 0, 0),
-                    new Vector3(0, 0, 1),
-                    new Vector3(0, -1, 0));
+                new Vector3(1, 0, 0),
+                new Vector3(0, 0, 1),
+                new Vector3(0, -1, 0)
+            );
         }
 
         //Otherwise, calculate UVW
-        Vector3 u = cross(up, w).normalize();
-        Vector3 v = cross(w, u);
-
+        var u = cross(up, w).normalize();
+        var v = cross(w, u);
         return new UVW(u, v, w);
     }
 
-
     public void drawPixel(World world, ViewPlane vp, int col, int row, Vector3 color) {
-        if (vp.getGamma() != 1.0f)
-            color.pow(vp.invGamma());
-
-        int invR = vp.getVRes() - row - 1;
+        if (vp.getGamma() != 1.0f) color.pow(vp.invGamma());
+        var invR = vp.getVRes() - row - 1;
         world.drawPixel(col, invR, color);
     }
 }

@@ -17,9 +17,9 @@ import br.com.vinigodoy.raytracer.scene.order.DrawOrders;
 import br.com.vinigodoy.raytracer.scene.order.PixelArray;
 
 public class ViewPlane {
-    private int hRes;
-    private int vRes;
-    private float s;
+    private final int hRes;
+    private final int vRes;
+    private final float s;
     private float gamma;
     private Sampler sampler;
     private DrawOrder drawOrder;

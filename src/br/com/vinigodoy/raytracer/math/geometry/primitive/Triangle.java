@@ -21,9 +21,11 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
 
 public class Triangle implements GeometricObject {
-    private Material material;
-    private Vector3 v0, v1, v2;
-    private Vector3 normal;
+    private final Material material;
+    private final Vector3 v0;
+    private final Vector3 v1;
+    private final Vector3 v2;
+    private final Vector3 normal;
 
     /**
      * Creates a new triangle. The vertices must be given in a counter-clockwise direction.
@@ -94,47 +96,43 @@ public class Triangle implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        double a = v0.getX() - v1.getX();
-        double b = v0.getX() - v2.getX();
-        double c = ray.getDirection().getX();
-        double d = v0.getX() - ray.getOrigin().getX();
+        var a = v0.getX() - v1.getX();
+        var b = v0.getX() - v2.getX();
+        var c = ray.getDirection().getX();
+        var d = v0.getX() - ray.getOrigin().getX();
 
-        double e = v0.getY() - v1.getY();
-        double f = v0.getY() - v2.getY();
-        double g = ray.getDirection().getY();
-        double h = v0.getY() - ray.getOrigin().getY();
+        var e = v0.getY() - v1.getY();
+        var f = v0.getY() - v2.getY();
+        var g = ray.getDirection().getY();
+        var h = v0.getY() - ray.getOrigin().getY();
 
-        double i = v0.getZ() - v1.getZ();
-        double j = v0.getZ() - v2.getZ();
-        double k = ray.getDirection().getZ();
-        double l = v0.getZ() - ray.getOrigin().getZ();
+        var i = v0.getZ() - v1.getZ();
+        var j = v0.getZ() - v2.getZ();
+        var k = ray.getDirection().getZ();
+        var l = v0.getZ() - ray.getOrigin().getZ();
 
         double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
         double q = g * i - e * k, s = e * j - f * i;
 
-        double inv_denom = 1.0 / (a * m + b * q + c * s);
+        var inv_denom = 1.0 / (a * m + b * q + c * s);
 
-        double e1 = d * m - b * n - c * p;
-        double beta = e1 * inv_denom;
+        var e1 = d * m - b * n - c * p;
+        var beta = e1 * inv_denom;
 
-        if (beta < 0.0)
-            return false;
+        if (beta < 0.0) return false;
 
-        double r = e * l - h * i;
-        double e2 = a * n + d * q + c * r;
-        double gamma = e2 * inv_denom;
+        var r = e * l - h * i;
+        var e2 = a * n + d * q + c * r;
+        var gamma = e2 * inv_denom;
 
-        if (gamma < 0.0)
-            return false;
+        if (gamma < 0.0) return false;
 
-        if (beta + gamma > 1.0)
-            return false;
+        if (beta + gamma > 1.0) return false;
 
-        double e3 = a * p - b * r + d * s;
-        double t = e3 * inv_denom;
+        var e3 = a * p - b * r + d * s;
+        var t = e3 * inv_denom;
 
-        if (t < K_EPSILON)
-            return false;
+        if (t < K_EPSILON) return false;
 
         tmin.value = (float) t;
         return true;

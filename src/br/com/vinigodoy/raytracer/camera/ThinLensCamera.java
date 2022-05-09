@@ -18,7 +18,6 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
-import br.com.vinigodoy.raytracer.scene.order.PixelArray;
 import br.com.vinigodoy.raytracer.utility.UVW;
 
 import static br.com.vinigodoy.raytracer.math.Vector2.multiply;
@@ -26,10 +25,8 @@ import static br.com.vinigodoy.raytracer.math.Vector3.add;
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 
 public class ThinLensCamera extends AbstractCamera {
-
     private float zoom;
     private float viewPlaneDistance;
-
     private float focalDistance;
     private float lensRadius;
 
@@ -46,34 +43,35 @@ public class ThinLensCamera extends AbstractCamera {
     }
 
     Vector3 getDirection(Vector2 pixel, Vector2 lensPoint, UVW uvw) {
-        Vector2 p = multiply(pixel, focalDistance / viewPlaneDistance).subtract(lensPoint);
+        var p = multiply(pixel, focalDistance / viewPlaneDistance).subtract(lensPoint);
         return uvw.transform(p, -focalDistance).normalize();
     }
 
     @Override
     public void render(World world, ViewPlane vp) {
-        UVW uvw = computeUVW();
-        float s = vp.getS() / zoom;
+        var uvw = computeUVW();
+        var s = vp.getS() / zoom;
 
-        for (PixelArray.Pixel pixel : vp.getPixels()) {
-            int c = pixel.getX();
-            int r = pixel.getY();
+        for (var pixel : vp.getPixels()) {
+            var c = pixel.x();
+            var r = pixel.y();
 
-            Vector3 L = new Vector3();
+            var L = new Vector3();
 
-            for (int i = 0; i < vp.getSampler().getNumSamples(); i++) {
-                Vector2 sp = vp.getSampler().nextSampleSquare();
+            for (var i = 0; i < vp.getSampler().getNumSamples(); i++) {
+                var sp = vp.getSampler().nextSampleSquare();
 
-                Vector2 pp = new Vector2(
-                        s * (c - 0.5f * vp.getHRes() + sp.getX()),
-                        s * (r - 0.5f * vp.getVRes() + sp.getY()));
+                var pp = new Vector2(
+                    s * (c - 0.5f * vp.getHRes() + sp.getX()),
+                    s * (r - 0.5f * vp.getVRes() + sp.getY())
+                );
 
-                Vector2 dp = sampler.nextSampleDisk();
-                Vector2 lp = multiply(dp, lensRadius);
-                Vector3 o = add(eye, multiply(uvw.getU(), lp.getX()))
-                        .add(multiply(uvw.getV(), lp.getY()));
+                var dp = sampler.nextSampleDisk();
+                var lp = multiply(dp, lensRadius);
+                var o = add(eye, multiply(uvw.u(), lp.getX()))
+                        .add(multiply(uvw.v(), lp.getY()));
 
-                Ray ray = new Ray(o, getDirection(pp, lp, uvw));
+                var ray = new Ray(o, getDirection(pp, lp, uvw));
                 L.add(world.getTracer().trace(world, ray, 0));
             }
 

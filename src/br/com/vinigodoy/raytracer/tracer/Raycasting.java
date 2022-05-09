@@ -13,20 +13,16 @@ package br.com.vinigodoy.raytracer.tracer;
 import br.com.vinigodoy.raytracer.math.Ray;
 import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.scene.World;
-import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 /**
  * Simple ray casting algorithm
  */
 public class Raycasting implements Tracer {
-
     @Override
     public Vector3 trace(World world, Ray ray, int depth) {
-        ShadeRec sr = world.hit(ray).clone();
-        if (sr.hitAnObject) {
-            sr.ray = ray;
-            return sr.material.shade(sr);
-        }
-        return world.getBackgroundColor();
+        var sr = world.hit(ray).clone();
+        if (!sr.hitAnObject) return world.getBackgroundColor();
+        sr.ray = ray;
+        return sr.material.shade(sr);
     }
 }

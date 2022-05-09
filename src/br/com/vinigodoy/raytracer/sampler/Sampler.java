@@ -27,20 +27,20 @@ import static java.lang.Math.*;
 public final class Sampler implements Cloneable {
     public static final int DEFAULT_NUM_SETS = 83;
 
-    private List<Vector2> samples;
+    private final List<Vector2> samples;
     private List<Vector2> diskSamples;
     private List<Vector3> hemisphereSamples;
 
-    private List<Integer> shuffledIndices = new ArrayList<Integer>();
-    private Sample sample;
-    private int numSamples;
-    private int numSets;
+    private final List<Integer> shuffledIndices = new ArrayList<>();
+    private final Sample sample;
+    private final int numSamples;
+    private final int numSets;
 
     private int count = 0;
     private int jump = 0;
 
     public Sampler(Sample sample, int numSamples, int numSets) {
-        this.samples = new ArrayList<Vector2>(numSets * numSamples);
+        this.samples = new ArrayList<>(numSets * numSamples);
         this.sample = sample;
         this.numSamples = numSamples <= 0 ? 1 : numSamples;
         this.numSets = numSets <= 0 ? 1 : numSets;
@@ -54,9 +54,9 @@ public final class Sampler implements Cloneable {
     public static Sampler newDefault(int numSamples) {
         numSamples = max(numSamples, 1);
 
-        Sample sample = Samples.Regular;
+        var sample = Samples.Regular;
         if (numSamples > 1) {
-            int n = (int) sqrt(numSamples);
+            var n = (int) sqrt(numSamples);
             sample = n * n == numSamples ? Samples.MultiJittered : Samples.NRooks;
         }
 
@@ -65,18 +65,18 @@ public final class Sampler implements Cloneable {
 
     private void createSamples(int numSamples, int numSets) {
         samples.clear();
-        for (int j = 0; j < numSets; j++)
+        for (var j = 0; j < numSets; j++)
             samples.addAll(sample.createSamples(numSamples));
         shuffleIndices();
     }
 
     private void shuffleIndices() {
         shuffledIndices.clear();
-        List<Integer> indices = new ArrayList<Integer>();
-        for (int i = 0; i < numSamples; i++)
+        var indices = new ArrayList<Integer>();
+        for (var i = 0; i < numSamples; i++)
             indices.add(i);
 
-        for (int i = 0; i < numSets; i++) {
+        for (var i = 0; i < numSets; i++) {
             Collections.shuffle(indices);
             shuffledIndices.addAll(indices);
         }
@@ -116,7 +116,7 @@ public final class Sampler implements Cloneable {
         return numSamples;
     }
 
-    protected int getNumSets() {
+    private int getNumSets() {
         return numSets;
     }
 
@@ -124,12 +124,12 @@ public final class Sampler implements Cloneable {
      * Maps the sample configuration of this samples to a disk.
      */
     private void mapToDisk() {
-        diskSamples = new ArrayList<Vector2>(samples.size());
+        diskSamples = new ArrayList<>(samples.size());
         float r;
         float phi;
 
-        for (Vector2 sample : samples) {
-            Vector2 sp = new Vector2(2 * sample.getX() - 1.0f, 2 * sample.getY() - 1.0f);
+        for (var sample : samples) {
+            var sp = new Vector2(2 * sample.getX() - 1.0f, 2 * sample.getY() - 1.0f);
 
             if (sp.getX() > -sp.getY()) {               //Sector 1
                 if (sp.getX() > sp.getY()) {
@@ -154,14 +154,14 @@ public final class Sampler implements Cloneable {
     }
 
     public void mapToHemisphere(float e) {
-        hemisphereSamples = new ArrayList<Vector3>(samples.size());
-        for (Vector2 sample : samples) {
-            float cosPhi = (float) cos(2.0 * PI * sample.getX());
-            float sinPhi = (float) sin(2.0 * PI * sample.getX());
-            float cosTheta = (float) pow(1.0 - sample.getY(), 1.0 / (e + 1.0));
-            float sinTheta = (float) sqrt(1.0 - cosTheta * cosTheta);
-            float pu = sinTheta * cosPhi;
-            float pv = sinTheta * sinPhi;
+        hemisphereSamples = new ArrayList<>(samples.size());
+        for (var sample : samples) {
+            var cosPhi = (float) cos(2.0 * PI * sample.getX());
+            var sinPhi = (float) sin(2.0 * PI * sample.getX());
+            var cosTheta = (float) pow(1.0 - sample.getY(), 1.0 / (e + 1.0));
+            var sinTheta = (float) sqrt(1.0 - cosTheta * cosTheta);
+            var pu = sinTheta * cosPhi;
+            var pv = sinTheta * sinPhi;
             hemisphereSamples.add(new Vector3(pu, pv, cosTheta));
         }
     }

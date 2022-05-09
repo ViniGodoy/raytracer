@@ -25,9 +25,9 @@ import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 
 public class Sphere implements GeometricObject {
-    private Vector3 center;
-    private float radius;
-    private Material material;
+    private final Vector3 center;
+    private final float radius;
+    private final Material material;
 
     /**
      * Creates a generic sphere centered in the origin and with radius 1.
@@ -74,7 +74,7 @@ public class Sphere implements GeometricObject {
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         if (shadow_hit(ray, tmin)) {
-            Vector3 temp = subtract(ray.getOrigin(), center);
+            var temp = subtract(ray.getOrigin(), center);
             sr.normal = multiply(ray.getDirection(), tmin.value).add(temp).divide(radius);
             sr.worldHitPoint = ray.pointAt(tmin.value);
             sr.localHitPoint = sr.worldHitPoint;
@@ -85,23 +85,23 @@ public class Sphere implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        Vector3 temp = subtract(ray.getOrigin(), center);
+        var temp = subtract(ray.getOrigin(), center);
 
         //Bhaskara equation a, b and c terms and delta calculation (bˆ2 - 4ac).
 
         //float a = 1, since ray.getDirection().sizeSqr() is always one.
-        float b = multiply(temp, 2.0f).dot(ray.getDirection());
-        float c = temp.sizeSqr() - radius * radius;
-        float delta = b * b - 4.0f * c;
+        var b = multiply(temp, 2.0f).dot(ray.getDirection());
+        var c = temp.sizeSqr() - radius * radius;
+        var delta = b * b - 4.0f * c;
 
         if (delta < 0.0) {
             return false;
         }
 
-        float e = (float) Math.sqrt(delta);
+        var e = (float) Math.sqrt(delta);
 
         //Smaller root
-        float t = (-b - e) / 2.0f;
+        var t = (-b - e) / 2.0f;
         if (t <= K_EPSILON) {
             //If not hit, tries the larger root
             t = (-b + e) / 2.0f;

@@ -12,5 +12,5 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 package br.com.vinigodoy.raytracer.scene.order;
 
 public interface DrawOrder {
-    public PixelArray getPixels(int w, int h);
+    PixelArray getPixels(int w, int h);
 }

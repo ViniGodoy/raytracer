@@ -19,8 +19,8 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 import static br.com.vinigodoy.raytracer.math.Vector3.mul;
 
 public class Phong extends AbstractMaterial {
-    private Lambertian diffuse;
-    private GlossySpecular specular;
+    private final Lambertian diffuse;
+    private final GlossySpecular specular;
 
     public Phong(float ka, float kd, float ks, float exp, Vector3 color) {
         super(ka, color);
@@ -73,7 +73,7 @@ public class Phong extends AbstractMaterial {
 
     @Override
     public Phong clone() {
-        Phong p = new Phong(getKa(), getKd(), getKs(), getExp(), getCd().clone());
+        var p = new Phong(getKa(), getKd(), getKs(), getExp(), getCd().clone());
         p.setCs(getCs().clone());
         return p;
     }

@@ -14,12 +14,12 @@ import br.com.vinigodoy.raytracer.math.Vector3;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
+import static br.com.vinigodoy.raytracer.math.Vector3.reflect;
 
 /**
  * Models a glossy specular light distribution
  */
 public class GlossySpecular extends AbstractBRDF {
-
     private float ks;
     private Vector3 cs;
     private float exp;
@@ -39,13 +39,10 @@ public class GlossySpecular extends AbstractBRDF {
 
     @Override
     public Vector3 f(ShadeRec sr, Vector3 wo, Vector3 wi) {
-        Vector3 L = new Vector3();
-
-        Vector3 r = Vector3.reflect(wi, sr.normal);
-        float rDotWo = r.dot(wo);
-        if (rDotWo > 0.0f)
-            L = multiply(cs, ks * (float) Math.pow(rDotWo, exp));
-        return L;
+        var r = reflect(wi, sr.normal);
+        var rDotWo = r.dot(wo);
+        return rDotWo <= 0.0f ? new Vector3() :
+                multiply(cs, ks * (float) Math.pow(rDotWo, exp));
     }
 
     /**

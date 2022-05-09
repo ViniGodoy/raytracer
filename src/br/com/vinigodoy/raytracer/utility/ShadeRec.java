@@ -54,7 +54,7 @@ public class ShadeRec implements Cloneable {
     //For area lights
     public Vector3 dir;
 
-    public World world;
+    public final World world;
 
     public ShadeRec(World world) {
         this.world = world;
@@ -62,7 +62,7 @@ public class ShadeRec implements Cloneable {
 
     @Override
     public ShadeRec clone() {
-        ShadeRec sr = new ShadeRec(world);
+        var sr = new ShadeRec(world);
         sr.hitAnObject = hitAnObject;
         sr.material = material == null ? null : material.clone();
         sr.worldHitPoint = worldHitPoint == null ? null : worldHitPoint.clone();

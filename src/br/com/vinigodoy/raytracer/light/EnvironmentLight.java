@@ -18,13 +18,9 @@ import br.com.vinigodoy.raytracer.sampler.Sampler;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 import br.com.vinigodoy.raytracer.utility.UVW;
 
-import static br.com.vinigodoy.raytracer.math.Vector3.cross;
-
 public class EnvironmentLight extends AbstractLight {
-    private Sampler sampler;
-    private EmissiveMaterial material;
-    private UVW uvw;
-    private Vector3 wi;
+    private final Sampler sampler;
+    private final EmissiveMaterial material;
 
     public EnvironmentLight(EmissiveMaterial material, Sampler sampler) {
         this.sampler = sampler;
@@ -33,12 +29,8 @@ public class EnvironmentLight extends AbstractLight {
 
     @Override
     public Vector3 getDirection(ShadeRec sr) {
-        Vector3 w = sr.normal;
-        Vector3 v = cross(new Vector3(0.0034f, 1.0000f, 0.0071f), w).normalize();
-        Vector3 u = cross(v, w);
-
-        uvw = new UVW(u, v, w);
-        return wi = uvw.transform(sampler.nextSampleHemisphere());
+        return UVW.from(sr.normal, new Vector3(0.0034f, 1.0000f, 0.0071f))
+                .transform(sampler.nextSampleHemisphere());
     }
 
     @Override

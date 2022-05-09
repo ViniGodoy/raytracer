@@ -28,25 +28,25 @@ import java.io.IOException;
 import java.util.Locale;
 
 public class SampleFrame extends JFrame {
-    private static final String VERSION = "1.8b";
+    private static final String VERSION = "1.9b";
     private static final String RENDER_INFO = "Java Raytracer v" + VERSION +
             " - Scene: %s - Render time: %s";
     private static final String COMPLETE_RENDER_INFO = RENDER_INFO + " - https://github.com/ViniGodoy/raytracer";
 
     private boolean renderToScreen = true;
 
-    private JLabel output = new JLabel("");
-    private JButton btnDraw = new JButton("Draw");
-    private JButton btnSave = new JButton("Save in full HD");
+    private final JLabel output = new JLabel("");
+    private final JButton btnDraw = new JButton("Draw");
+    private final JButton btnSave = new JButton("Save in full HD");
 
-    private JComboBox<WorldMaker> cmbScene = new JComboBox<>();
-    private JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
-    private JComboBox<Quality> cmbQuality = new JComboBox<>();
+    private final JComboBox<WorldMaker> cmbScene = new JComboBox<>();
+    private final JComboBox<DrawOrder> cmbDrawOrder = new JComboBox<>();
+    private final JComboBox<Quality> cmbQuality = new JComboBox<>();
 
-    private JFileChooser chooser = new JFileChooser();
-    private JProgressBar pbProgress = new JProgressBar();
+    private final JFileChooser chooser = new JFileChooser();
+    private final JProgressBar pbProgress = new JProgressBar();
 
-    private WorldWaiter waiter;
+    private final WorldWaiter waiter;
 
     public SampleFrame() {
         super("Java Ray Tracer v" + VERSION + " demo. Click in the button to draw.");
@@ -61,11 +61,11 @@ public class SampleFrame extends JFrame {
         pbProgress.setString("");
         pbProgress.setStringPainted(true);
 
-        JPanel pnlButtons = new JPanel(new FlowLayout());
+        var pnlButtons = new JPanel(new FlowLayout());
 
         //Scene
         pnlButtons.add(new JLabel("Scene:"));
-        for (WorldMaker wm : WorldMaker.values()) {
+        for (var wm : WorldMaker.values()) {
             cmbScene.addItem(wm);
         }
         cmbScene.setSelectedItem(WorldMaker.OBJECTS);
@@ -73,7 +73,7 @@ public class SampleFrame extends JFrame {
 
         //Draw order
         pnlButtons.add(new JLabel("Order:"));
-        for (DrawOrder drawOrder : DrawOrders.values()) {
+        for (var drawOrder : DrawOrders.values()) {
             cmbDrawOrder.addItem(drawOrder);
         }
         cmbDrawOrder.setSelectedItem(DrawOrders.INTERLACED2);
@@ -81,7 +81,7 @@ public class SampleFrame extends JFrame {
 
         //Quality
         pnlButtons.add(new JLabel("Quality:"));
-        for (Quality quality : Quality.values()) {
+        for (var quality : Quality.values()) {
             cmbQuality.addItem(quality);
         }
         cmbQuality.setSelectedItem(Quality.LOW);
@@ -113,24 +113,24 @@ public class SampleFrame extends JFrame {
             return String.format("%.2f seconds", (renderTime / 1000.0));
 
         renderTime /= 1000;
-        int s = (int) (renderTime % 60);
+        var s = (int) (renderTime % 60);
         renderTime /= 60;
-        int m = (int) (renderTime % 60);
+        var m = (int) (renderTime % 60);
 
-        String strMin = m == 1 ? "minute" : "minutes";
-        String strSec = s == 1 ? "second" : "seconds";
+        var strMin = m == 1 ? "minute" : "minutes";
+        var strSec = s == 1 ? "second" : "seconds";
         return String.format("%d %s %d %s", m, strMin, s, strSec);
     }
 
     public void saveFile(World world, long renderTime) {
-        File fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
+        var fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
         chooser.setSelectedFile(fileName);
 
         if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION)
             return;
 
         try {
-            Graphics2D g2d = waiter.getImage().createGraphics();
+            var g2d = waiter.getImage().createGraphics();
             g2d.setColor(Color.BLACK);
             g2d.fillRect(0, 0, 1920, 25);
             g2d.setColor(Color.WHITE);
@@ -148,26 +148,28 @@ public class SampleFrame extends JFrame {
     public void renderToScreen() {
         renderToScreen = true;
 
-        int samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
-        ViewPlane vp = new ViewPlane(800, 450, samples);
-        vp.setDrawOrder((DrawOrder) cmbDrawOrder.getSelectedItem());
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 1.0f, waiter);
+        var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 1.0f, waiter);
+        var drawOrder = (DrawOrder) cmbDrawOrder.getSelectedItem();
+
+        var vp = new ViewPlane(800, 450, samples);
+        vp.setDrawOrder(drawOrder);
         world.render(vp);
     }
 
     private void renderToFile() {
         renderToScreen = false;
-        int samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
-        World world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 2.4f, waiter);
+        var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 2.4f, waiter);
         world.render(new ViewPlane(1920, 1080, samples));
     }
 
-    private static enum Quality {
+    private enum Quality {
         LOW(16), MEDIUM(49), HIGH(100), ULTRA(144);
 
-        private int samples;
+        private final int samples;
 
-        private Quality(int samples) {
+        Quality(int samples) {
             this.samples = samples;
         }
 
@@ -177,7 +179,7 @@ public class SampleFrame extends JFrame {
 
         @Override
         public String toString() {
-            String name = super.toString();
+            var name = super.toString();
             return name.charAt(0) + name.substring(1).toLowerCase();
 
         }
@@ -186,7 +188,6 @@ public class SampleFrame extends JFrame {
     public class WorldWaiter implements WorldListener {
         private int count;
         private BufferedImage image;
-        private Graphics2D g2d;
         private long lastTimePainted;
 
         @Override
@@ -197,19 +198,18 @@ public class SampleFrame extends JFrame {
             pbProgress.setMaximum(width * height);
             count = 0;
             EventQueue.invokeLater(() -> {
-                        btnDraw.setEnabled(false);
-                        btnSave.setEnabled(false);
-                        if (renderToScreen) {
-                            btnDraw.setText("Drawing...");
-                            output.setIcon(new ImageIcon(image));
-                        } else {
-                            btnSave.setText("Drawing...");
-                        }
-                    }
-            );
+                btnDraw.setEnabled(false);
+                btnSave.setEnabled(false);
+                if (renderToScreen) {
+                    btnDraw.setText("Drawing...");
+                    output.setIcon(new ImageIcon(image));
+                } else {
+                    btnSave.setText("Drawing...");
+                }
+            });
 
 
-            g2d = image.createGraphics();
+            var g2d = image.createGraphics();
             g2d.setColor(new Color(world.getBackgroundColor().toRGB()));
             g2d.fillRect(0, 0, width, height);
             lastTimePainted = System.currentTimeMillis();
@@ -235,17 +235,16 @@ public class SampleFrame extends JFrame {
             setTitle(String.format(RENDER_INFO, world.getName(), formatRenderTime(renderTime)));
             world.removeListener(this);
             EventQueue.invokeLater(() -> {
-                        btnSave.setText("Save in full HD");
-                        btnSave.setEnabled(true);
-                        btnDraw.setText("Draw");
-                        btnDraw.setEnabled(true);
-                        pbProgress.setValue(0);
-                        pbProgress.setString("Done!");
-                        if (!renderToScreen) {
-                            saveFile(world, renderTime);
-                        }
-                    }
-            );
+                btnSave.setText("Save in full HD");
+                btnSave.setEnabled(true);
+                btnDraw.setText("Draw");
+                btnDraw.setEnabled(true);
+                pbProgress.setValue(0);
+                pbProgress.setString("Done!");
+                if (!renderToScreen) {
+                    saveFile(world, renderTime);
+                }
+            });
             repaint();
         }
 

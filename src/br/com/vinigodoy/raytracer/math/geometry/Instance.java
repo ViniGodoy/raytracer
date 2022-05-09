@@ -38,12 +38,10 @@ public class Instance implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        Ray inv_ray = new Ray(
-                invTransform.transformPoint(ray.getOrigin()),
-                invTransform.transformDirection(ray.getDirection()));
+        var inv_ray = invTransform.transformRay(ray);
 
         if (object.hit(inv_ray, sr, tmin)) {
-            Matrix4 transform = Matrix4.inverse(invTransform);
+            var transform = Matrix4.inverse(invTransform);
             sr.worldHitPoint = transform.transformPoint(sr.worldHitPoint);
             sr.normal = invTransform.transformNormal(sr.normal);
             return true;
@@ -54,11 +52,7 @@ public class Instance implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        Ray inv_ray = new Ray(
-                invTransform.transformPoint(ray.getOrigin()),
-                invTransform.transformDirection(ray.getDirection()));
-
-        return object.shadow_hit(inv_ray, tmin);
+        return object.shadow_hit(invTransform.transformRay(ray), tmin);
     }
 
     @Override
@@ -107,7 +101,7 @@ public class Instance implements GeometricObject {
 
     @Override
     public Instance clone() {
-        Instance instance = new Instance(object, material.clone());
+        var instance = new Instance(object, material.clone());
         instance.invTransform = invTransform.clone();
         return instance;
     }

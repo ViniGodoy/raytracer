@@ -20,8 +20,8 @@ import static br.com.vinigodoy.raytracer.math.Vector3.negate;
  * Represents a material that can emit light.
  */
 public class Emissive implements EmissiveMaterial {
-    private float ls;
-    private Vector3 ce;
+    private final float ls;
+    private final Vector3 ce;
 
     public Emissive(float ls, Vector3 color) {
         this.ls = ls;
@@ -34,8 +34,7 @@ public class Emissive implements EmissiveMaterial {
 
     @Override
     public Vector3 shade(ShadeRec sr) {
-        return negate(sr.normal).dot(sr.ray.getDirection()) > 0 ?
-                multiply(ce, ls) : new Vector3();
+        return negate(sr.normal).dot(sr.ray.getDirection()) <= 0 ? new Vector3() : multiply(ce, ls);
     }
 
     @Override

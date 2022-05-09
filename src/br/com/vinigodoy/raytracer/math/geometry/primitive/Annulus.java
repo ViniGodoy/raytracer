@@ -22,12 +22,12 @@ import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
 import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 
 public class Annulus implements GeometricObject {
-    private Vector3 center;
-    private Vector3 normal;
-    private float outerRadius;
-    private float innerRadius;
+    private final Vector3 center;
+    private final Vector3 normal;
+    private final float outerRadius;
+    private final float innerRadius;
 
-    private Material material;
+    private final Material material;
 
     /**
      * Creates a new generic anullus centered at origin, pointing up and with radius 1.
@@ -48,13 +48,11 @@ public class Annulus implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        float t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
-        if (t < K_EPSILON) {
-            return false;
-        }
+        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        if (t < K_EPSILON) return false;
 
-        Vector3 p = ray.pointAt(t);
-        float centerDistanceSqr = center.distanceSqr(p);
+        var p = ray.pointAt(t);
+        var centerDistanceSqr = center.distanceSqr(p);
 
         if ((centerDistanceSqr >= outerRadius * outerRadius) || (centerDistanceSqr <= innerRadius * innerRadius)) {
             return false;
@@ -69,14 +67,12 @@ public class Annulus implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        float t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
-        if (t < K_EPSILON) {
-            return false;
-        }
+        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        if (t < K_EPSILON) return false;
 
         tmin.value = t;
-        Vector3 p = ray.pointAt(t);
-        float centerDistanceSqr = center.distanceSqr(p);
+        var p = ray.pointAt(t);
+        var centerDistanceSqr = center.distanceSqr(p);
         return (centerDistanceSqr < outerRadius * outerRadius) && (centerDistanceSqr >= innerRadius * innerRadius);
 
     }

@@ -19,17 +19,15 @@ import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 public class ConvexPartSphere implements GeometricObject {
-    private Vector3 center;        // center coordinates
-    private float radius;            // sphere radius
-    private float phiMin;            // minimum azimiuth angle measured counter clockwise from the +ve z axis
-    private float phiMax;            // maximum azimiuth angle measured counter clockwise from the +ve z axis
-    private float thetaMin;        // minimum polar angle measured down from the +ve y axis
-    private float thetaMax;        // maximum polar angle measured down from the +ve y axis
+    private final Vector3 center;        // center coordinates
+    private final float radius;            // sphere radius
+    private final float phiMin;            // minimum azimiuth angle measured counter clockwise from the +ve z axis
+    private final float phiMax;            // maximum azimiuth angle measured counter clockwise from the +ve z axis
 
-    private float cosThetaMin;    // stored to avoid repeated calculations
-    private float cosThetaMax;    // stored to avoid repeated calculations
+    private final float cosThetaMin;    // stored to avoid repeated calculations
+    private final float cosThetaMax;    // stored to avoid repeated calculations
 
-    private Material material;
+    private final Material material;
 
     public ConvexPartSphere(Vector3 center, float radius,
                             float azimuthMin, float azimuthMax,
@@ -39,12 +37,12 @@ public class ConvexPartSphere implements GeometricObject {
         this.radius = radius;
         this.phiMin = azimuthMin;
         this.phiMax = azimuthMax;
-        this.thetaMin = polarMin;
-        this.thetaMax = polarMax;
+        // minimum polar angle measured down from the +ve y axis
+        // maximum polar angle measured down from the +ve y axis
         this.material = material;
 
-        this.cosThetaMin = (float) Math.cos(thetaMin);
-        this.cosThetaMax = (float) Math.cos(thetaMax);
+        this.cosThetaMin = (float) Math.cos(polarMin);
+        this.cosThetaMax = (float) Math.cos(polarMax);
     }
 
     public ConvexPartSphere(float azimuthMin, float azimuthMax,
@@ -75,22 +73,21 @@ public class ConvexPartSphere implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        Vector3 temp = Vector3.subtract(ray.getOrigin(), center);
-        float b = 2.0f * temp.dot(ray.getDirection());
-        float c = temp.sizeSqr() - radius * radius;
-        float disc = b * b - 4.0f * c;
+        var temp = Vector3.subtract(ray.getOrigin(), center);
+        var b = 2.0f * temp.dot(ray.getDirection());
+        var c = temp.sizeSqr() - radius * radius;
+        var disc = b * b - 4.0f * c;
 
-        if (disc < 0.0)
-            return false;
+        if (disc < 0.0) return false;
 
-        float e = (float) Math.sqrt(disc);
-        float t = (-b - e) / 2.0f;    // smaller root
+        var e = (float) Math.sqrt(disc);
+        var t = (-b - e) / 2.0f;    // smaller root
 
         if (t > K_EPSILON) {
-            Vector3 hitPoint = ray.pointAt(t);
-            Vector3 hit = Vector3.subtract(hitPoint, center);
+            var hitPoint = ray.pointAt(t);
+            var hit = Vector3.subtract(hitPoint, center);
 
-            double phi = Math.atan2(hit.getX(), hit.getZ());
+            var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)
                 phi += 2 * Math.PI;
 
@@ -110,17 +107,17 @@ public class ConvexPartSphere implements GeometricObject {
         t = (-b + e) / 2.0f;    // larger root
 
         if (t > K_EPSILON) {
-            Vector3 hitPoint = ray.pointAt(t);
-            Vector3 hit = Vector3.subtract(hitPoint, center);
+            var hitPoint = ray.pointAt(t);
+            var hit = Vector3.subtract(hitPoint, center);
 
-            double phi = Math.atan2(hit.getX(), hit.getZ());
+            var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)
                 phi += 2 * Math.PI;
 
             if (hit.getY() <= radius * cosThetaMin &&
                     hit.getY() >= radius * cosThetaMax &&
-                    phi >= phiMin && phi <= phiMax) {
-
+                    phi >= phiMin && phi <= phiMax)
+            {
                 tmin.value = t;
                 sr.normal = Vector3.multiply(ray.getDirection(), t).add(temp).divide(radius);   // points outwards
                 if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0)
@@ -135,24 +132,22 @@ public class ConvexPartSphere implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        Vector3 temp = Vector3.subtract(ray.getOrigin(), center);
-        float b = 2.0f * temp.dot(ray.getDirection());
-        float c = temp.sizeSqr() - radius * radius;
-        float disc = b * b - 4.0f * c;
+        var temp = Vector3.subtract(ray.getOrigin(), center);
+        var b = 2.0f * temp.dot(ray.getDirection());
+        var c = temp.sizeSqr() - radius * radius;
+        var disc = b * b - 4.0f * c;
 
-        if (disc < 0.0)
-            return false;
+        if (disc < 0.0) return false;
 
-        float e = (float) Math.sqrt(disc);
-        float t = (-b - e) / 2.0f;    // smaller root
+        var e = (float) Math.sqrt(disc);
+        var t = (-b - e) / 2.0f;    // smaller root
 
         if (t > K_EPSILON) {
-            Vector3 hitPoint = ray.pointAt(t);
-            Vector3 hit = Vector3.subtract(hitPoint, center);
+            var hitPoint = ray.pointAt(t);
+            var hit = Vector3.subtract(hitPoint, center);
 
-            double phi = Math.atan2(hit.getX(), hit.getZ());
-            if (phi < 0.0)
-                phi += 2 * Math.PI;
+            var phi = Math.atan2(hit.getX(), hit.getZ());
+            if (phi < 0.0) phi += 2 * Math.PI;
 
             if (hit.getY() <= radius * cosThetaMin &&
                     hit.getY() >= radius * cosThetaMax &&
@@ -166,10 +161,10 @@ public class ConvexPartSphere implements GeometricObject {
         t = (-b + e) / 2.0f;    // larger root
 
         if (t > K_EPSILON) {
-            Vector3 hitPoint = ray.pointAt(t);
-            Vector3 hit = Vector3.subtract(hitPoint, center);
+            var hitPoint = ray.pointAt(t);
+            var hit = Vector3.subtract(hitPoint, center);
 
-            double phi = Math.atan2(hit.getX(), hit.getZ());
+            var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)
                 phi += 2 * Math.PI;
 

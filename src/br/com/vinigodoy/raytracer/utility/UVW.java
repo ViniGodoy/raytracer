@@ -3,11 +3,12 @@ package br.com.vinigodoy.raytracer.utility;
 import br.com.vinigodoy.raytracer.math.Vector2;
 import br.com.vinigodoy.raytracer.math.Vector3;
 
+import static br.com.vinigodoy.raytracer.math.Vector3.cross;
 import static br.com.vinigodoy.raytracer.math.Vector3.multiply;
 
 /*
 ===========================================================================
-COPYRIGHT 2013 Vinícius G. Mendonça ALL RIGHTS RESERVED.
+COPYRIGHT 2022 Vinícius G. Mendonça ALL RIGHTS RESERVED.
 
 This software cannot be copied, stored, distributed without
 Vinícius G. Mendonça prior authorization.
@@ -16,27 +17,10 @@ This file was made available on https://github.com/ViniGodoy and it
 is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
-public class UVW {
-    private Vector3 u;
-    private Vector3 v;
-    private Vector3 w;
-
-    public UVW(Vector3 u, Vector3 v, Vector3 w) {
-        this.u = u;
-        this.v = v;
-        this.w = w;
-    }
-
-    public Vector3 getU() {
-        return u;
-    }
-
-    public Vector3 getV() {
-        return v;
-    }
-
-    public Vector3 getW() {
-        return w;
+public record UVW(Vector3 u, Vector3 v, Vector3 w) {
+    public static UVW from(Vector3 w, Vector3 approxV) {
+        var v = cross(approxV, w).normalize();
+        return new UVW(cross(v, w), v, w);
     }
 
     public Vector3 transform(Vector3 vec) {
@@ -50,5 +34,4 @@ public class UVW {
                 .add(multiply(v, vec.getY()))
                 .add(multiply(w, z));
     }
-
 }

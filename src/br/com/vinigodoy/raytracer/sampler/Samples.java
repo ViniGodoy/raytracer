@@ -31,9 +31,9 @@ public enum Samples implements Sample {
     Regular {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            int n = (int) Math.sqrt(numSamples);
-            for (int p = 0; p < n; p++)
-                for (int q = 0; q < n; q++)
+            var n = (int) Math.sqrt(numSamples);
+            for (var p = 0; p < n; p++)
+                for (var q = 0; q < n; q++)
                     samples.add(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
         }
     },
@@ -42,8 +42,8 @@ public enum Samples implements Sample {
      */
     Hammersley {
         private float phi(int j) {
-            double x = 0.0;
-            double f = 0.5;
+            var x = 0.0;
+            var f = 0.5;
 
             while (j != 0) {
                 x += f * (double) (j % 2);
@@ -56,7 +56,7 @@ public enum Samples implements Sample {
 
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            for (int j = 0; j < numSamples; j++) {
+            for (var j = 0; j < numSamples; j++) {
                 samples.add(new Vector2((float) j / numSamples, phi(j)));
             }
         }
@@ -67,7 +67,7 @@ public enum Samples implements Sample {
     Random {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            for (int i = 0; i < numSamples; i++)
+            for (var i = 0; i < numSamples; i++)
                 samples.add(new Vector2(rndFloat(), rndFloat()));
         }
     },
@@ -80,10 +80,10 @@ public enum Samples implements Sample {
     Jittered {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            int n = (int) Math.sqrt(numSamples);
+            var n = (int) Math.sqrt(numSamples);
 
-            for (int j = 0; j < n; j++)
-                for (int k = 0; k < n; k++) {
+            for (var j = 0; j < n; j++)
+                for (var k = 0; k < n; k++) {
                     samples.add(new Vector2((k + rndFloat()) / n, (j + rndFloat()) / n));
                 }
         }
@@ -95,25 +95,25 @@ public enum Samples implements Sample {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
             //Create samples satisfying the n-rooks condition
-            for (int j = 0; j < numSamples; j++) {
+            for (var j = 0; j < numSamples; j++) {
                 samples.add(new Vector2((j + rndFloat()) / numSamples, (j + rndFloat()) / numSamples));
             }
 
             //Shuffle x coordinates
-            for (int i = 0; i < numSamples - 1; i++) {
-                int max = numSamples - 1 - i;
-                int ind = rndInt(max);
-                float temp = samples.get(max).getX();
+            for (var i = 0; i < numSamples - 1; i++) {
+                var max = numSamples - 1 - i;
+                var ind = rndInt(max);
+                var temp = samples.get(max).getX();
                 samples.get(max).setX(samples.get(ind).getX());
                 samples.get(ind).setX(temp);
 
             }
 
             ////Shuffle y coordinates
-            for (int i = 0; i < numSamples - 1; i++) {
-                int max = numSamples - 1 - i;
-                int ind = rndInt(max);
-                float temp = samples.get(max).getY();
+            for (var i = 0; i < numSamples - 1; i++) {
+                var max = numSamples - 1 - i;
+                var ind = rndInt(max);
+                var temp = samples.get(max).getY();
                 samples.get(max).setY(samples.get(ind).getY());
                 samples.get(ind).setY(temp);
             }
@@ -126,40 +126,40 @@ public enum Samples implements Sample {
     MultiJittered {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            int n = (int) Math.sqrt((float) numSamples);
+            var n = (int) Math.sqrt((float) numSamples);
 
             if (n * n != numSamples) {
                 throw new RaytraceException("Number of samples are %d but must be a perfect square like %d!",
                         numSamples, n * n);
             }
 
-            float subcellWidth = 1.0f / ((float) numSamples);
+            var subcellWidth = 1.0f / ((float) numSamples);
 
             // fill the samples array with dummy points
-            for (int j = 0; j < numSamples; j++)
+            for (var j = 0; j < numSamples; j++)
                 samples.add(new Vector2());
 
             // distribute points in the initial patterns
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++) {
+            for (var i = 0; i < n; i++)
+                for (var j = 0; j < n; j++) {
                     samples.get(i * n + j).setX((i * n + j) * subcellWidth + rndFloat(0.0f, subcellWidth));
                     samples.get(i * n + j).setY((j * n + i) * subcellWidth + rndFloat(0.0f, subcellWidth));
                 }
 
             // shuffle x coordinates
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++) {
-                    int k = rndInt(j, n - 1);
-                    float t = samples.get(i * n + j).getX();
+            for (var i = 0; i < n; i++)
+                for (var j = 0; j < n; j++) {
+                    var k = rndInt(j, n - 1);
+                    var t = samples.get(i * n + j).getX();
                     samples.get(i * n + j).setX(samples.get(i * n + k).getX());
                     samples.get(i * n + k).setX(t);
                 }
 
             // shuffle y coordinates
-            for (int i = 0; i < n; i++)
-                for (int j = 0; j < n; j++) {
-                    int k = rndInt(j, n - 1);
-                    float t = samples.get(i * n + j).getY();
+            for (var i = 0; i < n; i++)
+                for (var j = 0; j < n; j++) {
+                    var k = rndInt(j, n - 1);
+                    var t = samples.get(i * n + j).getY();
                     samples.get(i * n + j).setY(samples.get(i * n + k).getY());
                     samples.get(i * n + k).setY(t);
                 }
@@ -169,7 +169,7 @@ public enum Samples implements Sample {
     protected List<Vector2> createList(int numSamples) {
         if (numSamples < 0)
             throw new IllegalArgumentException("Number of samples cannot be smaller than zero! numSamples=" + numSamples);
-        return new ArrayList<Vector2>(numSamples);
+        return new ArrayList<>(numSamples);
 
     }
 
@@ -177,7 +177,7 @@ public enum Samples implements Sample {
     public List<Vector2> createSamples(int numSamples) {
         if (numSamples < 1)
             throw new RaytraceException("Number of samples cannot be smaller than one! numSamples = %d", numSamples);
-        List<Vector2> samples = new ArrayList<Vector2>(numSamples);
+        var samples = new ArrayList<Vector2>(numSamples);
         fillSamples(samples, numSamples);
         return samples;
     }

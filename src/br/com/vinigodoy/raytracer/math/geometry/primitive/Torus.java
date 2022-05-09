@@ -21,10 +21,10 @@ import br.com.vinigodoy.raytracer.utility.FloatRef;
 import br.com.vinigodoy.raytracer.utility.ShadeRec;
 
 public class Torus implements GeometricObject {
-    private float a; //Swept radius
-    private float b; //Tube radius
-    private Material material;
-    private BBox bbox;
+    private final float a; //Swept radius
+    private final float b; //Tube radius
+    private final Material material;
+    private final BBox bbox;
 
     public Torus(float sweptRadius, float tubeRadius, Material material) {
         this.a = sweptRadius;
@@ -47,25 +47,24 @@ public class Torus implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        if (!bbox.hit(ray))
-            return false;
+        if (!bbox.hit(ray)) return false;
 
-        double x1 = ray.getOrigin().getX();
-        double y1 = ray.getOrigin().getY();
-        double z1 = ray.getOrigin().getZ();
+        var x1 = ray.getOrigin().getX();
+        var y1 = ray.getOrigin().getY();
+        var z1 = ray.getOrigin().getZ();
 
-        double d1 = ray.getDirection().getX();
-        double d2 = ray.getDirection().getY();
-        double d3 = ray.getDirection().getZ();
+        var d1 = ray.getDirection().getX();
+        var d2 = ray.getDirection().getY();
+        var d3 = ray.getDirection().getZ();
 
-        double coeffs[] = new double[5];    // coefficient array for the quartic equation
-        double roots[] = new double[4];    // solution array for the quartic equation
+        var coeffs = new double[5];    // coefficient array for the quartic equation
+        var roots = new double[4];    // solution array for the quartic equation
 
         // define the coefficients of the quartic equation
-        double sum_d_sqrd = d1 * d1 + d2 * d2 + d3 * d3;
-        double e = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
-        double f = x1 * d1 + y1 * d2 + z1 * d3;
-        double four_a_sqrd = 4.0 * a * a;
+        var sum_d_sqrd = d1 * d1 + d2 * d2 + d3 * d3;
+        var e = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
+        var f = x1 * d1 + y1 * d2 + z1 * d3;
+        var four_a_sqrd = 4.0 * a * a;
 
         coeffs[0] = e * e - four_a_sqrd * (b * b - y1 * y1);    // constant term
         coeffs[1] = 4.0 * f * e + 2.0 * four_a_sqrd * y1 * d2;
@@ -74,25 +73,22 @@ public class Torus implements GeometricObject {
         coeffs[4] = sum_d_sqrd * sum_d_sqrd;                    // coefficient of t^4
 
         // find roots of the quartic equation
-        int num_real_roots = Solvers.solveQuartic(coeffs, roots);
+        var num_real_roots = Solvers.solveQuartic(coeffs, roots);
 
-        boolean intersected = false;
-        double t = Double.MAX_VALUE;
+        var intersected = false;
+        var t = Double.MAX_VALUE;
 
-        if (num_real_roots == 0)  // ray misses the torus
-            return false;
+        if (num_real_roots == 0) return false;  // ray misses the torus
 
         // find the smallest root greater than kEpsilon, if any
         // the roots array is not sorted
-        for (int j = 0; j < num_real_roots; j++)
+        for (var j = 0; j < num_real_roots; j++)
             if (roots[j] > K_EPSILON) {
                 intersected = true;
-                if (roots[j] < t)
-                    t = roots[j];
+                if (roots[j] < t) t = roots[j];
             }
 
-        if (!intersected)
-            return false;
+        if (!intersected) return false;
 
         tmin.value = (float) t;
         return true;
@@ -104,12 +100,12 @@ public class Torus implements GeometricObject {
     }
 
     public Vector3 getNormal(Vector3 p) {
-        float param_squared = a * a + b * b;
+        var param_squared = a * a + b * b;
 
-        float x = p.getX();
-        float y = p.getY();
-        float z = p.getZ();
-        float sum_squared = x * x + y * y + z * z;
+        var x = p.getX();
+        var y = p.getY();
+        var z = p.getZ();
+        var sum_squared = x * x + y * y + z * z;
 
         return new Vector3(
                 4.0f * x * (sum_squared - param_squared),

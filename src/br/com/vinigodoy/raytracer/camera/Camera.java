@@ -27,16 +27,15 @@ public interface Camera {
     /**
      * @return The camera location.
      */
-    public Vector3 getEye();
+    Vector3 getEye();
 
     /**
      * @return The place where the camera looks at.
      */
-    public Vector3 getLook();
+    Vector3 getLook();
 
     /**
      * @return A vector pointing up
      */
-    public Vector3 getUp();
-
+    Vector3 getUp();
 }

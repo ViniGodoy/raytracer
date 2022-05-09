@@ -18,8 +18,6 @@ import br.com.vinigodoy.raytracer.scene.ViewPlane;
 import br.com.vinigodoy.raytracer.scene.World;
 import br.com.vinigodoy.raytracer.utility.UVW;
 
-import static br.com.vinigodoy.raytracer.scene.order.PixelArray.Pixel;
-
 /**
  * Represents a pinhole perspective camera. The camera can focus all objects within the camera lens.
  */
@@ -51,22 +49,20 @@ public class PinholeCamera extends AbstractCamera {
 
     @Override
     public void render(World w, ViewPlane vp) {
-        UVW uvw = computeUVW();
-        float s = vp.getS() / zoom;
+        var uvw = computeUVW();
+        var s = vp.getS() / zoom;
 
-        for (Pixel pixel : vp.getPixels()) {
-            int c = pixel.getX();
-            int r = pixel.getY();
+        for (var pixel : vp.getPixels()) {
+            var c = pixel.x();
+            var r = pixel.y();
+            var L = new Vector3();
 
-            Vector3 L = new Vector3();
-
-            for (int i = 0; i < vp.getSampler().getNumSamples(); i++) {
-                Vector2 sp = vp.getSampler().nextSampleSquare();
-
-                Vector2 pp = new Vector2(
+            for (var i = 0; i < vp.getSampler().getNumSamples(); i++) {
+                var sp = vp.getSampler().nextSampleSquare();
+                var pp = new Vector2(
                         s * (c - 0.5f * vp.getHRes() + sp.getX()),
                         s * (r - 0.5f * vp.getVRes() + sp.getY()));
-                Ray ray = new Ray(eye, getDirection(pp, uvw));
+                var ray = new Ray(eye, getDirection(pp, uvw));
                 L.add(w.getTracer().trace(w, ray, 0));
             }
 

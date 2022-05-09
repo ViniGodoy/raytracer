@@ -22,9 +22,9 @@ import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
 import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 
 public class Plane implements GeometricObject {
-    private Vector3 point;
-    private Vector3 normal;
-    private Material material;
+    private final Vector3 point;
+    private final Vector3 normal;
+    private final Material material;
 
     public Plane(Vector3 point, Vector3 normal, Material material) {
         this.point = point;
@@ -53,9 +53,8 @@ public class Plane implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        float t = subtract(point, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
-        if (t < K_EPSILON)
-            return false;
+        var t = subtract(point, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        if (t < K_EPSILON) return false;
 
         tmin.value = t;
         return true;

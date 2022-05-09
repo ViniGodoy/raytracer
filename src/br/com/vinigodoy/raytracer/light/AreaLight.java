@@ -20,8 +20,7 @@ is free to be redistributed or used under Creative Commons license 2.5 br:
 http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 public class AreaLight extends AbstractLight {
-
-    private EmissiveObject object;
+    private final EmissiveObject object;
 
     private Vector3 samplePoint;
     private Vector3 lightNormal;
@@ -47,8 +46,8 @@ public class AreaLight extends AbstractLight {
 
     @Override
     public float G(ShadeRec sr) {
-        float ndotd = negate(lightNormal).dot(wi);
-        float d2 = samplePoint.distanceSqr(sr.worldHitPoint);
+        var ndotd = negate(lightNormal).dot(wi);
+        var d2 = samplePoint.distanceSqr(sr.worldHitPoint);
         return ndotd / d2;
     }
 
@@ -59,7 +58,7 @@ public class AreaLight extends AbstractLight {
 
     @Override
     public boolean inShadow(Ray ray, ShadeRec sr) {
-        float ts = subtract(samplePoint, ray.getOrigin()).dot(ray.getDirection());
+        var ts = subtract(samplePoint, ray.getOrigin()).dot(ray.getDirection());
         return sr.world.shadowHit(ray, ts);
     }
 

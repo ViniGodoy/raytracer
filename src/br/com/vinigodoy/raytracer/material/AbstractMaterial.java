@@ -21,23 +21,23 @@ import static br.com.vinigodoy.raytracer.math.Vector3.mul;
 import static br.com.vinigodoy.raytracer.math.Vector3.negate;
 
 public abstract class AbstractMaterial implements Material {
-    protected Lambertian ambient;
+    protected final Lambertian ambient;
 
     public AbstractMaterial(float ka, Vector3 color) {
         this.ambient = new Lambertian(ka, color);
     }
 
     private Vector3 shade(ShadeRec sr, boolean area) {
-        Vector3 wo = negate(sr.ray.getDirection());
-        Vector3 L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
-        for (Light light : sr.world.getLights()) {
-            Vector3 wi = light.getDirection(sr);
+        var wo = negate(sr.ray.getDirection());
+        var L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
+        sr.world.getLights().forEach(light -> {
+            var wi = light.getDirection(sr);
 
-            float ndotwi = sr.normal.dot(wi);
+            var ndotwi = sr.normal.dot(wi);
             if (ndotwi > 0.0f) {
-                boolean inShadow = false;
+                var inShadow = false;
                 if (light.castShadows()) {
-                    Ray shadowRay = new Ray(sr.worldHitPoint, wi);
+                    var shadowRay = new Ray(sr.worldHitPoint, wi);
                     inShadow = light.inShadow(shadowRay, sr);
                 }
 
@@ -45,7 +45,7 @@ public abstract class AbstractMaterial implements Material {
                     L.add(area ? processLight(sr, wo, light, wi, ndotwi) : processAreaLight(sr, wo, light, wi, ndotwi));
                 }
             }
-        }
+        });
         return L;
     }
 

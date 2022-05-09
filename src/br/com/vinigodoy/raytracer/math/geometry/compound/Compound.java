@@ -25,22 +25,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compound implements GeometricObject {
-    private List<GeometricObject> objects = new ArrayList<GeometricObject>();
+    private final List<GeometricObject> objects = new ArrayList<>();
     private BBox bounds;
 
     public Compound add(GeometricObject obj) {
         objects.add(obj);
         return this;
     }
+    
+    public Compound addAll(GeometricObject ... objs) {
+        for (var obj : objs) add(obj);
+        return this;
+    }
 
     public Instance addInstance(GeometricObject obj) {
-        Instance instance = new Instance(obj);
+        var instance = new Instance(obj);
         objects.add(instance);
         return instance;
     }
 
     public Instance addInstance(GeometricObject obj, Material mtrl) {
-        Instance instance = new Instance(obj, mtrl);
+        var instance = new Instance(obj, mtrl);
         objects.add(instance);
         return instance;
     }
@@ -53,11 +58,11 @@ public class Compound implements GeometricObject {
         Vector3 normal = null;
         Vector3 worldHitPoint = null;
         Vector3 localHitPoint = null;
-        float tMin = Float.MAX_VALUE;
-        boolean hit = false;
+        var tMin = Float.MAX_VALUE;
+        var hit = false;
 
-        for (GeometricObject obj : objects) {
-            FloatRef fr = new FloatRef();
+        for (var obj : objects) {
+            var fr = new FloatRef();
             if (obj.hit(ray, sr, fr) && fr.value < tMin) {
                 hit = true;
                 tMin = fr.value;
@@ -79,23 +84,21 @@ public class Compound implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        if (bounds != null && !bounds.hit(ray))
-            return false;
+        if (bounds != null && !bounds.hit(ray)) return false;
 
-        float tMin = Float.MAX_VALUE;
-        boolean hit = false;
+        var tMin = Float.MAX_VALUE;
+        var hit = false;
 
-        for (GeometricObject obj : objects) {
-            FloatRef fr = new FloatRef();
+        for (var obj : objects) {
+            var fr = new FloatRef();
             if (obj.shadow_hit(ray, fr) && fr.value < tMin) {
                 hit = true;
                 tMin = fr.value;
             }
         }
 
-        if (hit) {
-            tmin.value = tMin;
-        }
+        if (hit) tmin.value = tMin;
+
         return hit;
     }
 
@@ -111,5 +114,4 @@ public class Compound implements GeometricObject {
     public BBox getBounds() {
         return bounds;
     }
-
 }

@@ -26,9 +26,13 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 public class Box implements GeometricObject {
     private enum Face {LEFT, RIGHT, BOTTOM, TOP, FRONT, BACK}
 
-    private float x0, y0, z0;
-    private float x1, y1, z1;
-    private Material material;
+    private final float x0;
+    private final float y0;
+    private final float z0;
+    private final float x1;
+    private final float y1;
+    private final float z1;
+    private final Material material;
 
     /**
      * Creates a cube with side 1 and centered at origin.
@@ -58,9 +62,9 @@ public class Box implements GeometricObject {
      * @param material The material.
      */
     public Box(float width, float height, float depth, Material material) {
-        float hw = width / 2.0f;
-        float hh = height / 2.0f;
-        float hd = depth / 2.0f;
+        var hw = width / 2.0f;
+        var hh = height / 2.0f;
+        var hd = depth / 2.0f;
 
         x0 = -hw;
         x1 = hw;
@@ -110,18 +114,18 @@ public class Box implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        double ox = ray.getOrigin().getX();
-        double oy = ray.getOrigin().getY();
-        double oz = ray.getOrigin().getZ();
+        var ox = ray.getOrigin().getX();
+        var oy = ray.getOrigin().getY();
+        var oz = ray.getOrigin().getZ();
 
-        double dx = ray.getDirection().getX();
-        double dy = ray.getDirection().getY();
-        double dz = ray.getDirection().getZ();
+        var dx = ray.getDirection().getX();
+        var dy = ray.getDirection().getY();
+        var dz = ray.getDirection().getZ();
 
         double tx_min, ty_min, tz_min;
         double tx_max, ty_max, tz_max;
 
-        double a = 1.0 / dx;
+        var a = 1.0 / dx;
         if (a >= 0) {
             tx_min = (x0 - ox) * a;
             tx_max = (x1 - ox) * a;
@@ -130,7 +134,7 @@ public class Box implements GeometricObject {
             tx_max = (x0 - ox) * a;
         }
 
-        double b = 1.0 / dy;
+        var b = 1.0 / dy;
         if (b >= 0) {
             ty_min = (y0 - oy) * b;
             ty_max = (y1 - oy) * b;
@@ -139,7 +143,7 @@ public class Box implements GeometricObject {
             ty_max = (y0 - oy) * b;
         }
 
-        double c = 1.0 / dz;
+        var c = 1.0 / dz;
         if (c >= 0) {
             tz_min = (z0 - oz) * c;
             tz_max = (z1 - oz) * c;
@@ -198,18 +202,18 @@ public class Box implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        double ox = ray.getOrigin().getX();
-        double oy = ray.getOrigin().getY();
-        double oz = ray.getOrigin().getZ();
+        var ox = ray.getOrigin().getX();
+        var oy = ray.getOrigin().getY();
+        var oz = ray.getOrigin().getZ();
 
-        double dx = ray.getDirection().getX();
-        double dy = ray.getDirection().getY();
-        double dz = ray.getDirection().getZ();
+        var dx = ray.getDirection().getX();
+        var dy = ray.getDirection().getY();
+        var dz = ray.getDirection().getZ();
 
         double tx_min, ty_min, tz_min;
         double tx_max, ty_max, tz_max;
 
-        double a = 1.0 / dx;
+        var a = 1.0 / dx;
         if (a >= 0) {
             tx_min = (x0 - ox) * a;
             tx_max = (x1 - ox) * a;
@@ -218,7 +222,7 @@ public class Box implements GeometricObject {
             tx_max = (x0 - ox) * a;
         }
 
-        double b = 1.0 / dy;
+        var b = 1.0 / dy;
         if (b >= 0) {
             ty_min = (y0 - oy) * b;
             ty_max = (y1 - oy) * b;
@@ -227,7 +231,7 @@ public class Box implements GeometricObject {
             ty_max = (y0 - oy) * b;
         }
 
-        double c = 1.0 / dz;
+        var c = 1.0 / dz;
         if (c >= 0) {
             tz_min = (z0 - oz) * c;
             tz_max = (z1 - oz) * c;
@@ -237,24 +241,14 @@ public class Box implements GeometricObject {
         }
 
         //Find the largest entering value
-        double t0;
+        var t0 = Math.max(tx_min, ty_min);
 
-        if (tx_min > ty_min) {
-            t0 = tx_min;
-        } else {
-            t0 = ty_min;
-        }
         if (tz_min > t0) {
             t0 = tz_min;
         }
 
         //Find the smallest exiting value
-        double t1;
-        if (tx_max < ty_max) {
-            t1 = tx_max;
-        } else {
-            t1 = ty_max;
-        }
+        var t1 = Math.min(tx_max, ty_max);
         if (tz_max < t1) {
             t1 = tz_max;
         }
@@ -273,21 +267,14 @@ public class Box implements GeometricObject {
     }
 
     private Vector3 getNormal(Face face) {
-        switch (face) {
-            case LEFT:
-                return new Vector3(-1, 0, 0);
-            case BOTTOM:
-                return new Vector3(0, -1, 0);
-            case BACK:
-                return new Vector3(0, 0, -1);
-            case RIGHT:
-                return new Vector3(1, 0, 0);
-            case TOP:
-                return new Vector3(0, 1, 0);
-            case FRONT:
-                return new Vector3(0, 0, 1);
-        }
-        throw new IllegalArgumentException("Invalid face: " + face);
+        return switch (face) {
+            case LEFT -> new Vector3(-1, 0, 0);
+            case BOTTOM -> new Vector3(0, -1, 0);
+            case BACK -> new Vector3(0, 0, -1);
+            case RIGHT -> new Vector3(1, 0, 0);
+            case TOP -> new Vector3(0, 1, 0);
+            case FRONT -> new Vector3(0, 0, 1);
+        };
     }
 
     @Override

@@ -19,7 +19,7 @@ import static br.com.vinigodoy.raytracer.math.Vector3.mul;
 
 public class Matte extends AbstractMaterial {
 
-    private Lambertian diffuse;
+    private final Lambertian diffuse;
 
     public Matte(float ka, float kd, Vector3 color) {
         super(ka, color);

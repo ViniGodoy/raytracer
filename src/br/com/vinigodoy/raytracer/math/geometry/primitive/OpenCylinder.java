@@ -23,11 +23,10 @@ import br.com.vinigodoy.raytracer.utility.ShadeRec;
 import static java.lang.Math.sqrt;
 
 public class OpenCylinder implements GeometricObject {
-
-    private float y0;
-    private float y1;
-    private float radius;
-    private Material material;
+    private final float y0;
+    private final float y1;
+    private final float radius;
+    private final Material material;
 
     public OpenCylinder(Material material) {
         this(-0.5f, 0.5f, 1.0f, material);
@@ -45,12 +44,12 @@ public class OpenCylinder implements GeometricObject {
         if (!shadow_hit(ray, tmin))
             return false;
 
-        float ox = ray.getOrigin().getX();
-        float oz = ray.getOrigin().getZ();
-        float dx = ray.getDirection().getX();
-        float dz = ray.getDirection().getZ();
-        float t = tmin.value;
-        float inv_radius = 1.0f / radius;
+        var ox = ray.getOrigin().getX();
+        var oz = ray.getOrigin().getZ();
+        var dx = ray.getDirection().getX();
+        var dz = ray.getDirection().getZ();
+        var t = tmin.value;
+        var inv_radius = 1.0f / radius;
 
         sr.normal = new Vector3((ox + t * dx) * inv_radius, 0.0f, (oz + t * dz) * inv_radius);
         if (Vector3.negate(ray.getDirection()).dot(sr.normal) < 0.0)
@@ -62,27 +61,26 @@ public class OpenCylinder implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        float ox = ray.getOrigin().getX();
-        float oy = ray.getOrigin().getY();
-        float oz = ray.getOrigin().getZ();
-        float dx = ray.getDirection().getX();
-        float dy = ray.getDirection().getY();
-        float dz = ray.getDirection().getZ();
+        var ox = ray.getOrigin().getX();
+        var oy = ray.getOrigin().getY();
+        var oz = ray.getOrigin().getZ();
+        var dx = ray.getDirection().getX();
+        var dy = ray.getDirection().getY();
+        var dz = ray.getDirection().getZ();
 
-        float a = dx * dx + dz * dz;
-        float b = 2.0f * (ox * dx + oz * dz);
-        float c = ox * ox + oz * oz - radius * radius;
-        float disc = b * b - 4.0f * a * c;
+        var a = dx * dx + dz * dz;
+        var b = 2.0f * (ox * dx + oz * dz);
+        var c = ox * ox + oz * oz - radius * radius;
+        var disc = b * b - 4.0f * a * c;
 
-        if (disc < 0.0)
-            return false;
+        if (disc < 0.0) return false;
 
-        float e = (float) sqrt(disc);
-        float denom = 2.0f * a;
-        float t = (-b - e) / denom;    // smaller root
+        var e = (float) sqrt(disc);
+        var denom = 2.0f * a;
+        var t = (-b - e) / denom;    // smaller root
 
         if (t > K_EPSILON) {
-            double yhit = oy + t * dy;
+            var yhit = oy + t * dy;
 
             if (yhit > y0 && yhit < y1) {
                 tmin.value = t;

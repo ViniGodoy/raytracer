@@ -22,11 +22,11 @@ import static br.com.vinigodoy.raytracer.math.Vector3.normalize;
 import static br.com.vinigodoy.raytracer.math.Vector3.subtract;
 
 public class Disk implements GeometricObject {
-    private Vector3 center;
-    private Vector3 normal;
-    private float radius;
+    private final Vector3 center;
+    private final Vector3 normal;
+    private final float radius;
 
-    private Material material;
+    private final Material material;
 
     /**
      * Creates a new generic disk centered at origin, pointing up and with radius 1.
@@ -46,12 +46,10 @@ public class Disk implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        float t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
-        if (t < K_EPSILON) {
-            return false;
-        }
+        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        if (t < K_EPSILON) return false;
 
-        Vector3 p = ray.pointAt(t);
+        var p = ray.pointAt(t);
         if (center.distanceSqr(p) >= radius * radius) {
             return false;
         }
@@ -65,13 +63,11 @@ public class Disk implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        float t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
-        if (t < K_EPSILON) {
-            return false;
-        }
+        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        if (t < K_EPSILON) return false;
 
         tmin.value = t;
-        Vector3 p = ray.pointAt(t);
+        var p = ray.pointAt(t);
         return (center.distanceSqr(p) < radius * radius);
     }
 
