@@ -46,5 +46,5 @@ Change History
 [11]: /examples/09_billiard.png
 [12]: /examples/10_billiard.png
 [13]: /examples/11_billiard.png
-[14]: /examples/12_objects.png
-[15]: /examples/13_objects.png
+[14]: /examples/11_billiard.png
+[15]: /examples/12_objects.png
