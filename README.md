@@ -33,18 +33,18 @@ Change History
 - 10/06/2013 Refactored ray tracer classes.
 - 02/06/2013 First version of ray tracer.
 
-[1]: http://www.raytracegroundup.com/ "Ray tracing from the Ground Up - Kevin Suffern"
+[1]: https://github.com/hadryansalles/ray-tracing-from-the-ground-up "Ray tracing from the Ground Up - Kevin Suffern"
 [2]: http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml "Flipcode Raytracing Tutorial"
-[3]: https://lh6.googleusercontent.com/-lN7F5S4R1LQ/UnbEfeIkyyI/AAAAAAAAAm8/Pameytz-NdQ/w2166-h1218-no/raytracer+HD.png
-[4]: https://lh6.googleusercontent.com/-941Nz-j3HlE/UnrwnRnmSAI/AAAAAAAAAn8/R_aC_oi5x9U/w2166-h1218-no/raytracer+HD+2.png
-[5]: https://lh3.googleusercontent.com/--yIntWMu9xo/Un-9o1V4ZmI/AAAAAAAAApM/FAdwmTFHOE0/w2166-h1218-no/JavaTracer-v1_2.png
-[6]: https://lh4.googleusercontent.com/-cITg5h_czQs/UoGNOa3_1PI/AAAAAAAAAqk/TgiUZUK_wPc/w2166-h1218-no/JavaTracer-v1_3.png
-[7]: https://lh4.googleusercontent.com/-bvztZYWeD3g/UobIjPY42HI/AAAAAAAAAr8/YYlYYyUTPG8/w2052-h1154-no/JavaTracer-v1_4.png
-[8]: https://lh6.googleusercontent.com/-XPU4i0vyCoI/Uobl0yz1RdI/AAAAAAAAAss/mvfhykmbREg/w2052-h1154-no/JavaTracer-v1_5.png
-[9]: https://lh3.googleusercontent.com/-uuXz46IKQdQ/Uofs_QJIgKI/AAAAAAAAAt8/oBLMQSbrTeo/w2236-h1258-no/Java+Raytracer-v1_5_Billiard.png
-[10]: https://lh6.googleusercontent.com/-9lyr5F29fq8/Uogopv2JY3I/AAAAAAAAAus/_RlVGEBpDaI/w2166-h1218-no/Java+Raytracer-v1_6_Billiard.png
-[11]: https://lh5.googleusercontent.com/-sbpa31fUUqg/UogsAEPO72I/AAAAAAAAAvM/ZqereRyMQ0A/w2166-h1218-no/Java+Raytracer-v1_6_Billiard_2.png
-[12]: https://lh4.googleusercontent.com/-TYZSbG9S8RA/UpGBThuw1II/AAAAAAAAAwk/Xoktz2Pw-no/w2166-h1218-no/Java+Raytracer-v1_7b_Billiard.png
-[13]: https://lh5.googleusercontent.com/-iTzZAUql6Bc/Urxy3kjAHRI/AAAAAAAAAzo/PTjOzKKd9Os/w2166-h1218-no/Java+Raytracer-v1_7b_Objects.png
-[14]: https://lh3.googleusercontent.com/-iMX6XsUjJoE/Ur41qAo-HXI/AAAAAAAAA1E/kGuJsYV1Kwo/w2236-h1258-no/Java+Raytracer-v1_7b_Objects.png
-[15]: https://lh4.googleusercontent.com/-QH7dE8P-THI/Ur_JifWJ9TI/AAAAAAAAA14/ui1us1GDawA/w2236-h1258-no/Java+Raytracer-v1_7_Objects.png
+[3]: /examples/01_balls.png
+[4]: /examples/02_balls.png
+[5]: /examples/03_balls.png
+[6]: /examples/04_balls.png
+[7]: /examples/05_balls.png
+[8]: /examples/06_balls.png
+[9]: /examples/07_balls.png
+[10]: /examples/08_billiard.png
+[11]: /examples/09_billiard.png
+[12]: /examples/10_billiard.png
+[13]: /examples/11_billiard.png
+[14]: /examples/12_objects.png
+[15]: /examples/13_objects.png
