@@ -35,16 +35,16 @@ Change History
 
 [1]: https://github.com/hadryansalles/ray-tracing-from-the-ground-up "Ray tracing from the Ground Up - Kevin Suffern"
 [2]: http://www.flipcode.com/archives/Raytracing_Topics_Techniques-Part_1_Introduction.shtml "Flipcode Raytracing Tutorial"
-[3]: /examples/01_balls.png
-[4]: /examples/02_balls.png
-[5]: /examples/03_balls.png
-[6]: /examples/04_balls.png
-[7]: /examples/05_balls.png
-[8]: /examples/06_balls.png
-[9]: /examples/07_balls.png
-[10]: /examples/08_billiard.png
-[11]: /examples/09_billiard.png
-[12]: /examples/10_billiard.png
-[13]: /examples/11_billiard.png
-[14]: /examples/11_billiard.png
-[15]: /examples/12_objects.png
+[3]: /examples/03_balls.png
+[4]: /examples/04_balls.png
+[5]: /examples/05_balls.png
+[6]: /examples/06_balls.png
+[7]: /examples/07_balls.png
+[8]: /examples/08_balls.png
+[9]: /examples/09_balls.png
+[10]: /examples/10_billiard.png
+[11]: /examples/11_billiard.png
+[12]: /examples/12_billiard.png
+[13]: /examples/13_objects.png
+[14]: /examples/14_objects.png
+[15]: /examples/15_objects.png
