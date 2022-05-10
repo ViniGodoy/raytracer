@@ -64,7 +64,7 @@ public class AmbientOccludedLight extends AbstractLight {
     public Vector3 L(ShadeRec sr) {
         uvw = UVW.from(sr.normal, new Vector3(0.0072f, 1.0f, 0.0034f));
 
-        var shadow_ray = new Ray(sr.worldHitPoint, getDirection(sr));
+        final var shadow_ray = new Ray(sr.worldHitPoint, getDirection(sr));
         return multiply(color, inShadow(shadow_ray, sr) ? ls * minAmount : ls);
     }
 

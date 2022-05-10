@@ -244,9 +244,9 @@ public class Vector3 implements Cloneable {
      * @return The refracted ray.
      */
     public static Vector3 refract(Vector3 direction, Vector3 normal, float r1, float r2) {
-        var n = r1 / r2;
-        var cosI = normal.dot(direction);
-        var cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
+        final var n = r1 / r2;
+        final var cosI = normal.dot(direction);
+        final var cosT2 = 1.0f - n * n * (1.0f - cosI * cosI);
         if (cosT2 <= 0)
             return null; //No refraction
         return multiply(direction, n).add(multiply(normal, n * cosI - (float) Math.sqrt(cosT2)));
@@ -415,7 +415,7 @@ public class Vector3 implements Cloneable {
      * @see #normalize()
      */
     public Vector3 saturate() {
-        var max = Math.max(Math.max(x, y), z);
+        final var max = Math.max(Math.max(x, y), z);
         return max > 1.0f ? divide(max) : this;
     }
 
@@ -423,7 +423,7 @@ public class Vector3 implements Cloneable {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != getClass()) return false;
-        var other = (Vector3) obj;
+        final var other = (Vector3) obj;
         return x == other.x && y == other.y && z == other.z;
     }
 
@@ -445,11 +445,11 @@ public class Vector3 implements Cloneable {
      * @return The color as int with RGB format.
      */
     public int toRGB() {
-        var color = saturate(this);
+        final var color = saturate(this);
 
-        var r = (Math.round(color.x * 255) & 0xFF);
-        var g = (Math.round(color.y * 255) & 0xFF);
-        var b = (Math.round(color.z * 255) & 0xFF);
+        final var r = (Math.round(color.x * 255) & 0xFF);
+        final var g = (Math.round(color.y * 255) & 0xFF);
+        final var b = (Math.round(color.z * 255) & 0xFF);
 
         return r << 16 | g << 8 | b;
     }
@@ -460,19 +460,19 @@ public class Vector3 implements Cloneable {
     }
 
     public Vector3 rotate(Vector3 axis, float radians) {
-        var s = (float) Math.sin(radians);
-        var c = (float) Math.cos(radians);
-        var k = 1.0F - c;
+        final var s = (float) Math.sin(radians);
+        final var c = (float) Math.cos(radians);
+        final var k = 1.0F - c;
 
-        var nx = x * (c + k * axis.x * axis.x) +
+        final var nx = x * (c + k * axis.x * axis.x) +
                 y * (k * axis.x * axis.y - s * axis.z) +
                 z * (k * axis.x * axis.z + s * axis.y);
 
-        var ny = x * (k * axis.x * axis.y + s * axis.z) +
+        final var ny = x * (k * axis.x * axis.y + s * axis.z) +
                 y * (c + k * axis.y * axis.y) +
                 z * (k * axis.y * axis.z - s * axis.x);
 
-        var nz = x * (k * axis.x * axis.z - s * axis.y) +
+        final var nz = x * (k * axis.x * axis.z - s * axis.y) +
                 y * (k * axis.y * axis.z + s * axis.x) +
                 z * (c + k * axis.z * axis.z);
 

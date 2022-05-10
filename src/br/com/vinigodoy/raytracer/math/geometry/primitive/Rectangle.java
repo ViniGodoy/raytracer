@@ -101,7 +101,7 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     @Override
     public Vector3 sample() {
-        var sp = sampler.nextSampleSquare();
+        final var sp = sampler.nextSampleSquare();
         return multiply(a, sp.getX()).add(multiply(b, sp.getY())).add(p0);
     }
 
@@ -117,24 +117,24 @@ public class Rectangle implements GeometricObject, EmissiveObject {
 
     @Override
     public Rectangle clone() {
-        var rect = new Rectangle(p0.clone(), a.clone(), b.clone(), normal.clone(), material.clone());
+        final var rect = new Rectangle(p0.clone(), a.clone(), b.clone(), normal.clone(), material.clone());
         rect.sampler = sampler == null ? null : sampler.clone();
         return rect;
     }
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
 
         if (t <= K_EPSILON) return false;
 
-        var p = ray.pointAt(t);
-        var d = subtract(p, p0);
+        final var p = ray.pointAt(t);
+        final var d = subtract(p, p0);
 
-        var ddota = d.dot(a);
+        final var ddota = d.dot(a);
         if (ddota < 0.0 || ddota > aLenSquared) return false;
 
-        var ddotb = d.dot(b);
+        final var ddotb = d.dot(b);
         if (ddotb < 0.0 || ddotb > bLenSquared) return false;
 
         tmin.value = t;
@@ -148,17 +148,17 @@ public class Rectangle implements GeometricObject, EmissiveObject {
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
         if (material instanceof EmissiveMaterial) return false;
 
-        var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(p0, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
 
         if (t <= K_EPSILON) return false;
 
-        var p = ray.pointAt(t);
-        var d = subtract(p, p0);
+        final var p = ray.pointAt(t);
+        final var d = subtract(p, p0);
 
-        var ddota = d.dot(a);
+        final var ddota = d.dot(a);
         if (ddota < 0.0 || ddota > aLenSquared) return false;
 
-        var ddotb = d.dot(b);
+        final var ddotb = d.dot(b);
         if (ddotb < 0.0 || ddotb > bLenSquared) return false;
 
         tmin.value = t;

@@ -43,35 +43,35 @@ public class ThinLensCamera extends AbstractCamera {
     }
 
     Vector3 getDirection(Vector2 pixel, Vector2 lensPoint, UVW uvw) {
-        var p = multiply(pixel, focalDistance / viewPlaneDistance).subtract(lensPoint);
+        final var p = multiply(pixel, focalDistance / viewPlaneDistance).subtract(lensPoint);
         return uvw.transform(p, -focalDistance).normalize();
     }
 
     @Override
     public void render(World world, ViewPlane vp) {
-        var uvw = computeUVW();
-        var s = vp.getS() / zoom;
+        final var uvw = computeUVW();
+        final var s = vp.getS() / zoom;
 
         for (var pixel : vp.getPixels()) {
-            var c = pixel.x();
-            var r = pixel.y();
+            final var c = pixel.x();
+            final var r = pixel.y();
 
-            var L = new Vector3();
+            final var L = new Vector3();
 
             for (var i = 0; i < vp.getSampler().getNumSamples(); i++) {
-                var sp = vp.getSampler().nextSampleSquare();
+                final var sp = vp.getSampler().nextSampleSquare();
 
-                var pp = new Vector2(
+                final var pp = new Vector2(
                     s * (c - 0.5f * vp.getHRes() + sp.getX()),
                     s * (r - 0.5f * vp.getVRes() + sp.getY())
                 );
 
-                var dp = sampler.nextSampleDisk();
-                var lp = multiply(dp, lensRadius);
-                var o = add(eye, multiply(uvw.u(), lp.getX()))
+                final var dp = sampler.nextSampleDisk();
+                final var lp = multiply(dp, lensRadius);
+                final var o = add(eye, multiply(uvw.u(), lp.getX()))
                         .add(multiply(uvw.v(), lp.getY()));
 
-                var ray = new Ray(o, getDirection(pp, lp, uvw));
+                final var ray = new Ray(o, getDirection(pp, lp, uvw));
                 L.add(world.getTracer().trace(world, ray, 0));
             }
 

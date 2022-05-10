@@ -32,7 +32,7 @@ public enum WorldMaker {
     BALLS {
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
-            var camera = new PinholeCamera(
+            final var camera = new PinholeCamera(
                     new Vector3(0, 0, 800),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
@@ -40,21 +40,21 @@ public enum WorldMaker {
 
             camera.setZoom(zoom);
 
-            var world = new World(toString(), new Raycasting(), new Vector3(), camera).addListener(listener);
+            final var world = new World(toString(), new Raycasting(), new Vector3(), camera).addListener(listener);
 
             // colors
-            var lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
-            var green = new Vector3(0.0f, 0.6f, 0.3f);
-            var darkGreen = new Vector3(0.0f, 0.41f, 0.41f);
+            final var lightGreen = new Vector3(0.65f, 1.0f, 0.30f);
+            final var green = new Vector3(0.0f, 0.6f, 0.3f);
+            final var darkGreen = new Vector3(0.0f, 0.41f, 0.41f);
 
-            var yellow = new Vector3(1.0f, 1.0f, 0.0f);
-            var darkYellow = new Vector3(0.61f, 0.61f, 0.0f);
+            final var yellow = new Vector3(1.0f, 1.0f, 0.0f);
+            final var darkYellow = new Vector3(0.61f, 0.61f, 0.0f);
 
-            var lightPurple = new Vector3(0.65f, 0.3f, 1.0f);
-            var darkPurple = new Vector3(0.5f, 0.0f, 1.0f);
+            final var lightPurple = new Vector3(0.65f, 0.3f, 1.0f);
+            final var darkPurple = new Vector3(0.5f, 0.0f, 1.0f);
 
-            var brown = new Vector3(0.71f, 0.40f, 0.16f);
-            var orange = new Vector3(1.0f, 0.75f, 0.0f);
+            final var brown = new Vector3(0.71f, 0.40f, 0.16f);
+            final var orange = new Vector3(1.0f, 0.75f, 0.0f);
 
             //Lights
             world.add(new PointLight(3.0f, new Vector3(1.0f, 1.0f, 1.0f), new Vector3(100.0f, 100.0f, 200.0f)));
@@ -109,13 +109,13 @@ public enum WorldMaker {
         private static final float BALL_CM = 5.715f / 2.0f;
 
         private Sphere createCarom(float x, float z) {
-            var caromCm = 6.15f / 2.0f;
+            final var caromCm = 6.15f / 2.0f;
             return new Sphere(new Vector3(x, caromCm, z), caromCm,
                     new Phong(0.2f, 0.65f, 0.4f, 64.00f, new Vector3(1, 1, 1)));
         }
 
         private Sphere createBall(float x, float z, Vector3 color) {
-            var material = new Phong(0.2f, 0.65f, 0.4f, 64.00f, color);
+            final var material = new Phong(0.2f, 0.65f, 0.4f, 64.00f, color);
             material.setCs(new Vector3(1, 1, 1));
 
             return new Sphere(new Vector3(x, BALL_CM, z), BALL_CM,
@@ -123,9 +123,9 @@ public enum WorldMaker {
         }
 
         private void createLamp(World world, float w, float y, float z, int numSamples) {
-            var hw = w / 2.0f;
+            final var hw = w / 2.0f;
 
-            var shape = new Rectangle(
+            final var shape = new Rectangle(
                 new Vector3(-hw, y, -hw + z),
                 new Vector3(w, 0, 0),
                 new Vector3(0, 0, w),
@@ -138,7 +138,7 @@ public enum WorldMaker {
 
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
-            var camera = new ThinLensCamera(
+            final var camera = new ThinLensCamera(
                     new Vector3(10, 10, 190),
                     new Vector3(0, 0, 0),
                     new Vector3(0, 1, 0),
@@ -155,29 +155,29 @@ public enum WorldMaker {
 
             camera.setZoom(zoom);
 
-            var world = new World(toString(), new AreaLightTracer(), new Vector3(0f, 0f, 0f), camera)
+            final var world = new World(toString(), new AreaLightTracer(), new Vector3(0f, 0f, 0f), camera)
                 .addListener(listener);
 
             // colors
-            var one = new Vector3(1.0f, 1.0f, 0.0f);            //Yellow
-            var two = new Vector3(0.0f, 0.0f, 1.0f);            //Blue
-            var three = new Vector3(1.0f, 0.0f, 0.0f);          //Red
-            var four = new Vector3(0.29f, 0.0f, 0.5f);          //Purple
-            var five = new Vector3(1.0f, 0.5f, 0.0f);           //Orange
-            var six = new Vector3(0.0f, 0.41f, 0.41f);          //Green
-            var seven = new Vector3(0.545f, 0.27f, 0.074f);     //Brown
-            var eight = new Vector3(0.1f, 0.1f, 0.1f);            //Black
+            final var one = new Vector3(1.0f, 1.0f, 0.0f);            //Yellow
+            final var two = new Vector3(0.0f, 0.0f, 1.0f);            //Blue
+            final var three = new Vector3(1.0f, 0.0f, 0.0f);          //Red
+            final var four = new Vector3(0.29f, 0.0f, 0.5f);          //Purple
+            final var five = new Vector3(1.0f, 0.5f, 0.0f);           //Orange
+            final var six = new Vector3(0.0f, 0.41f, 0.41f);          //Green
+            final var seven = new Vector3(0.545f, 0.27f, 0.074f);     //Brown
+            final var eight = new Vector3(0.1f, 0.1f, 0.1f);            //Black
 
-            var nine = new Vector3(1.0f, 1.0f, 0.0f);           //Yellow and White
-            var ten = new Vector3(0.0f, 0.0f, 1.0f);            //Blue and white
-            var eleven = new Vector3(1.0f, 0.0f, 0.0f);         //Red and white
-            var twelve = new Vector3(0.29f, 0.0f, 0.5f);        //Purple and white
-            var thirteen = new Vector3(1.0f, 0.5f, 0.0f);       //Orange and white
-            var fourteen = new Vector3(0.0f, 0.41f, 0.41f);     //Green and white
-            var fifteen = new Vector3(0.545f, 0.27f, 0.074f);   //Brown and white
+            final var nine = new Vector3(1.0f, 1.0f, 0.0f);           //Yellow and White
+            final var ten = new Vector3(0.0f, 0.0f, 1.0f);            //Blue and white
+            final var eleven = new Vector3(1.0f, 0.0f, 0.0f);         //Red and white
+            final var twelve = new Vector3(0.29f, 0.0f, 0.5f);        //Purple and white
+            final var thirteen = new Vector3(1.0f, 0.5f, 0.0f);       //Orange and white
+            final var fourteen = new Vector3(0.0f, 0.41f, 0.41f);     //Green and white
+            final var fifteen = new Vector3(0.545f, 0.27f, 0.074f);   //Brown and white
 
             //Vector3 table = new Vector3(0.188f, 0.5f, 0.14f);       //Green
-            var table = Vector3.fromRGB(10, 108, 3);
+            final var table = Vector3.fromRGB(10, 108, 3);
 
             //Lights
             createLamp(world, 20, 100, -60, numSamples);
@@ -218,9 +218,9 @@ public enum WorldMaker {
     },
     OBJECTS {
         private void createLamp(World world, float w, float y, float z, int numSamples) {
-            var hw = w / 2.0f;
+            final var hw = w / 2.0f;
 
-            var shape = new Rectangle(
+            final var shape = new Rectangle(
                     new Vector3(-hw, y, -hw + z),
                     new Vector3(w, 0, 0),
                     new Vector3(0, 0, w),
@@ -232,7 +232,7 @@ public enum WorldMaker {
 
         @Override
         public World createScene(int numSamples, float zoom, WorldListener listener) {
-            var camera = new ThinLensCamera(
+            final var camera = new ThinLensCamera(
                 new Vector3(-50, 80, 210),
                 new Vector3(0, 0, 0),
                 new Vector3(0, 1, 0),
@@ -241,15 +241,15 @@ public enum WorldMaker {
 
             camera.setZoom(zoom);
 
-            var world = new World(toString(), new Raycasting(), new Vector3(), camera).addListener(listener);
+            final var world = new World(toString(), new Raycasting(), new Vector3(), camera).addListener(listener);
 
             //Colors
             world.getBackgroundColor().set(0.7f, 0.7f, 0.7f);
-            var blue = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 0.0f, 1.0f));
-            var yellow = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 1.0f, 0.0f));
-            var black = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.1f, 0.1f, 0.1f));
-            var green = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 1.0f, 0.0f));
-            var red = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 0.0f, 0.0f));
+            final var blue = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 0.0f, 1.0f));
+            final var yellow = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 1.0f, 0.0f));
+            final var black = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.1f, 0.1f, 0.1f));
+            final var green = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(0.0f, 1.0f, 0.0f));
+            final var red = new Phong(0.2f, 0.65f, 0.4f, 64.0f, new Vector3(1.0f, 0.0f, 0.0f));
 
             //Lights
             createLamp(world, 30, 100, -70, numSamples);
@@ -261,9 +261,9 @@ public enum WorldMaker {
             );
 
             //Objects
-            var torus = new Torus(15, 3f, blue);
-            var angle1 = (float) Math.toRadians(90);
-            var angle2 = (float) Math.toRadians(80);
+            final var torus = new Torus(15, 3f, blue);
+            final var angle1 = (float) Math.toRadians(90);
+            final var angle2 = (float) Math.toRadians(80);
 
             world.addInstance(torus).rotateX(angle1).translate(-40, 60, 0);
             world.addInstance(torus, yellow).rotateX(angle2).translate(-20, 50, 0);
@@ -289,7 +289,7 @@ public enum WorldMaker {
 
     @Override
     public String toString() {
-        var name = super.toString();
+        final var name = super.toString();
         return name.charAt(0) + name.substring(1).toLowerCase();
     }
 }

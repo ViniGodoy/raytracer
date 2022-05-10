@@ -28,16 +28,16 @@ public abstract class AbstractMaterial implements Material {
     }
 
     private Vector3 shade(ShadeRec sr, boolean area) {
-        var wo = negate(sr.ray.getDirection());
-        var L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
+        final var wo = negate(sr.ray.getDirection());
+        final var L = mul(ambient.rho(sr, wo), sr.world.getAmbientLight().L(sr));
         sr.world.getLights().forEach(light -> {
-            var wi = light.getDirection(sr);
+            final var wi = light.getDirection(sr);
 
-            var ndotwi = sr.normal.dot(wi);
+            final var ndotwi = sr.normal.dot(wi);
             if (ndotwi > 0.0f) {
                 var inShadow = false;
                 if (light.castShadows()) {
-                    var shadowRay = new Ray(sr.worldHitPoint, wi);
+                    final var shadowRay = new Ray(sr.worldHitPoint, wi);
                     inShadow = light.inShadow(shadowRay, sr);
                 }
 

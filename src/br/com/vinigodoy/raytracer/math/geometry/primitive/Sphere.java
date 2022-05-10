@@ -74,7 +74,7 @@ public class Sphere implements GeometricObject {
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
         if (shadow_hit(ray, tmin)) {
-            var temp = subtract(ray.getOrigin(), center);
+            final var temp = subtract(ray.getOrigin(), center);
             sr.normal = multiply(ray.getDirection(), tmin.value).add(temp).divide(radius);
             sr.worldHitPoint = ray.pointAt(tmin.value);
             sr.localHitPoint = sr.worldHitPoint;
@@ -85,20 +85,20 @@ public class Sphere implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var temp = subtract(ray.getOrigin(), center);
+        final var temp = subtract(ray.getOrigin(), center);
 
         //Bhaskara equation a, b and c terms and delta calculation (bˆ2 - 4ac).
 
         //float a = 1, since ray.getDirection().sizeSqr() is always one.
-        var b = multiply(temp, 2.0f).dot(ray.getDirection());
-        var c = temp.sizeSqr() - radius * radius;
-        var delta = b * b - 4.0f * c;
+        final var b = multiply(temp, 2.0f).dot(ray.getDirection());
+        final var c = temp.sizeSqr() - radius * radius;
+        final var delta = b * b - 4.0f * c;
 
         if (delta < 0.0) {
             return false;
         }
 
-        var e = (float) Math.sqrt(delta);
+        final var e = (float) Math.sqrt(delta);
 
         //Smaller root
         var t = (-b - e) / 2.0f;

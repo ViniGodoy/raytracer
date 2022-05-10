@@ -72,13 +72,13 @@ public class World {
     }
 
     public Instance addInstance(GeometricObject obj) {
-        var instance = new Instance(obj);
+        final var instance = new Instance(obj);
         objects.add(instance);
         return instance;
     }
 
     public Instance addInstance(GeometricObject obj, Material mtrl) {
-        var instance = new Instance(obj, mtrl);
+        final var instance = new Instance(obj, mtrl);
         objects.add(instance);
         return instance;
     }
@@ -98,9 +98,9 @@ public class World {
 
         renderThread = new Thread(() -> {
             fireTraceStarted(vp);
-            var before = System.currentTimeMillis();
+            final var before = System.currentTimeMillis();
             camera.render(World.this, vp);
-            var renderTime = (System.currentTimeMillis() - before);
+            final var renderTime = (System.currentTimeMillis() - before);
             fireTraceFinished(renderTime);
             renderThread = null;
         }, "Raytracer Render");
@@ -113,14 +113,14 @@ public class World {
     }
 
     public ShadeRec hit(Ray ray) {
-        var sr = new ShadeRec(this);
+        final var sr = new ShadeRec(this);
 
         Vector3 normal = null;
         Vector3 hitPoint = null;
         var tMin = Float.MAX_VALUE;
 
         for (var obj : objects) {
-            var fr = new FloatRef();
+            final var fr = new FloatRef();
             if (obj.hit(ray, sr, fr) && fr.value < tMin) {
                 sr.hitAnObject = true;
                 tMin = fr.value;
@@ -138,7 +138,7 @@ public class World {
     }
 
     public boolean shadowHit(Ray ray, float d) {
-        var t = new FloatRef();
+        final var t = new FloatRef();
         return objects.stream().anyMatch(obj -> obj.shadow_hit(ray, t) && t.value < d);
     }
 

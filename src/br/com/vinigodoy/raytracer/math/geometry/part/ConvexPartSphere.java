@@ -73,19 +73,19 @@ public class ConvexPartSphere implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var temp = Vector3.subtract(ray.getOrigin(), center);
-        var b = 2.0f * temp.dot(ray.getDirection());
-        var c = temp.sizeSqr() - radius * radius;
-        var disc = b * b - 4.0f * c;
+        final var temp = Vector3.subtract(ray.getOrigin(), center);
+        final var b = 2.0f * temp.dot(ray.getDirection());
+        final var c = temp.sizeSqr() - radius * radius;
+        final var disc = b * b - 4.0f * c;
 
         if (disc < 0.0) return false;
 
-        var e = (float) Math.sqrt(disc);
+        final var e = (float) Math.sqrt(disc);
         var t = (-b - e) / 2.0f;    // smaller root
 
         if (t > K_EPSILON) {
-            var hitPoint = ray.pointAt(t);
-            var hit = Vector3.subtract(hitPoint, center);
+            final var hitPoint = ray.pointAt(t);
+            final var hit = Vector3.subtract(hitPoint, center);
 
             var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)
@@ -107,8 +107,8 @@ public class ConvexPartSphere implements GeometricObject {
         t = (-b + e) / 2.0f;    // larger root
 
         if (t > K_EPSILON) {
-            var hitPoint = ray.pointAt(t);
-            var hit = Vector3.subtract(hitPoint, center);
+            final var hitPoint = ray.pointAt(t);
+            final var hit = Vector3.subtract(hitPoint, center);
 
             var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)
@@ -132,19 +132,19 @@ public class ConvexPartSphere implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var temp = Vector3.subtract(ray.getOrigin(), center);
-        var b = 2.0f * temp.dot(ray.getDirection());
-        var c = temp.sizeSqr() - radius * radius;
-        var disc = b * b - 4.0f * c;
+        final var temp = Vector3.subtract(ray.getOrigin(), center);
+        final var b = 2.0f * temp.dot(ray.getDirection());
+        final var c = temp.sizeSqr() - radius * radius;
+        final var disc = b * b - 4.0f * c;
 
         if (disc < 0.0) return false;
 
-        var e = (float) Math.sqrt(disc);
+        final var e = (float) Math.sqrt(disc);
         var t = (-b - e) / 2.0f;    // smaller root
 
         if (t > K_EPSILON) {
-            var hitPoint = ray.pointAt(t);
-            var hit = Vector3.subtract(hitPoint, center);
+            final var hitPoint = ray.pointAt(t);
+            final var hit = Vector3.subtract(hitPoint, center);
 
             var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0) phi += 2 * Math.PI;
@@ -161,8 +161,8 @@ public class ConvexPartSphere implements GeometricObject {
         t = (-b + e) / 2.0f;    // larger root
 
         if (t > K_EPSILON) {
-            var hitPoint = ray.pointAt(t);
-            var hit = Vector3.subtract(hitPoint, center);
+            final var hitPoint = ray.pointAt(t);
+            final var hit = Vector3.subtract(hitPoint, center);
 
             var phi = Math.atan2(hit.getX(), hit.getZ());
             if (phi < 0.0)

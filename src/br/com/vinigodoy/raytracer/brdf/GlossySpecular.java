@@ -39,8 +39,8 @@ public class GlossySpecular extends AbstractBRDF {
 
     @Override
     public Vector3 f(ShadeRec sr, Vector3 wo, Vector3 wi) {
-        var r = reflect(wi, sr.normal);
-        var rDotWo = r.dot(wo);
+        final var r = reflect(wi, sr.normal);
+        final var rDotWo = r.dot(wo);
         return rDotWo <= 0.0f ? new Vector3() :
                 multiply(cs, ks * (float) Math.pow(rDotWo, exp));
     }

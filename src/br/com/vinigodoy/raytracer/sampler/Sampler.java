@@ -56,7 +56,7 @@ public final class Sampler implements Cloneable {
 
         var sample = Samples.Regular;
         if (numSamples > 1) {
-            var n = (int) sqrt(numSamples);
+            final var n = (int) sqrt(numSamples);
             sample = n * n == numSamples ? Samples.MultiJittered : Samples.NRooks;
         }
 
@@ -72,7 +72,7 @@ public final class Sampler implements Cloneable {
 
     private void shuffleIndices() {
         shuffledIndices.clear();
-        var indices = new ArrayList<Integer>();
+        final var indices = new ArrayList<Integer>();
         for (var i = 0; i < numSamples; i++)
             indices.add(i);
 
@@ -129,7 +129,7 @@ public final class Sampler implements Cloneable {
         float phi;
 
         for (var sample : samples) {
-            var sp = new Vector2(2 * sample.getX() - 1.0f, 2 * sample.getY() - 1.0f);
+            final var sp = new Vector2(2 * sample.getX() - 1.0f, 2 * sample.getY() - 1.0f);
 
             if (sp.getX() > -sp.getY()) {               //Sector 1
                 if (sp.getX() > sp.getY()) {
@@ -156,12 +156,12 @@ public final class Sampler implements Cloneable {
     public void mapToHemisphere(float e) {
         hemisphereSamples = new ArrayList<>(samples.size());
         for (var sample : samples) {
-            var cosPhi = (float) cos(2.0 * PI * sample.getX());
-            var sinPhi = (float) sin(2.0 * PI * sample.getX());
-            var cosTheta = (float) pow(1.0 - sample.getY(), 1.0 / (e + 1.0));
-            var sinTheta = (float) sqrt(1.0 - cosTheta * cosTheta);
-            var pu = sinTheta * cosPhi;
-            var pv = sinTheta * sinPhi;
+            final var cosPhi = (float) cos(2.0 * PI * sample.getX());
+            final var sinPhi = (float) sin(2.0 * PI * sample.getX());
+            final var cosTheta = (float) pow(1.0 - sample.getY(), 1.0 / (e + 1.0));
+            final var sinTheta = (float) sqrt(1.0 - cosTheta * cosTheta);
+            final var pu = sinTheta * cosPhi;
+            final var pv = sinTheta * sinPhi;
             hemisphereSamples.add(new Vector3(pu, pv, cosTheta));
         }
     }

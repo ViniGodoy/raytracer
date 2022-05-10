@@ -62,9 +62,9 @@ public class Box implements GeometricObject {
      * @param material The material.
      */
     public Box(float width, float height, float depth, Material material) {
-        var hw = width / 2.0f;
-        var hh = height / 2.0f;
-        var hd = depth / 2.0f;
+        final var hw = width / 2.0f;
+        final var hh = height / 2.0f;
+        final var hd = depth / 2.0f;
 
         x0 = -hw;
         x1 = hw;
@@ -114,18 +114,22 @@ public class Box implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var ox = ray.getOrigin().getX();
-        var oy = ray.getOrigin().getY();
-        var oz = ray.getOrigin().getZ();
+        final var ox = ray.getOrigin().getX();
+        final var oy = ray.getOrigin().getY();
+        final var oz = ray.getOrigin().getZ();
 
-        var dx = ray.getDirection().getX();
-        var dy = ray.getDirection().getY();
-        var dz = ray.getDirection().getZ();
+        final var dx = ray.getDirection().getX();
+        final var dy = ray.getDirection().getY();
+        final var dz = ray.getDirection().getZ();
 
-        double tx_min, ty_min, tz_min;
-        double tx_max, ty_max, tz_max;
+        final double tx_min;
+        final double ty_min;
+        final double tz_min;
+        final double tx_max;
+        final double ty_max;
+        final double tz_max;
 
-        var a = 1.0 / dx;
+        final var a = 1.0 / dx;
         if (a >= 0) {
             tx_min = (x0 - ox) * a;
             tx_max = (x1 - ox) * a;
@@ -134,7 +138,7 @@ public class Box implements GeometricObject {
             tx_max = (x0 - ox) * a;
         }
 
-        var b = 1.0 / dy;
+        final var b = 1.0 / dy;
         if (b >= 0) {
             ty_min = (y0 - oy) * b;
             ty_max = (y1 - oy) * b;
@@ -143,7 +147,7 @@ public class Box implements GeometricObject {
             ty_max = (y0 - oy) * b;
         }
 
-        var c = 1.0 / dz;
+        final var c = 1.0 / dz;
         if (c >= 0) {
             tz_min = (z0 - oz) * c;
             tz_max = (z1 - oz) * c;
@@ -202,18 +206,22 @@ public class Box implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var ox = ray.getOrigin().getX();
-        var oy = ray.getOrigin().getY();
-        var oz = ray.getOrigin().getZ();
+        final var ox = ray.getOrigin().getX();
+        final var oy = ray.getOrigin().getY();
+        final var oz = ray.getOrigin().getZ();
 
-        var dx = ray.getDirection().getX();
-        var dy = ray.getDirection().getY();
-        var dz = ray.getDirection().getZ();
+        final var dx = ray.getDirection().getX();
+        final var dy = ray.getDirection().getY();
+        final var dz = ray.getDirection().getZ();
 
-        double tx_min, ty_min, tz_min;
-        double tx_max, ty_max, tz_max;
+        final double tx_min;
+        final double ty_min;
+        final double tz_min;
+        final double tx_max;
+        final double ty_max;
+        final double tz_max;
 
-        var a = 1.0 / dx;
+        final var a = 1.0 / dx;
         if (a >= 0) {
             tx_min = (x0 - ox) * a;
             tx_max = (x1 - ox) * a;
@@ -222,7 +230,7 @@ public class Box implements GeometricObject {
             tx_max = (x0 - ox) * a;
         }
 
-        var b = 1.0 / dy;
+        final var b = 1.0 / dy;
         if (b >= 0) {
             ty_min = (y0 - oy) * b;
             ty_max = (y1 - oy) * b;
@@ -231,7 +239,7 @@ public class Box implements GeometricObject {
             ty_max = (y0 - oy) * b;
         }
 
-        var c = 1.0 / dz;
+        final var c = 1.0 / dz;
         if (c >= 0) {
             tz_min = (z0 - oz) * c;
             tz_max = (z1 - oz) * c;

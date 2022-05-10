@@ -20,7 +20,7 @@ import br.com.vinigodoy.raytracer.scene.World;
 public class Raycasting implements Tracer {
     @Override
     public Vector3 trace(World world, Ray ray, int depth) {
-        var sr = world.hit(ray).clone();
+        final var sr = world.hit(ray).clone();
         if (!sr.hitAnObject) return world.getBackgroundColor();
         sr.ray = ray;
         return sr.material.shade(sr);

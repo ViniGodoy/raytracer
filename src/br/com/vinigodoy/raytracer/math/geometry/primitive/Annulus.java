@@ -48,11 +48,11 @@ public class Annulus implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
         if (t < K_EPSILON) return false;
 
-        var p = ray.pointAt(t);
-        var centerDistanceSqr = center.distanceSqr(p);
+        final var p = ray.pointAt(t);
+        final var centerDistanceSqr = center.distanceSqr(p);
 
         if ((centerDistanceSqr >= outerRadius * outerRadius) || (centerDistanceSqr <= innerRadius * innerRadius)) {
             return false;
@@ -67,12 +67,12 @@ public class Annulus implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
         if (t < K_EPSILON) return false;
 
         tmin.value = t;
-        var p = ray.pointAt(t);
-        var centerDistanceSqr = center.distanceSqr(p);
+        final var p = ray.pointAt(t);
+        final var centerDistanceSqr = center.distanceSqr(p);
         return (centerDistanceSqr < outerRadius * outerRadius) && (centerDistanceSqr >= innerRadius * innerRadius);
 
     }

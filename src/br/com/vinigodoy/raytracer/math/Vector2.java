@@ -337,7 +337,7 @@ public class Vector2 implements Cloneable {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != getClass()) return false;
-        var other = (Vector2) obj;
+        final var other = (Vector2) obj;
         return x == other.x && y == other.y;
     }
 

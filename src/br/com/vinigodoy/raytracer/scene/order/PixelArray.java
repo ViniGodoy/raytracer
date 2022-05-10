@@ -86,10 +86,10 @@ public class PixelArray implements Iterable<PixelArray.Pixel> {
      */
     public void shuffle() {
         for (var i = 0; i < pixels.length - 1; i++) {
-            var max = pixels.length - i - 1;
-            var ind = Rnd.rndInt(max);
+            final var max = pixels.length - i - 1;
+            final var ind = Rnd.rndInt(max);
 
-            var aux = pixels[ind];
+            final var aux = pixels[ind];
             pixels[ind] = pixels[max];
             pixels[max] = aux;
         }

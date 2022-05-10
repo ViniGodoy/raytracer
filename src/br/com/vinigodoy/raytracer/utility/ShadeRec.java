@@ -62,7 +62,7 @@ public class ShadeRec implements Cloneable {
 
     @Override
     public ShadeRec clone() {
-        var sr = new ShadeRec(world);
+        final var sr = new ShadeRec(world);
         sr.hitAnObject = hitAnObject;
         sr.material = material == null ? null : material.clone();
         sr.worldHitPoint = worldHitPoint == null ? null : worldHitPoint.clone();

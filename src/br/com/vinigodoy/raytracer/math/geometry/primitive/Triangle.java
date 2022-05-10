@@ -96,41 +96,44 @@ public class Triangle implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var a = v0.getX() - v1.getX();
-        var b = v0.getX() - v2.getX();
-        var c = ray.getDirection().getX();
-        var d = v0.getX() - ray.getOrigin().getX();
+        final var a = v0.getX() - v1.getX();
+        final var b = v0.getX() - v2.getX();
+        final var c = ray.getDirection().getX();
+        final var d = v0.getX() - ray.getOrigin().getX();
 
-        var e = v0.getY() - v1.getY();
-        var f = v0.getY() - v2.getY();
-        var g = ray.getDirection().getY();
-        var h = v0.getY() - ray.getOrigin().getY();
+        final var e = v0.getY() - v1.getY();
+        final var f = v0.getY() - v2.getY();
+        final var g = ray.getDirection().getY();
+        final var h = v0.getY() - ray.getOrigin().getY();
 
-        var i = v0.getZ() - v1.getZ();
-        var j = v0.getZ() - v2.getZ();
-        var k = ray.getDirection().getZ();
-        var l = v0.getZ() - ray.getOrigin().getZ();
+        final var i = v0.getZ() - v1.getZ();
+        final var j = v0.getZ() - v2.getZ();
+        final var k = ray.getDirection().getZ();
+        final var l = v0.getZ() - ray.getOrigin().getZ();
 
-        double m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
-        double q = g * i - e * k, s = e * j - f * i;
+        final double m = f * k - g * j;
+        final double n = h * k - g * l;
+        final double p = f * l - h * j;
+        final double q = g * i - e * k;
+        final double s = e * j - f * i;
 
-        var inv_denom = 1.0 / (a * m + b * q + c * s);
+        final var inv_denom = 1.0 / (a * m + b * q + c * s);
 
-        var e1 = d * m - b * n - c * p;
-        var beta = e1 * inv_denom;
+        final var e1 = d * m - b * n - c * p;
+        final var beta = e1 * inv_denom;
 
         if (beta < 0.0) return false;
 
-        var r = e * l - h * i;
-        var e2 = a * n + d * q + c * r;
-        var gamma = e2 * inv_denom;
+        final var r = e * l - h * i;
+        final var e2 = a * n + d * q + c * r;
+        final var gamma = e2 * inv_denom;
 
         if (gamma < 0.0) return false;
 
         if (beta + gamma > 1.0) return false;
 
-        var e3 = a * p - b * r + d * s;
-        var t = e3 * inv_denom;
+        final var e3 = a * p - b * r + d * s;
+        final var t = e3 * inv_denom;
 
         if (t < K_EPSILON) return false;
 

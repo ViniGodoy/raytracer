@@ -64,9 +64,9 @@ public abstract class AbstractCamera implements Camera {
     }
 
     protected UVW computeUVW() {
-        var w = subtract(eye, look).normalize();
+        final var w = subtract(eye, look).normalize();
 
-        var up = rotate(this.up, w, roll);
+        final var up = rotate(this.up, w, roll);
         // take care of the singularity by hardwiring in specific camera orientations
         if (eye.getX() == look.getX() && eye.getZ() == look.getZ() && eye.getY() > look.getY()) { // camera looking vertically down
             return new UVW(
@@ -85,14 +85,14 @@ public abstract class AbstractCamera implements Camera {
         }
 
         //Otherwise, calculate UVW
-        var u = cross(up, w).normalize();
-        var v = cross(w, u);
+        final var u = cross(up, w).normalize();
+        final var v = cross(w, u);
         return new UVW(u, v, w);
     }
 
     public void drawPixel(World world, ViewPlane vp, int col, int row, Vector3 color) {
         if (vp.getGamma() != 1.0f) color.pow(vp.invGamma());
-        var invR = vp.getVRes() - row - 1;
+        final var invR = vp.getVRes() - row - 1;
         world.drawPixel(col, invR, color);
     }
 }

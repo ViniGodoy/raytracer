@@ -61,7 +61,7 @@ public class SampleFrame extends JFrame {
         pbProgress.setString("");
         pbProgress.setStringPainted(true);
 
-        var pnlButtons = new JPanel(new FlowLayout());
+        final var pnlButtons = new JPanel(new FlowLayout());
 
         //Scene
         pnlButtons.add(new JLabel("Scene:"));
@@ -113,24 +113,24 @@ public class SampleFrame extends JFrame {
             return String.format("%.2f seconds", (renderTime / 1000.0));
 
         renderTime /= 1000;
-        var s = (int) (renderTime % 60);
+        final var s = (int) (renderTime % 60);
         renderTime /= 60;
-        var m = (int) (renderTime % 60);
+        final var m = (int) (renderTime % 60);
 
-        var strMin = m == 1 ? "minute" : "minutes";
-        var strSec = s == 1 ? "second" : "seconds";
+        final var strMin = m == 1 ? "minute" : "minutes";
+        final var strSec = s == 1 ? "second" : "seconds";
         return String.format("%d %s %d %s", m, strMin, s, strSec);
     }
 
     public void saveFile(World world, long renderTime) {
-        var fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
+        final var fileName = new File("Java Raytracer-v" + VERSION.replace(".", "_") + "_" + world.getName() + ".png");
         chooser.setSelectedFile(fileName);
 
         if (chooser.showSaveDialog(this) != JFileChooser.APPROVE_OPTION)
             return;
 
         try {
-            var g2d = waiter.getImage().createGraphics();
+            final var g2d = waiter.getImage().createGraphics();
             g2d.setColor(Color.BLACK);
             g2d.fillRect(0, 0, 1920, 25);
             g2d.setColor(Color.WHITE);
@@ -148,19 +148,19 @@ public class SampleFrame extends JFrame {
     public void renderToScreen() {
         renderToScreen = true;
 
-        var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
-        var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 1.0f, waiter);
-        var drawOrder = (DrawOrder) cmbDrawOrder.getSelectedItem();
+        final var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        final var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 1.0f, waiter);
+        final var drawOrder = (DrawOrder) cmbDrawOrder.getSelectedItem();
 
-        var vp = new ViewPlane(800, 450, samples);
+        final var vp = new ViewPlane(800, 450, samples);
         vp.setDrawOrder(drawOrder);
         world.render(vp);
     }
 
     private void renderToFile() {
         renderToScreen = false;
-        var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
-        var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 2.4f, waiter);
+        final var samples = ((Quality) cmbQuality.getSelectedItem()).getSamples();
+        final var world = ((WorldMaker) cmbScene.getSelectedItem()).createScene(samples, 2.4f, waiter);
         world.render(new ViewPlane(1920, 1080, samples));
     }
 
@@ -179,7 +179,7 @@ public class SampleFrame extends JFrame {
 
         @Override
         public String toString() {
-            var name = super.toString();
+            final var name = super.toString();
             return name.charAt(0) + name.substring(1).toLowerCase();
 
         }
@@ -209,7 +209,7 @@ public class SampleFrame extends JFrame {
             });
 
 
-            var g2d = image.createGraphics();
+            final var g2d = image.createGraphics();
             g2d.setColor(new Color(world.getBackgroundColor().toRGB()));
             g2d.fillRect(0, 0, width, height);
             lastTimePainted = System.currentTimeMillis();

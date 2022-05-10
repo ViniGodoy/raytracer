@@ -39,13 +39,13 @@ public class Compound implements GeometricObject {
     }
 
     public Instance addInstance(GeometricObject obj) {
-        var instance = new Instance(obj);
+        final var instance = new Instance(obj);
         objects.add(instance);
         return instance;
     }
 
     public Instance addInstance(GeometricObject obj, Material mtrl) {
-        var instance = new Instance(obj, mtrl);
+        final var instance = new Instance(obj, mtrl);
         objects.add(instance);
         return instance;
     }
@@ -62,7 +62,7 @@ public class Compound implements GeometricObject {
         var hit = false;
 
         for (var obj : objects) {
-            var fr = new FloatRef();
+            final var fr = new FloatRef();
             if (obj.hit(ray, sr, fr) && fr.value < tMin) {
                 hit = true;
                 tMin = fr.value;
@@ -90,7 +90,7 @@ public class Compound implements GeometricObject {
         var hit = false;
 
         for (var obj : objects) {
-            var fr = new FloatRef();
+            final var fr = new FloatRef();
             if (obj.shadow_hit(ray, fr) && fr.value < tMin) {
                 hit = true;
                 tMin = fr.value;

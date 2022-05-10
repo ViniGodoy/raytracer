@@ -38,10 +38,10 @@ public class Instance implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var inv_ray = invTransform.transformRay(ray);
+        final var inv_ray = invTransform.transformRay(ray);
 
         if (object.hit(inv_ray, sr, tmin)) {
-            var transform = Matrix4.inverse(invTransform);
+            final var transform = Matrix4.inverse(invTransform);
             sr.worldHitPoint = transform.transformPoint(sr.worldHitPoint);
             sr.normal = invTransform.transformNormal(sr.normal);
             return true;
@@ -101,7 +101,7 @@ public class Instance implements GeometricObject {
 
     @Override
     public Instance clone() {
-        var instance = new Instance(object, material.clone());
+        final var instance = new Instance(object, material.clone());
         instance.invTransform = invTransform.clone();
         return instance;
     }

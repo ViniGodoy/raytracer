@@ -143,8 +143,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newRotationX(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 1, 0, 0, 0,
                 0, cosA, -sinA, 0,
@@ -159,8 +159,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newRotationY(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 cosA, 0.0f, sinA, 0.0f,
                 0.0f, 0.0f, 1.0f, 0.0f,
@@ -175,8 +175,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newRotationZ(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 cosA, -sinA, 0.0f, 0.0f,
                 sinA, cosA, 0.0f, 0.0f,
@@ -281,8 +281,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newInvRotationX(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 1.0f, 0.0f, 0.0f, 0.0f,
                 0.0f, cosA, sinA, 0.0f,
@@ -297,8 +297,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newInvRotationY(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 cosA, 0.0f, -sinA, 0.0f,
                 0.0f, 1.0f, 0.0f, 0.0f,
@@ -313,8 +313,8 @@ public final class Matrix4 implements Cloneable {
      * @return The new matrix.
      */
     public static Matrix4 newInvRotationZ(float angle) {
-        var cosA = (float) Math.cos(angle);
-        var sinA = (float) Math.sin(angle);
+        final var cosA = (float) Math.cos(angle);
+        final var sinA = (float) Math.sin(angle);
         return new Matrix4(
                 cosA, sinA, 0.0f, 0.0f,
                 -sinA, cosA, 0.0f, 0.0f,
@@ -334,7 +334,7 @@ public final class Matrix4 implements Cloneable {
      * @return The inverse shearing.
      */
     public static Matrix4 newInvShearing(float xy, float xz, float yx, float yz, float zx, float zy) {
-        var D = 1 - xy * yx - xz * zx - yz * zy + xy * yz * zx + xz * yx * zy;
+        final var D = 1 - xy * yx - xz * zx - yz * zy + xy * yz * zx + xz * yx * zy;
 
         return new Matrix4(
                 1 - yz * zy, -yx + yz * zx, -zx + yx * zy, 0,
@@ -374,7 +374,7 @@ public final class Matrix4 implements Cloneable {
      * @return A new matrix with the result.
      */
     public static Matrix4 multiply(Matrix4 m1, Matrix4 m2) {
-        var C = new Matrix4();
+        final var C = new Matrix4();
         for (var i = 0; i < 4; ++i)
             for (var j = 0; j < 4; ++j)
                 for (var k = 0; k < 4; ++k)
@@ -412,7 +412,7 @@ public final class Matrix4 implements Cloneable {
      * @return A new matrix with the result.
      */
     public static Matrix4 inverse(Matrix4 m) {
-        var inv = new Matrix4();
+        final var inv = new Matrix4();
 
         //Calculate the classical adjoint of m --> adj(m)
         inv.A[0][0] = m.get(1, 1) * m.get(2, 2) * m.get(3, 3) -
@@ -550,7 +550,7 @@ public final class Matrix4 implements Cloneable {
      * @return A new matrix with the result.
      */
     public static Matrix4 transpose(Matrix4 m) {
-        var r = new Matrix4();
+        final var r = new Matrix4();
         for (var i = 0; i < 4; i++)
             for (var j = 0; j < 4; j++) {
                 r.A[i][j] = m.A[j][i];
@@ -850,7 +850,7 @@ public final class Matrix4 implements Cloneable {
 
     @Override
     public Matrix4 clone() {
-        var other = new Matrix4();
+        final var other = new Matrix4();
         for (var i = 0; i < 4; i++)
             System.arraycopy(A[i], 0, other.A[i], 0, 4);
         return other;
@@ -861,7 +861,7 @@ public final class Matrix4 implements Cloneable {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != getClass()) return false;
 
-        var other = (Matrix4) obj;
+        final var other = (Matrix4) obj;
         for (var i = 0; i < 4; i++)
             for (var j = 0; j < 4; j++) {
                 if (A[i][j] != other.A[i][j])

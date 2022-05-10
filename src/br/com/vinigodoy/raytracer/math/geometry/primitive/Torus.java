@@ -49,22 +49,22 @@ public class Torus implements GeometricObject {
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
         if (!bbox.hit(ray)) return false;
 
-        var x1 = ray.getOrigin().getX();
-        var y1 = ray.getOrigin().getY();
-        var z1 = ray.getOrigin().getZ();
+        final var x1 = ray.getOrigin().getX();
+        final var y1 = ray.getOrigin().getY();
+        final var z1 = ray.getOrigin().getZ();
 
-        var d1 = ray.getDirection().getX();
-        var d2 = ray.getDirection().getY();
-        var d3 = ray.getDirection().getZ();
+        final var d1 = ray.getDirection().getX();
+        final var d2 = ray.getDirection().getY();
+        final var d3 = ray.getDirection().getZ();
 
-        var coeffs = new double[5];    // coefficient array for the quartic equation
-        var roots = new double[4];    // solution array for the quartic equation
+        final var coeffs = new double[5];    // coefficient array for the quartic equation
+        final var roots = new double[4];    // solution array for the quartic equation
 
         // define the coefficients of the quartic equation
-        var sum_d_sqrd = d1 * d1 + d2 * d2 + d3 * d3;
-        var e = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
-        var f = x1 * d1 + y1 * d2 + z1 * d3;
-        var four_a_sqrd = 4.0 * a * a;
+        final var sum_d_sqrd = d1 * d1 + d2 * d2 + d3 * d3;
+        final var e = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
+        final var f = x1 * d1 + y1 * d2 + z1 * d3;
+        final var four_a_sqrd = 4.0 * a * a;
 
         coeffs[0] = e * e - four_a_sqrd * (b * b - y1 * y1);    // constant term
         coeffs[1] = 4.0 * f * e + 2.0 * four_a_sqrd * y1 * d2;
@@ -73,7 +73,7 @@ public class Torus implements GeometricObject {
         coeffs[4] = sum_d_sqrd * sum_d_sqrd;                    // coefficient of t^4
 
         // find roots of the quartic equation
-        var num_real_roots = Solvers.solveQuartic(coeffs, roots);
+        final var num_real_roots = Solvers.solveQuartic(coeffs, roots);
 
         var intersected = false;
         var t = Double.MAX_VALUE;
@@ -100,12 +100,12 @@ public class Torus implements GeometricObject {
     }
 
     public Vector3 getNormal(Vector3 p) {
-        var param_squared = a * a + b * b;
+        final var param_squared = a * a + b * b;
 
-        var x = p.getX();
-        var y = p.getY();
-        var z = p.getZ();
-        var sum_squared = x * x + y * y + z * z;
+        final var x = p.getX();
+        final var y = p.getY();
+        final var z = p.getZ();
+        final var sum_squared = x * x + y * y + z * z;
 
         return new Vector3(
                 4.0f * x * (sum_squared - param_squared),

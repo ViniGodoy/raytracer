@@ -19,7 +19,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 ============================================================================*/
 public record UVW(Vector3 u, Vector3 v, Vector3 w) {
     public static UVW from(Vector3 w, Vector3 approxV) {
-        var v = cross(approxV, w).normalize();
+        final var v = cross(approxV, w).normalize();
         return new UVW(cross(v, w), v, w);
     }
 

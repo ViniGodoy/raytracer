@@ -21,7 +21,7 @@ public enum DrawOrders implements DrawOrder {
     INTERLACED {
         @Override
         public PixelArray getPixels(int w, int h) {
-            var pixels = new PixelArray(w, h);
+            final var pixels = new PixelArray(w, h);
             var count = 0;
             //Add even lines
             for (var y = 0; y < h; y += 2) {
@@ -50,7 +50,7 @@ public enum DrawOrders implements DrawOrder {
     INTERLACED2 {
         @Override
         public PixelArray getPixels(int w, int h) {
-            var pixels = new PixelArray(w, h);
+            final var pixels = new PixelArray(w, h);
             var count = 0;
 
             for (var y = 0; y < pixels.getHeight(); y += 4)
@@ -92,7 +92,7 @@ public enum DrawOrders implements DrawOrder {
     RANDOM {
         @Override
         public PixelArray getPixels(int w, int h) {
-            var pixels = NORMAL.getPixels(w, h);
+            final var pixels = NORMAL.getPixels(w, h);
             pixels.shuffle();
             return pixels;
         }
@@ -100,7 +100,7 @@ public enum DrawOrders implements DrawOrder {
 
     @Override
     public String toString() {
-        var name = super.toString();
+        final var name = super.toString();
         return name.charAt(0) + name.substring(1).toLowerCase();
     }
 }

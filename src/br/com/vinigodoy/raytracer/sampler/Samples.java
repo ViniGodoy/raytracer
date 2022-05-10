@@ -31,7 +31,7 @@ public enum Samples implements Sample {
     Regular {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            var n = (int) Math.sqrt(numSamples);
+            final var n = (int) Math.sqrt(numSamples);
             for (var p = 0; p < n; p++)
                 for (var q = 0; q < n; q++)
                     samples.add(new Vector2((q + 0.5f) / n, (p + 0.5f) / n));
@@ -80,7 +80,7 @@ public enum Samples implements Sample {
     Jittered {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            var n = (int) Math.sqrt(numSamples);
+            final var n = (int) Math.sqrt(numSamples);
 
             for (var j = 0; j < n; j++)
                 for (var k = 0; k < n; k++) {
@@ -101,9 +101,9 @@ public enum Samples implements Sample {
 
             //Shuffle x coordinates
             for (var i = 0; i < numSamples - 1; i++) {
-                var max = numSamples - 1 - i;
-                var ind = rndInt(max);
-                var temp = samples.get(max).getX();
+                final var max = numSamples - 1 - i;
+                final var ind = rndInt(max);
+                final var temp = samples.get(max).getX();
                 samples.get(max).setX(samples.get(ind).getX());
                 samples.get(ind).setX(temp);
 
@@ -111,9 +111,9 @@ public enum Samples implements Sample {
 
             ////Shuffle y coordinates
             for (var i = 0; i < numSamples - 1; i++) {
-                var max = numSamples - 1 - i;
-                var ind = rndInt(max);
-                var temp = samples.get(max).getY();
+                final var max = numSamples - 1 - i;
+                final var ind = rndInt(max);
+                final var temp = samples.get(max).getY();
                 samples.get(max).setY(samples.get(ind).getY());
                 samples.get(ind).setY(temp);
             }
@@ -126,14 +126,14 @@ public enum Samples implements Sample {
     MultiJittered {
         @Override
         protected void fillSamples(List<Vector2> samples, int numSamples) {
-            var n = (int) Math.sqrt((float) numSamples);
+            final var n = (int) Math.sqrt((float) numSamples);
 
             if (n * n != numSamples) {
                 throw new RaytraceException("Number of samples are %d but must be a perfect square like %d!",
                         numSamples, n * n);
             }
 
-            var subcellWidth = 1.0f / ((float) numSamples);
+            final var subcellWidth = 1.0f / ((float) numSamples);
 
             // fill the samples array with dummy points
             for (var j = 0; j < numSamples; j++)
@@ -149,8 +149,8 @@ public enum Samples implements Sample {
             // shuffle x coordinates
             for (var i = 0; i < n; i++)
                 for (var j = 0; j < n; j++) {
-                    var k = rndInt(j, n - 1);
-                    var t = samples.get(i * n + j).getX();
+                    final var k = rndInt(j, n - 1);
+                    final var t = samples.get(i * n + j).getX();
                     samples.get(i * n + j).setX(samples.get(i * n + k).getX());
                     samples.get(i * n + k).setX(t);
                 }
@@ -158,8 +158,8 @@ public enum Samples implements Sample {
             // shuffle y coordinates
             for (var i = 0; i < n; i++)
                 for (var j = 0; j < n; j++) {
-                    var k = rndInt(j, n - 1);
-                    var t = samples.get(i * n + j).getY();
+                    final var k = rndInt(j, n - 1);
+                    final var t = samples.get(i * n + j).getY();
                     samples.get(i * n + j).setY(samples.get(i * n + k).getY());
                     samples.get(i * n + k).setY(t);
                 }
@@ -177,7 +177,7 @@ public enum Samples implements Sample {
     public List<Vector2> createSamples(int numSamples) {
         if (numSamples < 1)
             throw new RaytraceException("Number of samples cannot be smaller than one! numSamples = %d", numSamples);
-        var samples = new ArrayList<Vector2>(numSamples);
+        final var samples = new ArrayList<Vector2>(numSamples);
         fillSamples(samples, numSamples);
         return samples;
     }

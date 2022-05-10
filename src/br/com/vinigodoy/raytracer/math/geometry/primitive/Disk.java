@@ -46,10 +46,10 @@ public class Disk implements GeometricObject {
 
     @Override
     public boolean hit(Ray ray, ShadeRec sr, FloatRef tmin) {
-        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
         if (t < K_EPSILON) return false;
 
-        var p = ray.pointAt(t);
+        final var p = ray.pointAt(t);
         if (center.distanceSqr(p) >= radius * radius) {
             return false;
         }
@@ -63,11 +63,11 @@ public class Disk implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(center, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
         if (t < K_EPSILON) return false;
 
         tmin.value = t;
-        var p = ray.pointAt(t);
+        final var p = ray.pointAt(t);
         return (center.distanceSqr(p) < radius * radius);
     }
 

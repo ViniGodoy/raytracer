@@ -18,7 +18,7 @@ http://creativecommons.org/licenses/by-sa/2.5/br/
 public class AreaLightTracer implements Tracer {
     @Override
     public Vector3 trace(World world, Ray ray, int depth) {
-        var sr = world.hit(ray).clone();
+        final var sr = world.hit(ray).clone();
         if (!sr.hitAnObject) return world.getBackgroundColor();
         sr.ray = ray;
         return sr.material.shade(sr);

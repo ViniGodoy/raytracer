@@ -24,14 +24,14 @@ public class Compounds {
     }
 
     public static Compound newCylinder(float bottom, float top, float radius, float bevelRadius, Material mtrl) {
-        var c = new Compound();
-        var rad = radius - bevelRadius;
+        final var c = new Compound();
+        final var rad = radius - bevelRadius;
         c.add(new Disk(new Vector3(0, bottom, 0), new Vector3(0, -1, 0), rad, mtrl));
         c.add(new OpenCylinder(bottom + bevelRadius, top - bevelRadius, radius, mtrl));
         c.add(new Disk(new Vector3(0, top, 0), new Vector3(0, 1, 0), rad, mtrl));
 
         if (bevelRadius > 0) {
-            var torus = new Torus(radius - bevelRadius, bevelRadius, mtrl);
+            final var torus = new Torus(radius - bevelRadius, bevelRadius, mtrl);
             c.addInstance(torus).translate(0, bottom + bevelRadius, 0);
             c.addInstance(torus).translate(0, top - bevelRadius, 0);
         }
@@ -49,7 +49,7 @@ public class Compounds {
         // edges
         // since the cylinders have to be defined initially in the vertical direction, it's easiest to use -(...)/2, +(...)/2 for
         // y0 and y1 in the constructors, and then rotate them about their centers.
-        var c = new Compound();
+        final var c = new Compound();
 
         if (bevelRadius <= 0) {
             //If the user does not want bevels, returns just a common box.
@@ -57,7 +57,7 @@ public class Compounds {
             return c;
         }
 
-        var topFrontBack = new OpenCylinder(
+        final var topFrontBack = new OpenCylinder(
                 -(maxCorner.getX() - minCorner.getX() - 2.0f * bevelRadius) / 2.0f,
                 (maxCorner.getX() - minCorner.getX() - 2.0f * bevelRadius) / 2,
                 bevelRadius, mtrl);
@@ -73,7 +73,7 @@ public class Compounds {
                 .translate((minCorner.getX() + maxCorner.getX()) / 2.0f, maxCorner.getY() - bevelRadius, minCorner.getZ() + bevelRadius);
 
 
-        var topLeftRight = new OpenCylinder(
+        final var topLeftRight = new OpenCylinder(
                 -(maxCorner.getZ() - minCorner.getZ() - 2.0f * bevelRadius) / 2.0f,
                 (maxCorner.getZ() - minCorner.getZ() - 2.0f * bevelRadius) / 2.0f,
                 bevelRadius, mtrl);
@@ -89,7 +89,7 @@ public class Compounds {
                 .translate(minCorner.getX() + bevelRadius, maxCorner.getY() - bevelRadius, (minCorner.getZ() + maxCorner.getZ()) / 2.0f);
 
 
-        var bottomFrontBack = new OpenCylinder(
+        final var bottomFrontBack = new OpenCylinder(
                 -(maxCorner.getX() - minCorner.getX() - 2.0f * bevelRadius) / 2.0f,
                 (maxCorner.getX() - minCorner.getX() - 2.0f * bevelRadius) / 2.0f,
                 bevelRadius, mtrl);
@@ -103,7 +103,7 @@ public class Compounds {
                 .translate((minCorner.getX() + maxCorner.getX()) / 2, minCorner.getY() + bevelRadius, minCorner.getZ() + bevelRadius);
 
         // bottom right (-ve x, -ve y)
-        var bottomLeftRight = new OpenCylinder(
+        final var bottomLeftRight = new OpenCylinder(
                 -(maxCorner.getZ() - minCorner.getZ() - 2.0f * bevelRadius) / 2.0f,
                 (maxCorner.getZ() - minCorner.getZ() - 2.0f * bevelRadius) / 2.0f,
                 bevelRadius, mtrl);
@@ -118,7 +118,7 @@ public class Compounds {
                 .translate(minCorner.getX() + bevelRadius, minCorner.getY() + bevelRadius, (minCorner.getZ() + maxCorner.getZ()) / 2.0f);
 
         // vertical right front  (+ve x, +ve z)
-        var verticalRightFront = new OpenCylinder(minCorner.getY() + bevelRadius, maxCorner.getY() - bevelRadius, bevelRadius, mtrl);
+        final var verticalRightFront = new OpenCylinder(minCorner.getY() + bevelRadius, maxCorner.getY() - bevelRadius, bevelRadius, mtrl);
         c.addInstance(verticalRightFront)
                 .translate(maxCorner.getX() - bevelRadius, 0, maxCorner.getZ() - bevelRadius);
 
@@ -127,7 +127,7 @@ public class Compounds {
                 .translate(minCorner.getX() + bevelRadius, 0, maxCorner.getZ() - bevelRadius);
 
         // vertical left back  (-ve x, -ve z)
-        var verticalLeftBack = new OpenCylinder(minCorner.getY() + bevelRadius, maxCorner.getY() - bevelRadius, bevelRadius, mtrl);
+        final var verticalLeftBack = new OpenCylinder(minCorner.getY() + bevelRadius, maxCorner.getY() - bevelRadius, bevelRadius, mtrl);
         c.addInstance(verticalLeftBack)
                 .translate(minCorner.getX() + bevelRadius, 0, minCorner.getZ() + bevelRadius);
 
@@ -205,24 +205,24 @@ public class Compounds {
     }
 
     public static Compound newBowl(boolean round, float innerRadius, float outerRadius, float openAngle, Material mtrl) {
-        var c = new Compound();
+        final var c = new Compound();
 
-        var PI = (float) Math.PI;
-        var TWOPI = (float) (2 * Math.PI);
+        final var PI = (float) Math.PI;
+        final var TWOPI = (float) (2 * Math.PI);
 
         c.add(new ConvexPartSphere(new Vector3(0, 0, 0), innerRadius, 0, TWOPI, openAngle, PI, mtrl));
         c.add(new ConvexPartSphere(new Vector3(0, 0, 0), outerRadius, 0, TWOPI, openAngle, PI, mtrl));
 
-        var avgRadius = (innerRadius + outerRadius) / 2.0f;
+        final var avgRadius = (innerRadius + outerRadius) / 2.0f;
 
         if (round) {
-            var a = avgRadius * (float) Math.sin(openAngle);
-            var b = (outerRadius - innerRadius) / 2.0f;
+            final var a = avgRadius * (float) Math.sin(openAngle);
+            final var b = (outerRadius - innerRadius) / 2.0f;
             c.addInstance(new Torus(a, b, mtrl))
                     .translate(0, avgRadius * (float) Math.cos(openAngle), 0);
         } else {
-            var inner = (float) (innerRadius * Math.sin(openAngle));
-            var outer = (float) (outerRadius * Math.sin(openAngle));
+            final var inner = (float) (innerRadius * Math.sin(openAngle));
+            final var outer = (float) (outerRadius * Math.sin(openAngle));
             c.add(new Annulus(new Vector3(0, avgRadius * (float) Math.cos(openAngle), 0), new Vector3(0, 1, 0),
                     inner, outer, mtrl));
         }

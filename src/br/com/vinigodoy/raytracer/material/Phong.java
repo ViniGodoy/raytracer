@@ -73,7 +73,7 @@ public class Phong extends AbstractMaterial {
 
     @Override
     public Phong clone() {
-        var p = new Phong(getKa(), getKd(), getKs(), getExp(), getCd().clone());
+        final var p = new Phong(getKa(), getKd(), getKs(), getExp(), getCd().clone());
         p.setCs(getCs().clone());
         return p;
     }

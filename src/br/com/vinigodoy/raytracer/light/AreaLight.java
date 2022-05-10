@@ -46,8 +46,8 @@ public class AreaLight extends AbstractLight {
 
     @Override
     public float G(ShadeRec sr) {
-        var ndotd = negate(lightNormal).dot(wi);
-        var d2 = samplePoint.distanceSqr(sr.worldHitPoint);
+        final var ndotd = negate(lightNormal).dot(wi);
+        final var d2 = samplePoint.distanceSqr(sr.worldHitPoint);
         return ndotd / d2;
     }
 
@@ -58,7 +58,7 @@ public class AreaLight extends AbstractLight {
 
     @Override
     public boolean inShadow(Ray ray, ShadeRec sr) {
-        var ts = subtract(samplePoint, ray.getOrigin()).dot(ray.getDirection());
+        final var ts = subtract(samplePoint, ray.getOrigin()).dot(ray.getDirection());
         return sr.world.shadowHit(ray, ts);
     }
 

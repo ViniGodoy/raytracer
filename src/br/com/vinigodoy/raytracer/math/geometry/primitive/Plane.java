@@ -53,7 +53,7 @@ public class Plane implements GeometricObject {
 
     @Override
     public boolean shadow_hit(Ray ray, FloatRef tmin) {
-        var t = subtract(point, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
+        final var t = subtract(point, ray.getOrigin()).dot(normal) / ray.getDirection().dot(normal);
         if (t < K_EPSILON) return false;
 
         tmin.value = t;

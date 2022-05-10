@@ -49,20 +49,20 @@ public class PinholeCamera extends AbstractCamera {
 
     @Override
     public void render(World w, ViewPlane vp) {
-        var uvw = computeUVW();
-        var s = vp.getS() / zoom;
+        final var uvw = computeUVW();
+        final var s = vp.getS() / zoom;
 
         for (var pixel : vp.getPixels()) {
-            var c = pixel.x();
-            var r = pixel.y();
-            var L = new Vector3();
+            final var c = pixel.x();
+            final var r = pixel.y();
+            final var L = new Vector3();
 
             for (var i = 0; i < vp.getSampler().getNumSamples(); i++) {
-                var sp = vp.getSampler().nextSampleSquare();
-                var pp = new Vector2(
+                final var sp = vp.getSampler().nextSampleSquare();
+                final var pp = new Vector2(
                         s * (c - 0.5f * vp.getHRes() + sp.getX()),
                         s * (r - 0.5f * vp.getVRes() + sp.getY()));
-                var ray = new Ray(eye, getDirection(pp, uvw));
+                final var ray = new Ray(eye, getDirection(pp, uvw));
                 L.add(w.getTracer().trace(w, ray, 0));
             }
 
